@@ -1,0 +1,52 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group 'org.rm3l'
+version '1.0-SNAPSHOT'
+
+ext {
+    datanucleusCoreVersion = '5.+'
+    javaxJdoVersion = '3.+'
+    jpaVersion = '2.+'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly "org.datanucleus:datanucleus-core:${datanucleusCoreVersion}"
+    compileOnly "org.datanucleus:javax.jdo:${javaxJdoVersion}"
+    compileOnly "org.datanucleus:javax.persistence:${jpaVersion}"
+    testCompile gradleTestKit()
+    testCompile 'junit:junit:4.12'
+}
+
+test {
+    useJUnit()
+    include 'org/rm3l/**/*Test*'
+}
+
+gradlePlugin {
+    plugins {
+        datanucleusPlugin {
+            id = 'org.rm3l.datanucleus-gradle-plugin'
+            implementationClass = 'org.rm3l.datanucleus.gradle.DataNucleusPlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        pluginPublication (MavenPublication) {
+            from    components.java
+            groupId    project.group
+            artifactId    "datanucleus-gradle-plugin"
+            version    project.version
+        }
+    }
+}
