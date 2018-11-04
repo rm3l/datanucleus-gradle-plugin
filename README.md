@@ -1,2 +1,2 @@
 # datanucleus-gradle-plugin
-Unofficial Gradle Plugin for DataNucleus (Work In Progress)
+Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) JPA and JDO Provider (Work In Progress)
