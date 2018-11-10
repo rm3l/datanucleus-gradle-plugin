@@ -7,6 +7,8 @@ group 'org.rm3l'
 version '1.0-SNAPSHOT'
 
 ext {
+    datanucleusApiJpaVersion = '5.+'
+    datanucleusApiJdoVersion = '5.+'
     datanucleusCoreVersion = '5.+'
     javaxJdoVersion = '3.+'
     jpaVersion = '2.+'
@@ -19,9 +21,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly "org.datanucleus:datanucleus-core:${datanucleusCoreVersion}"
-    compileOnly "org.datanucleus:javax.jdo:${javaxJdoVersion}"
-    compileOnly "org.datanucleus:javax.persistence:${jpaVersion}"
+    compile "org.datanucleus:datanucleus-core:${datanucleusCoreVersion}"
+    compile "org.datanucleus:javax.jdo:${javaxJdoVersion}"
+    compile "org.datanucleus:javax.persistence:${jpaVersion}"
+    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusApiJpaVersion}"
+    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusApiJdoVersion}"
     testCompile gradleTestKit()
     testCompile 'junit:junit:4.12'
 }
