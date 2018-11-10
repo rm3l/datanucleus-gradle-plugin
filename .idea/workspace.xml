@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcabaf4c-7e49-4862-8d00-ac7c69625e3b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -84,7 +81,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="341">
-              <caret line="11" column="53" lean-forward="true" selection-start-line="11" selection-end-line="12" />
+              <caret line="11" column="53" selection-start-line="11" selection-end-line="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="604">
-              <caret line="183" column="37" lean-forward="true" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
+              <caret line="183" column="37" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1986#1987#0" expanded="true" />
@@ -110,14 +107,18 @@
         <entry file="file://$PROJECT_DIR$/settings.gradle">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="124">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gradle.properties">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="24" lean-forward="true" selection-start-column="24" selection-end-column="24" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -227,6 +228,7 @@
         <option value="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java" />
         <option value="$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java" />
+        <option value="$PROJECT_DIR$/gradle.properties" />
       </list>
     </option>
   </component>
@@ -314,287 +316,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="gradle" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-api-4.10.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-api-4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-api-4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="gradle" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-api-4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="gradle" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-api-4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="gradle" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="internal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-api-4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="gradle" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="tasks" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-api-4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="gradle" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="tasks" type="462c0819:PsiDirectoryNode" />
-              <item name="compile" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-test-kit-4.10.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-test-kit-4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="runner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="gradle-test-kit-4.10.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="runner" type="462c0819:PsiDirectoryNode" />
-              <item name="internal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="groovy-all-2.4.15.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="groovy-all-2.4.15.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="groovy-all-2.4.15.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="groovy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="groovy-all-2.4.15.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="groovy" type="462c0819:PsiDirectoryNode" />
-              <item name="runtime" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="io" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="net" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="nio" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="nio" type="462c0819:PsiDirectoryNode" />
-              <item name="file" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-              <item name="stream" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="javax" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="javax" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="javax" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="element" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: com.squareup:javapoet:1.11.1" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: com.squareup:javapoet:1.11.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="javapoet-1.11.1.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: com.squareup:javapoet:1.11.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="javapoet-1.11.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="javapoet" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:datanucleus-core:5.2.0-m2" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:datanucleus-core:5.2.0-m2" type="70bed36:NamedLibraryElementNode" />
-              <item name="datanucleus-core-5.2.0-m2.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:datanucleus-core:5.2.0-m2" type="70bed36:NamedLibraryElementNode" />
-              <item name="datanucleus-core-5.2.0-m2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="datanucleus" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:datanucleus-core:5.2.0-m2" type="70bed36:NamedLibraryElementNode" />
-              <item name="datanucleus-core-5.2.0-m2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="datanucleus" type="462c0819:PsiDirectoryNode" />
-              <item name="enhancer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:datanucleus-core:5.2.0-m2" type="70bed36:NamedLibraryElementNode" />
-              <item name="datanucleus-core-5.2.0-m2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="datanucleus" type="462c0819:PsiDirectoryNode" />
-              <item name="metadata" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:datanucleus-core:5.2.0-m2" type="70bed36:NamedLibraryElementNode" />
-              <item name="datanucleus-core-5.2.0-m2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="datanucleus" type="462c0819:PsiDirectoryNode" />
-              <item name="metadata" type="462c0819:PsiDirectoryNode" />
-              <item name="annotations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:javax.persistence:2.2.2" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:javax.persistence:2.2.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="javax.persistence-2.2.2.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="datanucleus-gradle-plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Gradle: org.datanucleus:javax.persistence:2.2.2" type="70bed36:NamedLibraryElementNode" />
-              <item name="javax.persistence-2.2.2.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="persistence" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -604,13 +325,14 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="ChangesTree.GroupingKeys" value="directory" />
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541891057823" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541891521816" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -762,7 +484,7 @@
       <workItem from="1541315027006" duration="14130000" />
       <workItem from="1541454566096" duration="2699000" />
       <workItem from="1541710582493" duration="121000" />
-      <workItem from="1541710744552" duration="36660000" />
+      <workItem from="1541710744552" duration="37172000" />
     </task>
     <task id="LOCAL-00001" summary="Add IDEA files">
       <created>1541813363233</created>
@@ -827,7 +549,35 @@
       <option name="project" value="LOCAL" />
       <updated>1541813608561</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update IDEA files">
+      <created>1541891095634</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1541891095634</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update dependencies and switch to Junit 5">
+      <created>1541891211177</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1541891211177</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Make the 'classes' task depend on the 'enhance' one&#10;&#10;This way, running a 'build' auto-enhances the domain classes.&#10;Still to do: make sure the enhancement task is not rerun when source&#10;files have not changed">
+      <created>1541891308738</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1541891308738</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fix ClassLoader when running the programmatic DataNucleus Enhancer&#10;&#10;Pass in the specific project sources and resources in priority.">
+      <created>1541891366145</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1541891366145</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -839,10 +589,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53610000" />
+    <option name="totallyTimeSpent" value="54122000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="43" width="2880" height="1577" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26181948" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -892,7 +643,10 @@
     <MESSAGE value="Embed DN dependencies in the standalone plugin project" />
     <MESSAGE value="Update generated build script in test setup method" />
     <MESSAGE value="Update IDEA files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update IDEA files" />
+    <MESSAGE value="Update dependencies and switch to Junit 5" />
+    <MESSAGE value="Make the 'classes' task depend on the 'enhance' one&#10;&#10;This way, running a 'build' auto-enhances the domain classes.&#10;Still to do: make sure the enhancement task is not rerun when source&#10;files have not changed" />
+    <MESSAGE value="Fix ClassLoader when running the programmatic DataNucleus Enhancer&#10;&#10;Pass in the specific project sources and resources in priority." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix ClassLoader when running the programmatic DataNucleus Enhancer&#10;&#10;Pass in the specific project sources and resources in priority." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1280,7 +1034,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="341">
-          <caret line="11" column="53" lean-forward="true" selection-start-line="11" selection-end-line="12" />
+          <caret line="11" column="53" selection-start-line="11" selection-end-line="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1362,7 +1116,7 @@
     <entry file="file://$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="604">
-          <caret line="183" column="37" lean-forward="true" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
+          <caret line="183" column="37" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1986#1987#0" expanded="true" />
@@ -1374,12 +1128,16 @@
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="24" lean-forward="true" selection-start-column="24" selection-end-column="24" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="gradleExecuteTaskHistory">
