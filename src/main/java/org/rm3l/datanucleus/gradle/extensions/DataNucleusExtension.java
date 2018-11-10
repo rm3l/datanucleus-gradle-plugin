@@ -5,7 +5,9 @@ import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.util.ConfigureUtil;
+import org.rm3l.datanucleus.gradle.tasks.EnhanceTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +20,21 @@ public class DataNucleusExtension {
      */
     private List<SourceSet> sourceSets;
 
+    private final SourceSet mainSourceSet;
+
     /**
      * Configuration for bytecode enhancement.  Private; see instead {@link #enhance(groovy.lang.Closure)}
      */
-    private EnhanceExtension enhance;
+    private final EnhanceExtension enhance;
 
     public DataNucleusExtension(Project project) {
         this.project = project;
         this.sourceSets = new ArrayList<>();
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
-        this.sourceSets.add(javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME));
+        this.mainSourceSet = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
+        this.sourceSets.add(this.mainSourceSet);
+        this.enhance = new EnhanceExtension();
     }
 
     /**
@@ -43,12 +49,26 @@ public class DataNucleusExtension {
         sourceSets.add(sourceSet);
     }
 
-    public void enhance(Closure closure) {
-        enhance = new EnhanceExtension();
+    private void enhance(Closure closure) {
         ConfigureUtil.configure(closure, enhance);
-    }
-
-    public EnhanceExtension getEnhance() {
-        return enhance;
+        project.getTasks().create("enhance", EnhanceTask.class,
+                task -> {
+                    task.getPersistenceUnitName().set(enhance.getPersistenceUnitName());
+                    task.getLog4jConfiguration().set(enhance.getLog4jConfiguration());
+                    task.getJdkLogConfiguration().set(enhance.getJdkLogConfiguration());
+                    task.getApi().set(enhance.getApi());
+                    task.getVerbose().set(enhance.isVerbose());
+                    task.getQuiet().set(enhance.isQuiet());
+                    final File targetDirectory = enhance.getTargetDirectory();
+                    task.getTargetDirectory().set(targetDirectory != null? targetDirectory :
+                            mainSourceSet.getOutput().getClassesDirs().getFiles().iterator().next());
+                    task.getFork().set(enhance.isFork());
+                    task.getGeneratePK().set(enhance.isGeneratePK());
+                    task.getPersistenceUnitName().set(enhance.getPersistenceUnitName());
+                    task.getGenerateConstructor().set(enhance.isGenerateConstructor());
+                    task.getDetachListener().set(enhance.isDetachListener());
+                    task.getIgnoreMetaDataForMissingClasses()
+                            .set(enhance.isIgnoreMetaDataForMissingClasses());
+                });
     }
 }

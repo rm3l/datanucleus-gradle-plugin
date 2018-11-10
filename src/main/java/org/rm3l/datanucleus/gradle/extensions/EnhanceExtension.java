@@ -4,6 +4,7 @@ import org.rm3l.datanucleus.gradle.DataNucleusApi;
 
 import java.io.File;
 
+@SuppressWarnings("unused")
 public class EnhanceExtension {
 
     private String persistenceUnitName;
@@ -19,92 +20,92 @@ public class EnhanceExtension {
     private boolean detachListener = false;
     private boolean ignoreMetaDataForMissingClasses = false;
 
-    public String getPersistenceUnitName() {
+    String getPersistenceUnitName() {
         return persistenceUnitName;
     }
 
-    public EnhanceExtension setPersistenceUnitName(String persistenceUnitName) {
+    public EnhanceExtension persistenceUnitName(String persistenceUnitName) {
         this.persistenceUnitName = persistenceUnitName;
         return this;
     }
 
-    public File getLog4jConfiguration() {
+    File getLog4jConfiguration() {
         return log4jConfiguration;
     }
 
-    public EnhanceExtension setLog4jConfiguration(File log4jConfiguration) {
-        this.log4jConfiguration = log4jConfiguration;
+    public EnhanceExtension log4jConfiguration(String log4jConfiguration) {
+        this.log4jConfiguration = new File(log4jConfiguration);
         return this;
     }
 
-    public File getJdkLogConfiguration() {
+    File getJdkLogConfiguration() {
         return jdkLogConfiguration;
     }
 
-    public EnhanceExtension setJdkLogConfiguration(File jdkLogConfiguration) {
-        this.jdkLogConfiguration = jdkLogConfiguration;
+    public EnhanceExtension jdkLogConfiguration(String jdkLogConfiguration) {
+        this.jdkLogConfiguration = new File(jdkLogConfiguration);
         return this;
     }
 
-    public DataNucleusApi getApi() {
+    DataNucleusApi getApi() {
         return api;
     }
 
-    public EnhanceExtension setApi(DataNucleusApi api) {
+    public EnhanceExtension api(DataNucleusApi api) {
         this.api = api;
         return this;
     }
 
-    public boolean isVerbose() {
+    boolean isVerbose() {
         return verbose;
     }
 
-    public EnhanceExtension setVerbose(boolean verbose) {
+    public EnhanceExtension verbose(boolean verbose) {
         this.verbose = verbose;
         return this;
     }
 
-    public boolean isQuiet() {
+    boolean isQuiet() {
         return quiet;
     }
 
-    public EnhanceExtension setQuiet(boolean quiet) {
+    public EnhanceExtension quiet(boolean quiet) {
         this.quiet = quiet;
         return this;
     }
 
-    public File getTargetDirectory() {
+    File getTargetDirectory() {
         return targetDirectory;
     }
 
-    public EnhanceExtension setTargetDirectory(File targetDirectory) {
+    public EnhanceExtension targetDirectory(File targetDirectory) {
         this.targetDirectory = targetDirectory;
         return this;
     }
 
-    public boolean isFork() {
+    boolean isFork() {
         return fork;
     }
 
-    public EnhanceExtension setFork(boolean fork) {
+    public EnhanceExtension fork(boolean fork) {
         this.fork = fork;
         return this;
     }
 
-    public boolean isGeneratePK() {
+    boolean isGeneratePK() {
         return generatePK;
     }
 
-    public EnhanceExtension setGeneratePK(boolean generatePK) {
+    public EnhanceExtension generatePK(boolean generatePK) {
         this.generatePK = generatePK;
         return this;
     }
 
-    public boolean isGenerateConstructor() {
+    boolean isGenerateConstructor() {
         return generateConstructor;
     }
 
-    public EnhanceExtension setGenerateConstructor(boolean generateConstructor) {
+    public EnhanceExtension generateConstructor(boolean generateConstructor) {
         this.generateConstructor = generateConstructor;
         return this;
     }
@@ -113,16 +114,16 @@ public class EnhanceExtension {
         return detachListener;
     }
 
-    public EnhanceExtension setDetachListener(boolean detachListener) {
+    public EnhanceExtension detachListener(boolean detachListener) {
         this.detachListener = detachListener;
         return this;
     }
 
-    public boolean isIgnoreMetaDataForMissingClasses() {
+    boolean isIgnoreMetaDataForMissingClasses() {
         return ignoreMetaDataForMissingClasses;
     }
 
-    public EnhanceExtension setIgnoreMetaDataForMissingClasses(boolean ignoreMetaDataForMissingClasses) {
+    public EnhanceExtension ignoreMetaDataForMissingClasses(boolean ignoreMetaDataForMissingClasses) {
         this.ignoreMetaDataForMissingClasses = ignoreMetaDataForMissingClasses;
         return this;
     }
