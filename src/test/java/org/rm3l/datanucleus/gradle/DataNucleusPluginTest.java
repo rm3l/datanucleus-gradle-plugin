@@ -27,8 +27,16 @@ public class DataNucleusPluginTest {
     public void setUp() throws IOException {
         // Prepare build.gradle
         buildGradle = testProjectDir.newFile("build.gradle");
+//        final File log4jProperties = testProjectDir.newFile("dn-log4j.properties");
         Files.write(buildGradle.toPath(),
-                "plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n".getBytes(StandardCharsets.UTF_8),
+                ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
+                        "datanucleus {\n" +
+                        "  enhance {\n" +
+                        "    api \"JPA\"\n" +
+                        "    persistenceUnitName \"myPU\"\n" +
+//                        "    log4jConfiguration \"" + log4jProperties.getAbsolutePath() + "\"\n" +
+                        "  }\n" +
+                        "}").getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.TRUNCATE_EXISTING);
     }
 
@@ -60,8 +68,8 @@ public class DataNucleusPluginTest {
 
     @Test
     public void test_standard() {
-        final BuildResult result = gradle("helloWorld");
-        assert result.task(":helloWorld").getOutcome() == SUCCESS;
+        final BuildResult result = gradle("enhance");
+        assert result.task(":enhance").getOutcome() == SUCCESS;
         assert result.getOutput().contains("Hello, world!");
     }
 }
