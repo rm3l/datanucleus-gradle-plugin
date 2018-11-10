@@ -1,2 +1,4 @@
 rootProject.name = 'datanucleus-gradle-plugin'
 
+enableFeaturePreview("IMPROVED_POM_SUPPORT")
+
