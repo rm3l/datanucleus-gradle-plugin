@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bcabaf4c-7e49-4862-8d00-ac7c69625e3b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/markdown-exported-files.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/EnhanceExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/EnhanceExtension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -189,10 +180,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="13" column="46" lean-forward="true" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+            <state relative-caret-position="310">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="e#1883#1884#0" expanded="true" />
                 <element signature="e#1925#1926#0" expanded="true" />
                 <element signature="e#3162#3189#0" expanded="true" />
@@ -530,7 +520,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541813316539" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541813600434" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -682,8 +672,65 @@
       <workItem from="1541315027006" duration="14130000" />
       <workItem from="1541454566096" duration="2699000" />
       <workItem from="1541710582493" duration="121000" />
-      <workItem from="1541710744552" duration="10402000" />
+      <workItem from="1541710744552" duration="10643000" />
     </task>
+    <task id="LOCAL-00001" summary="Add IDEA files">
+      <created>1541813363233</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1541813363233</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Properly map DSL options to Task parameters">
+      <created>1541813435340</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1541813435340</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Handle optional parameters">
+      <created>1541813460223</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1541813460223</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Embed DN dependencies in the standalone plugin project">
+      <created>1541813493620</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1541813493620</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update generated build script in test setup method">
+      <created>1541813554363</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1541813554363</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update IDEA files">
+      <created>1541813567728</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1541813567728</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update IDEA files">
+      <created>1541813587407</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1541813587407</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update IDEA files">
+      <created>1541813598209</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1541813598209</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -695,10 +742,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27352000" />
+    <option name="totallyTimeSpent" value="27593000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="43" width="2880" height="1577" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26181948" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -743,7 +791,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add IDEA files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add IDEA files" />
+    <MESSAGE value="Properly map DSL options to Task parameters" />
+    <MESSAGE value="Handle optional parameters" />
+    <MESSAGE value="Embed DN dependencies in the standalone plugin project" />
+    <MESSAGE value="Update generated build script in test setup method" />
+    <MESSAGE value="Update IDEA files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update IDEA files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1055,10 +1108,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="13" column="46" lean-forward="true" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+        <state relative-caret-position="310">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#1883#1884#0" expanded="true" />
             <element signature="e#1925#1926#0" expanded="true" />
             <element signature="e#3162#3189#0" expanded="true" />
