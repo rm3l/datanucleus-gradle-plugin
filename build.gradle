@@ -7,11 +7,12 @@ group 'org.rm3l'
 version '1.0-SNAPSHOT'
 
 ext {
-    datanucleusApiJpaVersion = '5.+'
-    datanucleusApiJdoVersion = '5.+'
-    datanucleusCoreVersion = '5.+'
+    datanucleusVersion = '5.+'
     javaxJdoVersion = '3.+'
     jpaVersion = '2.+'
+    javapoetVersion = '1.11.1'
+    junitVersion = '5.3.1'
+    junitPioneerVersion = '0.3.0'
 }
 
 sourceCompatibility = 1.8
@@ -21,17 +22,21 @@ repositories {
 }
 
 dependencies {
-    compile "org.datanucleus:datanucleus-core:${datanucleusCoreVersion}"
+    compile "org.datanucleus:datanucleus-core:${datanucleusVersion}"
     compile "org.datanucleus:javax.jdo:${javaxJdoVersion}"
     compile "org.datanucleus:javax.persistence:${jpaVersion}"
-    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusApiJpaVersion}"
-    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusApiJdoVersion}"
+    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusVersion}"
+    compile "org.datanucleus:datanucleus-api-jdo:${datanucleusVersion}"
+
     testCompile gradleTestKit()
-    testCompile 'junit:junit:4.12'
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testCompile "org.junit-pioneer:junit-pioneer:${junitPioneerVersion}"
+    testCompile "com.squareup:javapoet:${javapoetVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 
 test {
-    useJUnit()
+    useJUnitPlatform()
     include 'org/rm3l/**/*Test*'
 }
 
