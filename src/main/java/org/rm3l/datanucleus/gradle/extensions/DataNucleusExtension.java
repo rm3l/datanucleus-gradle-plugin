@@ -4,6 +4,7 @@ import groovy.lang.Closure;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.SourceSet;
+import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.tasks.EnhanceTask;
 
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataNucleusExtension {
+
+    private static final String ENHANCE_TASK_NAME = "enhance";
 
     private final Project project;
 
@@ -51,7 +54,10 @@ public class DataNucleusExtension {
 
     private void enhance(Closure closure) {
         ConfigureUtil.configure(closure, enhance);
-        project.getTasks().create("enhance", EnhanceTask.class,
+
+        final TaskContainer projectTasks = project.getTasks();
+
+        projectTasks.create(ENHANCE_TASK_NAME, EnhanceTask.class,
                 task -> {
                     task.getPersistenceUnitName().set(enhance.getPersistenceUnitName());
                     task.getLog4jConfiguration().set(enhance.getLog4jConfiguration());
@@ -70,5 +76,6 @@ public class DataNucleusExtension {
                     task.getIgnoreMetaDataForMissingClasses()
                             .set(enhance.isIgnoreMetaDataForMissingClasses());
                 });
+        projectTasks.getByName("classes").dependsOn(ENHANCE_TASK_NAME);
     }
 }
