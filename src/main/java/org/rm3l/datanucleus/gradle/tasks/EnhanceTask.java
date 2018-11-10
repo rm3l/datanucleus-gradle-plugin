@@ -2,14 +2,18 @@ package org.rm3l.datanucleus.gradle.tasks;
 
 import org.datanucleus.enhancer.DataNucleusEnhancer;
 import org.gradle.api.DefaultTask;
+import org.gradle.api.Project;
 import org.gradle.api.model.ObjectFactory;
+import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.provider.Property;
-import org.gradle.api.tasks.Input;
-import org.gradle.api.tasks.Optional;
-import org.gradle.api.tasks.TaskAction;
+import org.gradle.api.tasks.*;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.stream.Stream;
 
 public class EnhanceTask extends DefaultTask {
 
@@ -113,8 +117,32 @@ public class EnhanceTask extends DefaultTask {
     @SuppressWarnings("unused")
     @TaskAction
     public void performEnhancement() {
+        final Project project = getProject();
+
+        final JavaPluginConvention javaConvention =
+                project.getConvention().getPlugin(JavaPluginConvention.class);
+        final SourceSet main = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
+        final SourceSetOutput mainOutput = main.getOutput();
+
+        final URL[] classloaderUrls = Stream.concat(
+                Stream.concat(
+                        mainOutput.getClassesDirs().getFiles().stream(),
+                        Stream.of(mainOutput.getResourcesDir())
+                ),
+                main.getResources().getSrcDirs().stream())
+                .map(File::getAbsolutePath)
+                .map(absPath -> {
+                    try {
+                        return new File(absPath + "/").toURI().toURL();
+                    } catch (MalformedURLException e) {
+                        throw new IllegalStateException(e);
+                    }
+                })
+                .toArray(URL[]::new);
+
         final DataNucleusEnhancer enhancer = new DataNucleusEnhancer(api.get().name(), null)
                 .setVerbose(verbose.get())
+                .setClassLoader(new URLClassLoader(classloaderUrls, Thread.currentThread().getContextClassLoader()))
                 .addPersistenceUnit(persistenceUnitName.get()) //TODO Support class list
                 .setDetachListener(detachListener.get())
                 .setGenerateConstructor(generateConstructor.get())
@@ -122,6 +150,6 @@ public class EnhanceTask extends DefaultTask {
                 .setSystemOut(!quiet.get())
                 .setOutputDirectory(targetDirectory.get().getAbsolutePath());
         final int result = enhancer.enhance();
-        getProject().getLogger().info("Enhanced {} class using DataNucleus Enhancer", result);
+        project.getLogger().info("Enhanced {} class using DataNucleus Enhancer", result);
     }
 }
