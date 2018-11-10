@@ -5,6 +5,7 @@ import org.gradle.api.DefaultTask;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.TaskAction;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
 
@@ -47,11 +48,13 @@ public class EnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public Property<File> getLog4jConfiguration() {
         return log4jConfiguration;
     }
 
     @Input
+    @Optional
     public Property<File> getJdkLogConfiguration() {
         return jdkLogConfiguration;
     }
@@ -62,16 +65,19 @@ public class EnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public Property<Boolean> getVerbose() {
         return verbose;
     }
 
     @Input
+    @Optional
     public Property<Boolean> getQuiet() {
         return quiet;
     }
 
     @Input
+    @Optional
     public Property<File> getTargetDirectory() {
         return targetDirectory;
     }
@@ -82,11 +88,13 @@ public class EnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public Property<Boolean> getGeneratePK() {
         return generatePK;
     }
 
     @Input
+    @Optional
     public Property<Boolean> getGenerateConstructor() {
         return generateConstructor;
     }
@@ -97,10 +105,12 @@ public class EnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public Property<Boolean> getIgnoreMetaDataForMissingClasses() {
         return ignoreMetaDataForMissingClasses;
     }
 
+    @SuppressWarnings("unused")
     @TaskAction
     public void performEnhancement() {
         final DataNucleusEnhancer enhancer = new DataNucleusEnhancer(api.get().name(), null)
