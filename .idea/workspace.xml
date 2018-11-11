@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bcabaf4c-7e49-4862-8d00-ac7c69625e3b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="bcabaf4c-7e49-4862-8d00-ac7c69625e3b" name="Default Changelist" comment="Update Copyright / Licensing headers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/EnhanceExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/EnhanceExtension.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -86,86 +78,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
-              <caret line="43" selection-start-line="43" selection-end-line="43" />
-              <folding>
-                <element signature="e#0#1775#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#1320#1347#0" expanded="true" />
-                <element signature="e#1445#1482#1" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="217" lean-forward="true" selection-start-line="217" selection-end-line="217" />
-              <folding>
-                <element signature="e#0#9879#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#6666#6705#1" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gradle.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/EnhanceExtension.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
-              <folding>
-                <element signature="e#0#4369#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#1245#1272#0" expanded="true" />
-                <element signature="e#1842#1843#0" expanded="true" />
-                <element signature="e#1884#1885#0" expanded="true" />
-                <element signature="e#2082#2083#0" expanded="true" />
-                <element signature="e#2123#2124#0" expanded="true" />
-                <element signature="e#2328#2329#0" expanded="true" />
-                <element signature="e#2370#2371#0" expanded="true" />
-                <element signature="e#2573#2574#0" expanded="true" />
-                <element signature="e#2599#2600#0" expanded="true" />
-                <element signature="e#2732#2733#0" expanded="true" />
-                <element signature="e#2762#2763#0" expanded="true" />
-                <element signature="e#2902#2903#0" expanded="true" />
-                <element signature="e#2930#2931#0" expanded="true" />
-                <element signature="e#3070#3071#0" expanded="true" />
-                <element signature="e#3108#3109#0" expanded="true" />
-                <element signature="e#3276#3277#0" expanded="true" />
-                <element signature="e#3303#3304#0" expanded="true" />
-                <element signature="e#3436#3437#0" expanded="true" />
-                <element signature="e#3469#3470#0" expanded="true" />
-                <element signature="e#3635#3636#0" expanded="true" />
-                <element signature="e#3677#3678#0" expanded="true" />
-                <element signature="e#3881#3882#0" expanded="true" />
-                <element signature="e#3918#3919#0" expanded="true" />
-                <element signature="e#4112#4113#0" expanded="true" />
-                <element signature="e#4166#4167#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/settings.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="706">
+              <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -174,89 +90,27 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LICENSE">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="465">
+              <caret line="35" column="53" lean-forward="true" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor>
-                <caret column="2" selection-start-column="2" selection-end-column="2" />
+              <first_editor relative-caret-position="859">
+                <caret line="121" column="115" selection-start-line="121" selection-start-column="115" selection-end-line="121" selection-end-column="115" />
               </first_editor>
               <second_editor>
                 <markdownNavigatorState />
               </second_editor>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="945">
-              <caret line="165" column="37" lean-forward="true" selection-start-line="165" selection-start-column="37" selection-end-line="165" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#6278#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#3168#3169#0" expanded="true" />
-                <element signature="e#3210#3211#0" expanded="true" />
-                <element signature="e#3288#3289#0" expanded="true" />
-                <element signature="e#3329#3330#0" expanded="true" />
-                <element signature="e#3408#3409#0" expanded="true" />
-                <element signature="e#3450#3451#0" expanded="true" />
-                <element signature="e#3509#3510#0" expanded="true" />
-                <element signature="e#3535#3536#0" expanded="true" />
-                <element signature="e#3605#3606#0" expanded="true" />
-                <element signature="e#3635#3636#0" expanded="true" />
-                <element signature="e#3703#3704#0" expanded="true" />
-                <element signature="e#3731#3732#0" expanded="true" />
-                <element signature="e#3806#3807#0" expanded="true" />
-                <element signature="e#3844#3845#0" expanded="true" />
-                <element signature="e#3897#3898#0" expanded="true" />
-                <element signature="e#3924#3925#0" expanded="true" />
-                <element signature="e#3997#3998#0" expanded="true" />
-                <element signature="e#4030#4031#0" expanded="true" />
-                <element signature="e#4112#4113#0" expanded="true" />
-                <element signature="e#4154#4155#0" expanded="true" />
-                <element signature="e#4217#4218#0" expanded="true" />
-                <element signature="e#4254#4255#0" expanded="true" />
-                <element signature="e#4348#4349#0" expanded="true" />
-                <element signature="e#4402#4403#0" expanded="true" />
-                <element signature="e#4409#4436#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusApi.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="930">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-              <folding>
-                <element signature="e#0#1198#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="106" column="24" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#4361#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#1576#1603#0" expanded="true" />
-                <element signature="e#1820#1877#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -295,7 +149,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/META-INF/gradle-plugins/org.rm3l.datanucleus.gradle.properties" />
         <option value="$PROJECT_DIR$/src/main/java/org/rm3l/gradle/DataNucleusPlugin.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/gradle.properties" />
         <option value="$PROJECT_DIR$/settings.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/DataNucleusExtension.java" />
@@ -304,6 +157,8 @@
         <option value="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusApi.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java" />
         <option value="$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -446,7 +301,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541892217704" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541945562402" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -598,7 +453,7 @@
       <workItem from="1541315027006" duration="14130000" />
       <workItem from="1541454566096" duration="2699000" />
       <workItem from="1541710582493" duration="121000" />
-      <workItem from="1541710744552" duration="37960000" />
+      <workItem from="1541710744552" duration="43007000" />
     </task>
     <task id="LOCAL-00001" summary="Add IDEA files">
       <created>1541813363233</created>
@@ -719,7 +574,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541891540607</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Update Copyright / Licensing headers">
+      <created>1541892251095</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1541892251095</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -731,30 +593,31 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54910000" />
+    <option name="totallyTimeSpent" value="59957000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="43" width="2880" height="1577" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26181948" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.26181948" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info id="UI Designer" order="6" />
+      <window_info anchor="bottom" id="Messages" weight="0.3289777" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32847276" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.19754036" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.19754036" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32847276" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="CheckStyle" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32974634" />
       <window_info anchor="bottom" id="Statistic" order="11" />
       <window_info anchor="bottom" id="Build" order="12" weight="0.3292402" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
@@ -792,7 +655,8 @@
     <MESSAGE value="Enable 'IMPROVED_POM_SUPPORT' feature, so as to mimic the 'pom' scope in Maven" />
     <MESSAGE value="Update .gitignore" />
     <MESSAGE value="Update IDEA workspace" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update IDEA workspace" />
+    <MESSAGE value="Update Copyright / Licensing headers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Copyright / Licensing headers" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1168,16 +1032,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gradlew">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
@@ -1199,22 +1053,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="SPLIT">
-          <first_editor>
-            <caret column="2" selection-start-column="2" selection-end-column="2" />
-          </first_editor>
-          <second_editor>
-            <markdownNavigatorState />
-          </second_editor>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/settings.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -1241,10 +1083,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="930">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="e#0#1198#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/extensions/EnhanceExtension.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="140" lean-forward="true" selection-start-line="140" selection-end-line="140" />
+        <state relative-caret-position="257">
+          <caret line="137" column="4" selection-start-line="137" selection-start-column="4" selection-end-line="137" selection-end-column="4" />
           <folding>
             <element signature="e#0#4369#0" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -1279,8 +1131,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/tasks/EnhanceTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="165" column="37" lean-forward="true" selection-start-line="165" selection-start-column="37" selection-end-line="165" selection-end-column="37" />
+        <state relative-caret-position="567">
+          <caret line="165" column="35" selection-start-line="165" selection-start-column="35" selection-end-line="165" selection-end-column="35" />
           <folding>
             <element signature="e#0#6278#0" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -1313,38 +1165,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusApi.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="706">
+          <caret line="82" column="26" lean-forward="true" selection-start-line="77" selection-start-column="24" selection-end-line="82" selection-end-column="26" />
           <folding>
-            <element signature="e#0#1198#0" expanded="true" />
+            <element signature="e#0#9879#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#6666#6705#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="706">
+          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/rm3l/datanucleus/gradle/DataNucleusPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="465">
+          <caret line="35" column="53" lean-forward="true" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
           <folding>
-            <element signature="e#0#1775#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1320#1347#0" expanded="true" />
-            <element signature="e#1445#1482#1" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/rm3l/datanucleus/gradle/DataNucleusPluginTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="217" lean-forward="true" selection-start-line="217" selection-end-line="217" />
-          <folding>
-            <element signature="e#0#9879#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#6666#6705#1" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="859">
+            <caret line="121" column="115" selection-start-line="121" selection-start-column="115" selection-end-line="121" selection-end-column="115" />
+          </first_editor>
+          <second_editor>
+            <markdownNavigatorState />
+          </second_editor>
         </state>
       </provider>
     </entry>
