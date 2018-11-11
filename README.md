@@ -20,7 +20,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) JPA and JDO Provider.
+Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) [JPA](https://en.wikipedia.org/wiki/Java_Persistence_API) and [JDO](https://en.wikipedia.org/wiki/Java_Data_Objects) Provider.
 
 This defines a Gradle plugin for introducing DataNucleus specific tasks and capabilities into and end-user Gradle Project build.
 
@@ -127,8 +127,9 @@ set of enhancement options as in the official datanucleus-maven-plugin, i.e.:
 | `ignoreMetaDataForMissingClasses`      | `false` | Whether to ignore when we have metadata specified for classes that are not found (e.g in *orm.xml*) |
 
 
-Note that by default, the `classes` task is automatically marked as depending on the `enhance` task, so that the latter is automatically run
-when you run a build. This way, your resulting artifacts will contain the enhanced classes.
+Note that by default, the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task is automatically marked as depending on the `enhance` task,
+so that the latter is automatically run when you run a build.
+This way, your resulting artifacts will contain the enhanced classes.
 
 
 ## TODO
