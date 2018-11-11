@@ -6,8 +6,19 @@
 [![GitHub stars](https://img.shields.io/github/stars/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Star)](https://github.com/rm3l/datanucleus-gradle-plugin)
 [![GitHub forks](https://img.shields.io/github/forks/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Fork)](https://github.com/rm3l/datanucleus-gradle-plugin)
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Getting Started](#getting-started)
+- [Tasks](#tasks)
+  - [Bytecode Enhancement](#bytecode-enhancement)
+- [TODO](#todo)
+- [Credits](#credits)
+- [Developed by](#developed-by)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) JPA and JDO Provider.
 
