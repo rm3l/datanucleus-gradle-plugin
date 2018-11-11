@@ -91,7 +91,7 @@ Applying this plugin provides an `enhance` task that supports the same
 set of enhancement options as in the official datanucleus-maven-plugin, i.e.:
 
 | Property        | Default value           | Description  |
-| --------------- |:-----------------------:| ------------:|
+|-----------------|-------------------------|--------------|
 | `persistenceUnitName`      | | Name of the persistence-unit to enhance. **Mandatory** |
 | `log4jConfiguration`      | | Config file location for Log4J (if using it) |
 | `jdkLogConfiguration`      | | Config file location for JDK1.4 logging (if using it) |
