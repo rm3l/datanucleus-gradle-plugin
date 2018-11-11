@@ -23,6 +23,7 @@
 plugins {
     id 'java-gradle-plugin'
     id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.10.0'
 }
 
 group 'org.rm3l'
