@@ -1,4 +1,11 @@
-# datanucleus-gradle-plugin
+[![Travis branch](https://img.shields.io/travis/rm3l/datanucleus-gradle-plugin/master.svg)](https://travis-ci.org/rm3l/datanucleus-gradle-plugin)
+[![Code Coverage](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin)
+[![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/rm3l/datanucleus-gradle-plugin/blob/master/LICENSE)
+
+[![GitHub watchers](https://img.shields.io/github/watchers/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Watch)](https://github.com/rm3l/datanucleus-gradle-plugin)
+[![GitHub stars](https://img.shields.io/github/stars/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Star)](https://github.com/rm3l/datanucleus-gradle-plugin)
+[![GitHub forks](https://img.shields.io/github/forks/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Fork)](https://github.com/rm3l/datanucleus-gradle-plugin)
+
 Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) JPA and JDO Provider.
 
 This defines a Gradle plugin for introducing DataNucleus specific tasks and capabilities into and end-user Gradle Project build.
@@ -127,7 +134,7 @@ when you run a build. This way, your resulting artifacts will contain the enhanc
 
 * Armel Soro
   * [keybase.io/rm3l](https://keybase.io/rm3l)
-  * [rm3l.org](https://rm3l.org) - &lt;apps+maoni@rm3l.org&gt; - [@rm3l](https://twitter.com/rm3l)
+  * [rm3l.org](https://rm3l.org) - &lt;armel+dn_gradle_plugin@rm3l.org&gt; - [@rm3l](https://twitter.com/rm3l)
   * [paypal.me/rm3l](https://paypal.me/rm3l)
   * [coinbase.com/rm3l](https://www.coinbase.com/rm3l)
 
