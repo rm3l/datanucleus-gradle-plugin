@@ -6,6 +6,9 @@
 [![GitHub stars](https://img.shields.io/github/stars/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Star)](https://github.com/rm3l/datanucleus-gradle-plugin)
 [![GitHub forks](https://img.shields.io/github/forks/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Fork)](https://github.com/rm3l/datanucleus-gradle-plugin)
 
+<!-- START doctoc -->
+<!-- END doctoc -->
+
 Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) JPA and JDO Provider.
 
 This defines a Gradle plugin for introducing DataNucleus specific tasks and capabilities into and end-user Gradle Project build.
