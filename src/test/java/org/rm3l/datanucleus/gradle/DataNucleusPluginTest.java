@@ -80,6 +80,11 @@ class DataNucleusPluginTest {
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnit'\n" +
                         "  }\n" +
+                        "\n" +
+                        "  testEnhance {\n" +
+                        "    api 'JPA'\n" +
+                        "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
+                        "  }\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.CREATE,
@@ -126,6 +131,30 @@ class DataNucleusPluginTest {
                         "  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd\"\n" +
                         "  version=\"2.2\">\n\n") +
                         persistenceUnitMetaData.toString("  ", "  ") +
+                        "\n\n" +
+                        "</persistence>")
+                        .getBytes(StandardCharsets.UTF_8),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
+
+        //Also create a persistence.xml file
+        final Path testSourceSetDir = tempDir.resolve("src").resolve("test");
+        final Path testJavaSourceSetDir = testSourceSetDir.resolve("java");
+        Files.createDirectories(testJavaSourceSetDir);
+
+        Path metaInfTestResourcesSet = testSourceSetDir.resolve("resources").resolve("META-INF");
+        Files.createDirectories(metaInfTestResourcesSet);
+        final PersistenceUnitMetaData testPersistenceUnitMetaData =
+                new PersistenceUnitMetaData("myPersistenceUnitForTest", "RESOURCE_LOCAL", null);
+        testPersistenceUnitMetaData.addClassName(DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT + ".Person");
+        testPersistenceUnitMetaData.setExcludeUnlistedClasses(true);
+        Files.write(metaInfTestResourcesSet.resolve("persistence.xml"),
+                (("<persistence xmlns=\"http://xmlns.jcp.org/xml/ns/persistence\"\n" +
+                        "  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                        "  xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/persistence\n" +
+                        "  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd\"\n" +
+                        "  version=\"2.2\">\n\n") +
+                        testPersistenceUnitMetaData.toString("  ", "  ") +
                         "\n\n" +
                         "</persistence>")
                         .getBytes(StandardCharsets.UTF_8),
@@ -208,6 +237,58 @@ class DataNucleusPluginTest {
         result = gradle(tempDir, "enhance");
         assertNotNull(result);
         enhanceTask = result.task(":enhance");
+        assertNotNull(enhanceTask);
+        assertSame(SUCCESS, enhanceTask.getOutcome());
+        output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+    }
+
+    @Test
+    @DisplayName("should enhance domain test classes when building the project")
+    void test_build_auto_testEnhances(@TempDir Path tempDir) {
+        final BuildResult result = gradle(tempDir, "build");
+        assertNotNull(result);
+        final BuildTask enhanceTask = result.task(":testEnhance");
+        assertNotNull(enhanceTask);
+        assertSame(SUCCESS, enhanceTask.getOutcome());
+
+        final String output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+    }
+
+    @Test
+    @DisplayName("should not succeed enhancing domain test classes if no build had been performed beforehand")
+    void test_testEnhance_without_build_does_not_succeed(@TempDir Path tempDir) {
+        //This does not make the build fail. Instead, a stacktrace is output by DataNucleus Enhancer
+        final BuildResult result = gradle(tempDir, "testEnhance");
+        assertNotNull(result);
+        final BuildTask enhanceTask = result.task(":testEnhance");
+        assertNotNull(enhanceTask);
+        final String output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains(
+                "Class \"org.rm3l.datanucleus.gradle.test.domain.Person\" was not found in the CLASSPATH. " +
+                        "Please check your specification and your CLASSPATH."));
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 0 classes."));
+    }
+
+    @Test
+    @DisplayName("should succeed enhancing domain test classes even if called twice")
+    void test_testEnhance_after_build_succeeds(@TempDir Path tempDir) {
+        BuildResult result = gradle(tempDir, "build");
+        assertNotNull(result);
+        BuildTask enhanceTask = result.task(":testEnhance");
+        assertNotNull(enhanceTask);
+        assertSame(SUCCESS, enhanceTask.getOutcome());
+        String output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+
+        result = gradle(tempDir, "testEnhance");
+        assertNotNull(result);
+        enhanceTask = result.task(":testEnhance");
         assertNotNull(enhanceTask);
         assertSame(SUCCESS, enhanceTask.getOutcome());
         output = result.getOutput();
