@@ -149,12 +149,25 @@ public class EnhanceTask extends DefaultTask {
         final SourceSet main = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
         final SourceSetOutput mainOutput = main.getOutput();
 
-        final URL[] classloaderUrls = Stream.concat(
+        final SourceSet test = javaConvention.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME);
+        final SourceSetOutput testOutput = main.getOutput();
+
+        final Stream<File> mainStream = Stream.concat(
                 Stream.concat(
                         mainOutput.getClassesDirs().getFiles().stream(),
                         Stream.of(mainOutput.getResourcesDir())
                 ),
-                main.getResources().getSrcDirs().stream())
+                main.getResources().getSrcDirs().stream()
+        );
+        final Stream<File> testStream = Stream.concat(
+                Stream.concat(
+                        testOutput.getClassesDirs().getFiles().stream(),
+                        Stream.of(testOutput.getResourcesDir())
+                ),
+                test.getResources().getSrcDirs().stream()
+        );
+
+        final URL[] classloaderUrls = Stream.concat(mainStream, testStream)
                 .map(File::getAbsolutePath)
                 .map(absPath -> {
                     try {
