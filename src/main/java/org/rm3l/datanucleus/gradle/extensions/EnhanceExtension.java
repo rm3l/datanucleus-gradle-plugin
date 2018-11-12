@@ -22,6 +22,9 @@
 
 package org.rm3l.datanucleus.gradle.extensions;
 
+import org.gradle.api.Project;
+import org.gradle.api.plugins.JavaPluginConvention;
+import org.gradle.api.tasks.SourceSet;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
 
 import java.io.File;
@@ -44,6 +47,26 @@ public class EnhanceExtension {
     private boolean generateConstructor = true;
     private boolean detachListener = false;
     private boolean ignoreMetaDataForMissingClasses = false;
+
+    /**
+     * The source sets that hold persistent model.  Default is project.sourceSets.main
+     */
+    private SourceSet sourceSet;
+
+    EnhanceExtension(Project project, String defaultSourceSetName) {
+        final JavaPluginConvention javaConvention =
+                project.getConvention().getPlugin(JavaPluginConvention.class);
+        this.sourceSet = javaConvention.getSourceSets().getByName(defaultSourceSetName);
+    }
+
+    public EnhanceExtension sourceSet(SourceSet sourceSet) {
+        this.sourceSet = sourceSet;
+        return this;
+    }
+
+    SourceSet getSourceSet() {
+        return this.sourceSet;
+    }
 
     String getPersistenceUnitName() {
         return persistenceUnitName;
@@ -135,7 +158,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    public boolean isDetachListener() {
+    boolean isDetachListener() {
         return detachListener;
     }
 
