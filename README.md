@@ -22,7 +22,7 @@
 
 Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) [JPA](https://en.wikipedia.org/wiki/Java_Persistence_API) and [JDO](https://en.wikipedia.org/wiki/Java_Data_Objects) Provider.
 
-This defines a Gradle plugin for introducing DataNucleus specific tasks and capabilities into and end-user Gradle Project build.
+This defines a Gradle plugin for introducing DataNucleus specific tasks and capabilities into an end-user Gradle Project build.
 
 Currently the only capability added is for bytecode enhancement of the user domain model, although other capabilities are planned.
 
@@ -50,7 +50,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.org.rm3l:datanucleus-gradle-plugin:1.0-SNAPSHOT"
+    classpath "org.rm3l:datanucleus-gradle-plugin:1.0-SNAPSHOT"
   }
 }
 
