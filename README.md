@@ -13,7 +13,6 @@
 - [Getting Started](#getting-started)
 - [Tasks](#tasks)
   - [Bytecode Enhancement](#bytecode-enhancement)
-- [TODO](#todo)
 - [Credits](#credits)
 - [Developed by](#developed-by)
 - [License](#license)
