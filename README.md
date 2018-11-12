@@ -22,7 +22,9 @@
 
 Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) [JPA](https://en.wikipedia.org/wiki/Java_Persistence_API) and [JDO](https://en.wikipedia.org/wiki/Java_Data_Objects) Provider.
 
-This defines a Gradle plugin for introducing DataNucleus specific tasks and capabilities into an end-user Gradle Project build.
+This is a follow-up to a [blog post](https://rm3l.org/datanucleus-jpa-enhancement-with-gradle/) talking about performing build-time enhancement with both DataNucleus and Gradle Ant Tasks.
+
+Heavily inspired by the official DataNucleus Maven Plugin, this one defines a Gradle plugin for introducing DataNucleus specific tasks and capabilities into an end-user Gradle Project build.
 
 Currently the only capability added is for bytecode enhancement of the user domain model, although other capabilities are planned.
 
@@ -130,14 +132,6 @@ set of enhancement options as in the official datanucleus-maven-plugin, i.e.:
 Note that by default, the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task is automatically marked as depending on the `enhance` task,
 so that the latter is automatically run when you run a build.
 This way, your resulting artifacts will contain the enhanced classes.
-
-
-## TODO
-
-* [ ] Make the `enhance` task [Cacheable](https://docs.gradle.org/current/userguide/build_cache.html#sec:task_output_caching_details)
-  , and ensure it is marked as *UP-TO-DATE* if there is no change to JPA Domain source files
-* [ ] Support DataNucleus SchemaTool operations
-
 
 ## Credits
 
