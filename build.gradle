@@ -85,10 +85,10 @@ check.dependsOn jacocoTestReport
 // The configuration example below shows the minimum required properties
 // configured to publish your plugin to the plugin portal
 pluginBundle {
-    website = 'http://datanucleus-gradle-plugin.rm3l.org/'
+    website = 'https://datanucleus-gradle-plugin.rm3l.org'
     vcsUrl = 'https://github.com/rm3l/datanucleus-gradle-plugin'
     description = 'Unofficial Gradle Plugin for DataNucleus JPA/JDO provider'
-    tags = ['jpa', 'jdo', 'orm', 'javax.persistence', 'persistence', 'enhancement', 'weaving', 'datanucleus']
+    tags = ['jpa', 'jdo', 'orm', 'javax-persistence', 'persistence', 'metamodel', 'enhancement', 'weaving', 'datanucleus', 'schemagen', 'schema', 'generate', 'pojo', 'bytecode']
 
     plugins {
         datanucleusPlugin {
