@@ -106,10 +106,17 @@ datanucleus {
     persistenceUnitName 'myPersistenceUnit'
     //... other options are possible
   }
+
+  //
+  testEnhance { //'testEnhance' task has exactly the same options as the 'enhance' one above
+    api 'JPA'
+    persistenceUnitName 'myTestPersistenceUnit'
+    //...
+  }
 }
 ```
 
-Applying this plugin provides an `enhance` task that supports the same
+Applying this plugin provides an `enhance` task and a `testEnhance` task that support the same
 set of enhancement options as in the official datanucleus-maven-plugin, i.e.:
 
 | Property        | Default value           | Description  |
@@ -128,8 +135,12 @@ set of enhancement options as in the official datanucleus-maven-plugin, i.e.:
 | `ignoreMetaDataForMissingClasses`      | `false` | Whether to ignore when we have metadata specified for classes that are not found (e.g in *orm.xml*) |
 
 
-Note that by default, the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task is automatically marked as depending on the `enhance` task,
-so that the latter is automatically run when you run a build.
+Note that by default, the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task
+is automatically marked as depending on the `enhance` task, so that the latter is automatically run when you run a build.
+
+Similarly, the [`testClasses`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task
+is automatically marked as depending on the `testEnhance` task.
+
 This way, your resulting artifacts will contain the enhanced classes.
 
 ## Credits
