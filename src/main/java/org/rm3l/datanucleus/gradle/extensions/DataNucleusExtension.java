@@ -86,11 +86,21 @@ public class DataNucleusExtension {
 
         final TaskContainer projectTasks = project.getTasks();
         projectTasks.create(taskName, EnhanceTask.class,
-                task -> configureTask(enhanceExtension, task));
+                task -> {
+                    configureTask(enhanceExtension, task);
+                    task.getCheckOnly().set(false);
+                });
+
 
         for (final String dependentTask : dependentTasks) {
             projectTasks.getByName(dependentTask).dependsOn(taskName);
         }
+
+        projectTasks.create(taskName + "Check", EnhanceTask.class,
+                task -> {
+                    configureTask(enhanceExtension, task);
+                    task.getCheckOnly().set(true);
+                });
     }
 
     private void configureTask(EnhanceExtension enhanceExtension, EnhanceTask task) {
