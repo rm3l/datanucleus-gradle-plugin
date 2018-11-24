@@ -44,6 +44,8 @@ public class DataNucleusExtension {
 
     private final Project project;
 
+    private Boolean skip = false;
+
     private final EnhanceExtension enhance;
 
     private final EnhanceExtension testEnhance;
@@ -52,6 +54,13 @@ public class DataNucleusExtension {
         this.project = project;
         this.enhance = new EnhanceExtension(project, SourceSet.MAIN_SOURCE_SET_NAME);
         this.testEnhance = new EnhanceExtension(project, SourceSet.TEST_SOURCE_SET_NAME);
+    }
+
+    private DataNucleusExtension skip(Boolean skip) {
+        this.skip = skip;
+        this.enhance.skip(skip);
+        this.testEnhance.skip(skip);
+        return this;
     }
 
     //Auto-bind the DSL to a Gradle task
@@ -85,6 +94,10 @@ public class DataNucleusExtension {
     }
 
     private void configureTask(EnhanceExtension enhanceExtension, EnhanceTask task) {
+        final Boolean enhanceExtensionSkip = enhanceExtension.getSkip();
+        final Property<Boolean> taskSkip = task.getSkip();
+        taskSkip.set(this.skip);
+        taskSkip.set(enhanceExtensionSkip);
         task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
         task.getLog4jConfiguration().set(enhanceExtension.getLog4jConfiguration());
         task.getJdkLogConfiguration().set(enhanceExtension.getJdkLogConfiguration());

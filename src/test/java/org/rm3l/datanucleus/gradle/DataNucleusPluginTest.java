@@ -133,9 +133,6 @@ class DataNucleusPluginTest {
         assertNotNull(enhanceTask);
         assertSame(SUCCESS, enhanceTask.getOutcome());
 
-        final BuildTask testEnhanceCheckTask = result.task(":testEnhanceCheck");
-        assertNull(testEnhanceCheckTask);
-
         final String output = result.getOutput();
         assertNotNull(output);
         assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
@@ -185,6 +182,92 @@ class DataNucleusPluginTest {
         final String output = result.getOutput();
         assertNotNull(output);
         assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+    }
+
+    @Test
+    void testSkip_From_Parent_Propagates_to_Children_Tasks(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+        final Path buildGradle = tempDir.resolve("build.gradle");
+        Files.write(buildGradle,
+                ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
+                        "repositories {\n" +
+                        "  mavenCentral()\n" +
+                        "}\n" +
+                        "\n" +
+                        "dependencies {\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "}\n" +
+                        "\n" +
+                        "datanucleus {\n" +
+                        "  skip true\n" +
+                        "  enhance {\n" +
+                        "    api 'JPA'\n" +
+                        "    persistenceUnitName 'myPersistenceUnit'\n" +
+                        "  }\n" +
+                        "\n" +
+                        "  testEnhance {\n" +
+                        "    api 'JPA'\n" +
+                        "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
+                        "  }\n" +
+                        "}\n")
+                        .getBytes(StandardCharsets.UTF_8),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
+
+        final BuildResult result = gradle(tempDir, "build", "--debug");
+        assertNotNull(result);
+
+        final BuildTask enhanceTask = result.task(":enhance");
+        assertNotNull(enhanceTask);
+        assertSame(SUCCESS, enhanceTask.getOutcome());
+
+        final BuildTask testEnhanceTask = result.task(":testEnhance");
+        assertNotNull(testEnhanceTask);
+        assertSame(SUCCESS, testEnhanceTask.getOutcome());
+
+        final String output = result.getOutput();
+        assertNotNull(output);
+        assertFalse(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        assertTrue(output.contains("Enhancement Task Execution skipped as requested"));
+    }
+
+    @Test
+    void testSkip_From_Parent_Can_Be_Overridden_In_Children_Tasks(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+        final Path buildGradle = tempDir.resolve("build.gradle");
+        Files.write(buildGradle,
+                ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
+                        "repositories {\n" +
+                        "  mavenCentral()\n" +
+                        "}\n" +
+                        "\n" +
+                        "dependencies {\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "}\n" +
+                        "\n" +
+                        "datanucleus {\n" +
+                        "  skip true\n" +
+                        "  enhance {\n" +
+                        "    skip false\n" +
+                        "    api 'JPA'\n" +
+                        "    persistenceUnitName 'myPersistenceUnit'\n" +
+                        "  }\n" +
+                        "}\n")
+                        .getBytes(StandardCharsets.UTF_8),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
+
+        final BuildResult result = gradle(tempDir, "build", "--debug");
+        assertNotNull(result);
+
+        final BuildTask enhanceTask = result.task(":enhance");
+        assertNotNull(enhanceTask);
+        assertSame(SUCCESS, enhanceTask.getOutcome());
+
+        final String output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        assertFalse(output.contains("Enhancement Task Execution skipped as requested"));
     }
 
 }

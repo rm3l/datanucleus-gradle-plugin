@@ -25,6 +25,7 @@ package org.rm3l.datanucleus.gradle.tasks;
 import org.datanucleus.enhancer.DataNucleusEnhancer;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
+import org.gradle.api.logging.Logger;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.provider.Property;
@@ -44,6 +45,7 @@ import java.util.stream.Stream;
  */
 public class EnhanceTask extends DefaultTask {
 
+    private final Property<Boolean> skip;
     private final Property<String> persistenceUnitName;
     private final Property<File> log4jConfiguration;
     private final Property<File> jdkLogConfiguration;
@@ -59,6 +61,7 @@ public class EnhanceTask extends DefaultTask {
 
     public EnhanceTask() {
         final ObjectFactory objects = getProject().getObjects();
+        skip = objects.property(Boolean.class);
         persistenceUnitName = objects.property(String.class);
         log4jConfiguration = objects.property(File.class);
         jdkLogConfiguration = objects.property(File.class);
@@ -71,6 +74,12 @@ public class EnhanceTask extends DefaultTask {
         generateConstructor = objects.property(Boolean.class);
         detachListener = objects.property(Boolean.class);
         ignoreMetaDataForMissingClasses = objects.property(Boolean.class);
+    }
+
+    @Input
+    @Optional
+    public Property<Boolean> getSkip() {
+        return skip;
     }
 
     @Input
@@ -144,7 +153,17 @@ public class EnhanceTask extends DefaultTask {
     @SuppressWarnings("unused")
     @TaskAction
     public void performEnhancement() throws MalformedURLException {
+
         final Project project = getProject();
+        final Logger projectLogger = project.getLogger();
+
+        final Boolean shouldSkip = skip.get();
+        if (shouldSkip != null && shouldSkip) {
+            if (projectLogger.isDebugEnabled()) {
+                projectLogger.debug("Enhancement Task Execution skipped as requested");
+            }
+            return;
+        }
 
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
@@ -188,6 +207,6 @@ public class EnhanceTask extends DefaultTask {
                 .setSystemOut(!quiet.get())
                 .setOutputDirectory(targetDirectory.get().getAbsolutePath());
         final int result = enhancer.enhance();
-        project.getLogger().info("Enhanced {} class using DataNucleus Enhancer", result);
+        projectLogger.info("Enhanced {} class using DataNucleus Enhancer", result);
     }
 }

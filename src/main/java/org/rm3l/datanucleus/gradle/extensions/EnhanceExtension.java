@@ -52,11 +52,26 @@ public class EnhanceExtension {
      * The source sets that hold persistent model.  Default is project.sourceSets.main
      */
     private SourceSet sourceSet;
+    private Boolean skip = null;
 
     EnhanceExtension(Project project, String defaultSourceSetName) {
+        this(false, project, defaultSourceSetName);
+    }
+
+    EnhanceExtension(boolean skip, Project project, String defaultSourceSetName) {
+        this.skip(skip);
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
         this.sourceSet = javaConvention.getSourceSets().getByName(defaultSourceSetName);
+    }
+
+    Boolean getSkip() {
+        return skip;
+    }
+
+    EnhanceExtension skip(Boolean skip) {
+        this.skip = skip;
+        return this;
     }
 
     public EnhanceExtension sourceSet(SourceSet sourceSet) {
