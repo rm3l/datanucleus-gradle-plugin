@@ -20,7 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-package org.rm3l.datanucleus.gradle.extensions;
+package org.rm3l.datanucleus.gradle.extensions.enhance;
 
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPluginConvention;
@@ -54,31 +54,31 @@ public class EnhanceExtension {
     private SourceSet sourceSet;
     private Boolean skip = null;
 
-    EnhanceExtension(Project project, String defaultSourceSetName) {
+    public EnhanceExtension(Project project, String defaultSourceSetName) {
         this(false, project, defaultSourceSetName);
     }
 
-    private EnhanceExtension(boolean skip, Project project, String defaultSourceSetName) {
+    public EnhanceExtension(boolean skip, Project project, String defaultSourceSetName) {
         this.skip(skip);
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
         this.sourceSet = javaConvention.getSourceSets().getByName(defaultSourceSetName);
     }
 
-    Boolean getSkip() {
+    public Boolean getSkip() {
         return skip;
     }
 
-    EnhanceExtension skip(Boolean skip) {
+    public EnhanceExtension skip(Boolean skip) {
         this.skip = skip;
         return this;
     }
 
-    SourceSet getSourceSet() {
+    public SourceSet getSourceSet() {
         return this.sourceSet;
     }
 
-    String getPersistenceUnitName() {
+    public String getPersistenceUnitName() {
         return persistenceUnitName;
     }
 
@@ -87,7 +87,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    File getLog4jConfiguration() {
+    public File getLog4jConfiguration() {
         return log4jConfiguration;
     }
 
@@ -100,7 +100,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    File getJdkLogConfiguration() {
+    public File getJdkLogConfiguration() {
         return jdkLogConfiguration;
     }
 
@@ -113,7 +113,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    DataNucleusApi getApi() {
+    public DataNucleusApi getApi() {
         return api;
     }
 
@@ -122,7 +122,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isVerbose() {
+    public boolean isVerbose() {
         return verbose;
     }
 
@@ -131,7 +131,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isQuiet() {
+    public boolean isQuiet() {
         return quiet;
     }
 
@@ -140,7 +140,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    File getTargetDirectory() {
+    public File getTargetDirectory() {
         return targetDirectory;
     }
 
@@ -153,7 +153,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isFork() {
+    public boolean isFork() {
         return fork;
     }
 
@@ -162,7 +162,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isGeneratePK() {
+    public boolean isGeneratePK() {
         return generatePK;
     }
 
@@ -171,7 +171,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isGenerateConstructor() {
+    public boolean isGenerateConstructor() {
         return generateConstructor;
     }
 
@@ -180,7 +180,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isDetachListener() {
+    public boolean isDetachListener() {
         return detachListener;
     }
 
@@ -189,7 +189,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isIgnoreMetaDataForMissingClasses() {
+    public boolean isIgnoreMetaDataForMissingClasses() {
         return ignoreMetaDataForMissingClasses;
     }
 

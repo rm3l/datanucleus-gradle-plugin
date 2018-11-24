@@ -28,7 +28,8 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
-import org.rm3l.datanucleus.gradle.tasks.EnhanceTask;
+import org.rm3l.datanucleus.gradle.extensions.enhance.EnhanceExtension;
+import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
 
 import java.io.File;
 import java.util.Set;
