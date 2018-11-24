@@ -35,6 +35,8 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -141,7 +143,7 @@ public class EnhanceTask extends DefaultTask {
 
     @SuppressWarnings("unused")
     @TaskAction
-    public void performEnhancement() {
+    public void performEnhancement() throws MalformedURLException {
         final Project project = getProject();
 
         final JavaPluginConvention javaConvention =
@@ -167,16 +169,14 @@ public class EnhanceTask extends DefaultTask {
                 test.getResources().getSrcDirs().stream()
         );
 
-        final URL[] classloaderUrls = Stream.concat(mainStream, testStream)
+        final List<String> sourcePathList = Stream.concat(mainStream, testStream)
                 .map(File::getAbsolutePath)
-                .map(absPath -> {
-                    try {
-                        return new File(absPath + "/").toURI().toURL();
-                    } catch (MalformedURLException e) {
-                        throw new IllegalStateException(e);
-                    }
-                })
-                .toArray(URL[]::new);
+                .collect(Collectors.toList());
+        final URL[] classloaderUrls = new URL[sourcePathList.size()];
+        int index = 0;
+        for (final String sourcePath : sourcePathList) {
+            classloaderUrls[index++] = new File(sourcePath + "/").toURI().toURL();
+        }
 
         final DataNucleusEnhancer enhancer = new DataNucleusEnhancer(api.get().name(), null)
                 .setVerbose(verbose.get())

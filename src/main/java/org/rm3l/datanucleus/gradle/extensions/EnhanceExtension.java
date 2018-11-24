@@ -60,7 +60,9 @@ public class EnhanceExtension {
     }
 
     public EnhanceExtension sourceSet(SourceSet sourceSet) {
-        this.sourceSet = sourceSet;
+        if (this.sourceSet != null) {
+            this.sourceSet = sourceSet;
+        }
         return this;
     }
 
@@ -82,7 +84,9 @@ public class EnhanceExtension {
     }
 
     public EnhanceExtension log4jConfiguration(String log4jConfiguration) {
-        this.log4jConfiguration = new File(log4jConfiguration);
+        if (log4jConfiguration != null) {
+            this.log4jConfiguration = new File(log4jConfiguration);
+        }
         return this;
     }
 
@@ -91,7 +95,9 @@ public class EnhanceExtension {
     }
 
     public EnhanceExtension jdkLogConfiguration(String jdkLogConfiguration) {
-        this.jdkLogConfiguration = new File(jdkLogConfiguration);
+        if (jdkLogConfiguration != null) {
+            this.jdkLogConfiguration = new File(jdkLogConfiguration);
+        }
         return this;
     }
 
@@ -126,8 +132,10 @@ public class EnhanceExtension {
         return targetDirectory;
     }
 
-    public EnhanceExtension targetDirectory(File targetDirectory) {
-        this.targetDirectory = targetDirectory;
+    public EnhanceExtension targetDirectory(String targetDirectory) {
+        if (targetDirectory != null) {
+            this.targetDirectory = new File(targetDirectory);
+        }
         return this;
     }
 

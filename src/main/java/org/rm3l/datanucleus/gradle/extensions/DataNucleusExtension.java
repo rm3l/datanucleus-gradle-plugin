@@ -24,7 +24,6 @@ package org.rm3l.datanucleus.gradle.extensions;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
-import org.gradle.api.UnknownTaskException;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
@@ -78,45 +77,38 @@ public class DataNucleusExtension {
 
         final TaskContainer projectTasks = project.getTasks();
         projectTasks.create(taskName, EnhanceTask.class,
-                task -> {
-                    task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
-                    task.getLog4jConfiguration().set(enhanceExtension.getLog4jConfiguration());
-                    task.getJdkLogConfiguration().set(enhanceExtension.getJdkLogConfiguration());
-                    task.getApi().set(enhanceExtension.getApi());
-                    task.getVerbose().set(enhanceExtension.isVerbose());
-                    task.getQuiet().set(enhanceExtension.isQuiet());
-                    final File targetDirectory = enhanceExtension.getTargetDirectory();
-                    final Property<File> taskTargetDirectory = task.getTargetDirectory();
-                    if (targetDirectory != null) {
-                        taskTargetDirectory.set(targetDirectory);
-                    } else {
-                        final SourceSet sourceSet = enhanceExtension.getSourceSet();
-                        if (sourceSet != null) {
-                            final Set<File> files = sourceSet.getOutput().getClassesDirs().getFiles();
-                            if (!files.isEmpty()) {
-                                taskTargetDirectory.set(files.iterator().next());
-                            }
-                        }
-                    }
-                    task.getFork().set(enhanceExtension.isFork());
-                    task.getGeneratePK().set(enhanceExtension.isGeneratePK());
-                    task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
-                    task.getGenerateConstructor().set(enhanceExtension.isGenerateConstructor());
-                    task.getDetachListener().set(enhanceExtension.isDetachListener());
-                    task.getIgnoreMetaDataForMissingClasses()
-                            .set(enhanceExtension.isIgnoreMetaDataForMissingClasses());
-                });
+                task -> configureTask(enhanceExtension, task));
 
-        if (dependentTasks != null) {
-            for (final String dependentTask : dependentTasks) {
-                try {
-                    projectTasks.getByName(dependentTask).dependsOn(taskName);
-                } catch (final UnknownTaskException ute) {
-                    //No worries
-                    project.getLogger().warn(ute.getMessage(), ute);
-                }
+        for (final String dependentTask : dependentTasks) {
+            projectTasks.getByName(dependentTask).dependsOn(taskName);
+        }
+    }
+
+    private void configureTask(EnhanceExtension enhanceExtension, EnhanceTask task) {
+        task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
+        task.getLog4jConfiguration().set(enhanceExtension.getLog4jConfiguration());
+        task.getJdkLogConfiguration().set(enhanceExtension.getJdkLogConfiguration());
+        task.getApi().set(enhanceExtension.getApi());
+        task.getVerbose().set(enhanceExtension.isVerbose());
+        task.getQuiet().set(enhanceExtension.isQuiet());
+        final File targetDirectory = enhanceExtension.getTargetDirectory();
+        final Property<File> taskTargetDirectory = task.getTargetDirectory();
+        if (targetDirectory != null) {
+            taskTargetDirectory.set(targetDirectory);
+        } else {
+            final SourceSet sourceSet = enhanceExtension.getSourceSet();
+            final Set<File> files = sourceSet.getOutput().getClassesDirs().getFiles();
+            if (!files.isEmpty()) {
+                taskTargetDirectory.set(files.iterator().next());
             }
         }
+        task.getFork().set(enhanceExtension.isFork());
+        task.getGeneratePK().set(enhanceExtension.isGeneratePK());
+        task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
+        task.getGenerateConstructor().set(enhanceExtension.isGenerateConstructor());
+        task.getDetachListener().set(enhanceExtension.isDetachListener());
+        task.getIgnoreMetaDataForMissingClasses()
+                .set(enhanceExtension.isIgnoreMetaDataForMissingClasses());
     }
 
 }
