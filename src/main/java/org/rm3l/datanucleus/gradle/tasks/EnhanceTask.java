@@ -162,51 +162,51 @@ public class EnhanceTask extends DefaultTask {
             if (projectLogger.isDebugEnabled()) {
                 projectLogger.debug("Enhancement Task Execution skipped as requested");
             }
-            return;
+        } else {
+
+            final JavaPluginConvention javaConvention =
+                    project.getConvention().getPlugin(JavaPluginConvention.class);
+            final SourceSet main = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
+            final SourceSetOutput mainOutput = main.getOutput();
+
+            final SourceSet test = javaConvention.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME);
+            final SourceSetOutput testOutput = main.getOutput();
+
+            final Stream<File> mainStream = Stream.concat(
+                    Stream.concat(
+                            mainOutput.getClassesDirs().getFiles().stream(),
+                            Stream.of(mainOutput.getResourcesDir())
+                    ),
+                    main.getResources().getSrcDirs().stream()
+            );
+            final Stream<File> testStream = Stream.concat(
+                    Stream.concat(
+                            testOutput.getClassesDirs().getFiles().stream(),
+                            Stream.of(testOutput.getResourcesDir())
+                    ),
+                    test.getResources().getSrcDirs().stream()
+            );
+
+            final List<String> sourcePathList = Stream.concat(mainStream, testStream)
+                    .map(File::getAbsolutePath)
+                    .collect(Collectors.toList());
+            final URL[] classloaderUrls = new URL[sourcePathList.size()];
+            int index = 0;
+            for (final String sourcePath : sourcePathList) {
+                classloaderUrls[index++] = new File(sourcePath + "/").toURI().toURL();
+            }
+
+            final DataNucleusEnhancer enhancer = new DataNucleusEnhancer(api.get().name(), null)
+                    .setVerbose(verbose.get())
+                    .setClassLoader(new URLClassLoader(classloaderUrls, Thread.currentThread().getContextClassLoader()))
+                    .addPersistenceUnit(persistenceUnitName.get())
+                    .setDetachListener(detachListener.get())
+                    .setGenerateConstructor(generateConstructor.get())
+                    .setGeneratePK(generatePK.get())
+                    .setSystemOut(!quiet.get())
+                    .setOutputDirectory(targetDirectory.get().getAbsolutePath());
+            final int result = enhancer.enhance();
+            projectLogger.info("Enhanced {} class using DataNucleus Enhancer", result);
         }
-
-        final JavaPluginConvention javaConvention =
-                project.getConvention().getPlugin(JavaPluginConvention.class);
-        final SourceSet main = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
-        final SourceSetOutput mainOutput = main.getOutput();
-
-        final SourceSet test = javaConvention.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME);
-        final SourceSetOutput testOutput = main.getOutput();
-
-        final Stream<File> mainStream = Stream.concat(
-                Stream.concat(
-                        mainOutput.getClassesDirs().getFiles().stream(),
-                        Stream.of(mainOutput.getResourcesDir())
-                ),
-                main.getResources().getSrcDirs().stream()
-        );
-        final Stream<File> testStream = Stream.concat(
-                Stream.concat(
-                        testOutput.getClassesDirs().getFiles().stream(),
-                        Stream.of(testOutput.getResourcesDir())
-                ),
-                test.getResources().getSrcDirs().stream()
-        );
-
-        final List<String> sourcePathList = Stream.concat(mainStream, testStream)
-                .map(File::getAbsolutePath)
-                .collect(Collectors.toList());
-        final URL[] classloaderUrls = new URL[sourcePathList.size()];
-        int index = 0;
-        for (final String sourcePath : sourcePathList) {
-            classloaderUrls[index++] = new File(sourcePath + "/").toURI().toURL();
-        }
-
-        final DataNucleusEnhancer enhancer = new DataNucleusEnhancer(api.get().name(), null)
-                .setVerbose(verbose.get())
-                .setClassLoader(new URLClassLoader(classloaderUrls, Thread.currentThread().getContextClassLoader()))
-                .addPersistenceUnit(persistenceUnitName.get())
-                .setDetachListener(detachListener.get())
-                .setGenerateConstructor(generateConstructor.get())
-                .setGeneratePK(generatePK.get())
-                .setSystemOut(!quiet.get())
-                .setOutputDirectory(targetDirectory.get().getAbsolutePath());
-        final int result = enhancer.enhance();
-        projectLogger.info("Enhanced {} class using DataNucleus Enhancer", result);
     }
 }

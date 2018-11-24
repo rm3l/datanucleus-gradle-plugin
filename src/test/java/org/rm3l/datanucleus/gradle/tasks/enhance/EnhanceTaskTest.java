@@ -40,6 +40,9 @@ class EnhanceTaskTest {
                         "  enhance {\n" +
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnit'\n" +
+                        "    log4jConfiguration null\n" + //Ignored if null
+                        "    jdkLogConfiguration null\n" + //Ignored if null
+                        "    targetDirectory null\n" + //Ignored if null
                         "  }\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
@@ -78,7 +81,6 @@ class EnhanceTaskTest {
                         "  enhance {\n" +
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnit'\n" +
-                        "    sourceSet null\n" +
                         "    generateConstructor true\n" +
                         "    generatePK true\n" +
                         "    ignoreMetaDataForMissingClasses false\n" +

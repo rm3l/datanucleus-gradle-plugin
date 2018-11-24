@@ -58,7 +58,7 @@ public class EnhanceExtension {
         this(false, project, defaultSourceSetName);
     }
 
-    EnhanceExtension(boolean skip, Project project, String defaultSourceSetName) {
+    private EnhanceExtension(boolean skip, Project project, String defaultSourceSetName) {
         this.skip(skip);
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
@@ -71,13 +71,6 @@ public class EnhanceExtension {
 
     EnhanceExtension skip(Boolean skip) {
         this.skip = skip;
-        return this;
-    }
-
-    public EnhanceExtension sourceSet(SourceSet sourceSet) {
-        if (this.sourceSet != null) {
-            this.sourceSet = sourceSet;
-        }
         return this;
     }
 
@@ -101,6 +94,8 @@ public class EnhanceExtension {
     public EnhanceExtension log4jConfiguration(String log4jConfiguration) {
         if (log4jConfiguration != null) {
             this.log4jConfiguration = new File(log4jConfiguration);
+        } else {
+            this.log4jConfiguration = null;
         }
         return this;
     }
@@ -112,6 +107,8 @@ public class EnhanceExtension {
     public EnhanceExtension jdkLogConfiguration(String jdkLogConfiguration) {
         if (jdkLogConfiguration != null) {
             this.jdkLogConfiguration = new File(jdkLogConfiguration);
+        } else {
+            this.jdkLogConfiguration = null;
         }
         return this;
     }
@@ -150,6 +147,8 @@ public class EnhanceExtension {
     public EnhanceExtension targetDirectory(String targetDirectory) {
         if (targetDirectory != null) {
             this.targetDirectory = new File(targetDirectory);
+        } else {
+            this.targetDirectory = null;
         }
         return this;
     }
