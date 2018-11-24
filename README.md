@@ -69,6 +69,14 @@ by the official [DataNucleus Maven Plugin](https://github.com/datanucleus/datanu
 * Bytecode Enhancement
 * SchemaTool
 
+Applying this plugin automatically applies the [Java Plugin](https://docs.gradle.org/current/userguide/java_plugin.html) (if not already the case)
+and adds the following tasks to your project:
+
+- `enhance` : to enhance classes from the main source set. Run automatically during the build since the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
+- `testEnhance` : to enhance classes from the test source set. Run automatically during the build since the [`testClasses`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
+- `enhanceCheck` : to check the main classes for enhancement status
+- `testEnhanceCheck` : to check the test classes for enhancement status
+
 ### Bytecode Enhancement
 
 A noteworthy behavior of most JPA providers is to "enhance" the domain JPA classes.
@@ -116,8 +124,8 @@ datanucleus {
 }
 ```
 
-Applying this plugin provides an `enhance` task and a `testEnhance` task that support the same
-set of enhancement options as in the official datanucleus-maven-plugin, i.e.:
+All those tasks support the same set of enhancement options as in
+the official datanucleus-maven-plugin, i.e.:
 
 | Property        | Default value           | Description  |
 |-----------------|-------------------------|--------------|

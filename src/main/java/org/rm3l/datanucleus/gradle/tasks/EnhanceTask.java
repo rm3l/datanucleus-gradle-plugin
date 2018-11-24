@@ -30,6 +30,7 @@ import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.*;
+import org.gradle.internal.impldep.org.apache.commons.lang.BooleanUtils;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
 
 import java.io.File;
@@ -58,7 +59,9 @@ public class EnhanceTask extends DefaultTask {
     private final Property<Boolean> generateConstructor;
     private final Property<Boolean> detachListener;
     private final Property<Boolean> ignoreMetaDataForMissingClasses;
+    private final Property<Boolean> checkOnly;
 
+    @SuppressWarnings("WeakerAccess")
     public EnhanceTask() {
         final ObjectFactory objects = getProject().getObjects();
         skip = objects.property(Boolean.class);
@@ -74,6 +77,7 @@ public class EnhanceTask extends DefaultTask {
         generateConstructor = objects.property(Boolean.class);
         detachListener = objects.property(Boolean.class);
         ignoreMetaDataForMissingClasses = objects.property(Boolean.class);
+        checkOnly = objects.property(Boolean.class);
     }
 
     @Input
@@ -150,6 +154,12 @@ public class EnhanceTask extends DefaultTask {
         return ignoreMetaDataForMissingClasses;
     }
 
+    @Input
+    @Optional
+    public Property<Boolean> getCheckOnly() {
+        return checkOnly;
+    }
+
     @SuppressWarnings("unused")
     @TaskAction
     public void performEnhancement() throws MalformedURLException {
@@ -205,8 +215,15 @@ public class EnhanceTask extends DefaultTask {
                     .setGeneratePK(generatePK.get())
                     .setSystemOut(!quiet.get())
                     .setOutputDirectory(targetDirectory.get().getAbsolutePath());
-            final int result = enhancer.enhance();
-            projectLogger.info("Enhanced {} class using DataNucleus Enhancer", result);
+            final int result;
+            //noinspection ConstantConditions
+            if (checkOnly.get() != null && checkOnly.get()) {
+                result = enhancer.validate();
+                getProject().getLogger().info("Enhancement validation succeeded for {} class(es)", result);
+            } else {
+                result = enhancer.enhance();
+                projectLogger.info("Enhanced {} class using DataNucleus Enhancer", result);
+            }
         }
     }
 }
