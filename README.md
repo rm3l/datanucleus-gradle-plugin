@@ -133,6 +133,7 @@ set of enhancement options as in the official datanucleus-maven-plugin, i.e.:
 | `generateConstructor`      | `true` | Generate a default constructor if not defined for the class being enhanced. |
 | `detachListener`      | `false` | Whether to enhance classes to make use of a detach listener for attempts to access an un-detached field. |
 | `ignoreMetaDataForMissingClasses`      | `false` | Whether to ignore when we have metadata specified for classes that are not found (e.g in *orm.xml*) |
+| `skip`      | `false` | Whether to skip execution |
 
 
 Note that by default, the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task
