@@ -29,7 +29,7 @@ Currently the only capability added is for bytecode enhancement of the user doma
 
 ## Getting Started
 
-This plugin is published to the Gradle Plugins repo.
+This plugin is published to the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.rm3l.datanucleus-gradle-plugin).
 
 * Build script snippet for plugins DSL for Gradle 2.1 and later:
 
