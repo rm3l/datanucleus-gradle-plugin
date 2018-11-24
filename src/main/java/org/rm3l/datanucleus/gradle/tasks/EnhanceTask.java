@@ -216,13 +216,14 @@ public class EnhanceTask extends DefaultTask {
                     .setSystemOut(!quiet.get())
                     .setOutputDirectory(targetDirectory.get().getAbsolutePath());
             final int result;
-        //noinspection ConstantConditions
-        if (checkOnly.get() != null && checkOnly.get()) {
-            result = enhancer.validate();
-            getProject().getLogger().info("Enhancement validation succeeded for {} class(es)", result);
-        } else {
-            result =enhancer.enhance();
-            projectLogger.info("Enhanced {} class using DataNucleus Enhancer", result);
+            //noinspection ConstantConditions
+            if (checkOnly.get() != null && checkOnly.get()) {
+                result = enhancer.validate();
+                getProject().getLogger().info("Enhancement validation succeeded for {} class(es)", result);
+            } else {
+                result = enhancer.enhance();
+                projectLogger.info("Enhanced {} class using DataNucleus Enhancer", result);
+            }
         }
     }
 }

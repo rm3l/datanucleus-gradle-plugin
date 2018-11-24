@@ -97,6 +97,9 @@ class DataNucleusPluginTest {
         assertNotNull(enhanceTask);
         assertSame(SUCCESS, enhanceTask.getOutcome());
 
+        final BuildTask enhanceCheckTask = result.task(":enhanceCheck");
+        assertNull(enhanceCheckTask);
+
         final String output = result.getOutput();
         assertNotNull(output);
         assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
@@ -182,6 +185,12 @@ class DataNucleusPluginTest {
         final String output = result.getOutput();
         assertNotNull(output);
         assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+
+        final BuildTask enhanceCheckTask = result.task(":enhanceCheck");
+        assertNull(enhanceCheckTask);
+
+        final BuildTask testEnhanceCheckTask = result.task(":testEnhanceCheck");
+        assertNull(testEnhanceCheckTask);
     }
 
     @Test
