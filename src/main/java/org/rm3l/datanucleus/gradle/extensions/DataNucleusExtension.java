@@ -24,15 +24,10 @@ package org.rm3l.datanucleus.gradle.extensions;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
-import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
-import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.extensions.enhance.EnhanceExtension;
-import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
-
-import java.io.File;
-import java.util.Set;
+import org.rm3l.datanucleus.gradle.extensions.schematool.SchemaToolExtension;
 
 /**
  * Extension for the 'datanucleus' DSL entrypoint
@@ -51,10 +46,21 @@ public class DataNucleusExtension {
 
     private final EnhanceExtension testEnhance;
 
+    private final SchemaToolExtension schemaTool;
+
     public DataNucleusExtension(Project project) {
         this.project = project;
-        this.enhance = new EnhanceExtension(project, SourceSet.MAIN_SOURCE_SET_NAME);
-        this.testEnhance = new EnhanceExtension(project, SourceSet.TEST_SOURCE_SET_NAME);
+        this.enhance = new EnhanceExtension(this, SourceSet.MAIN_SOURCE_SET_NAME);
+        this.testEnhance = new EnhanceExtension(this, SourceSet.TEST_SOURCE_SET_NAME);
+        this.schemaTool = new SchemaToolExtension(this);
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public Boolean getSkip() {
+        return skip;
     }
 
     private DataNucleusExtension skip(Boolean skip) {
@@ -73,35 +79,7 @@ public class DataNucleusExtension {
         this.testEnhance.configureExtensionAndTask(closure, TEST_ENHANCE_TASK_NAME, new String[] {"testClasses"});
     }
 
-    private void configureTask(EnhanceExtension enhanceExtension, EnhanceTask task) {
-        final Boolean enhanceExtensionSkip = enhanceExtension.getSkip();
-        final Property<Boolean> taskSkip = task.getSkip();
-        taskSkip.set(this.skip);
-        taskSkip.set(enhanceExtensionSkip);
-        task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
-        task.getLog4jConfiguration().set(enhanceExtension.getLog4jConfiguration());
-        task.getJdkLogConfiguration().set(enhanceExtension.getJdkLogConfiguration());
-        task.getApi().set(enhanceExtension.getApi());
-        task.getVerbose().set(enhanceExtension.isVerbose());
-        task.getQuiet().set(enhanceExtension.isQuiet());
-        final File targetDirectory = enhanceExtension.getTargetDirectory();
-        final Property<File> taskTargetDirectory = task.getTargetDirectory();
-        if (targetDirectory != null) {
-            taskTargetDirectory.set(targetDirectory);
-        } else {
-            final SourceSet sourceSet = enhanceExtension.getSourceSet();
-            final Set<File> files = sourceSet.getOutput().getClassesDirs().getFiles();
-            if (!files.isEmpty()) {
-                taskTargetDirectory.set(files.iterator().next());
-            }
-        }
-        task.getFork().set(enhanceExtension.isFork());
-        task.getGeneratePK().set(enhanceExtension.isGeneratePK());
-        task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
-        task.getGenerateConstructor().set(enhanceExtension.isGenerateConstructor());
-        task.getDetachListener().set(enhanceExtension.isDetachListener());
-        task.getIgnoreMetaDataForMissingClasses()
-                .set(enhanceExtension.isIgnoreMetaDataForMissingClasses());
+    private void schemaTool(Closure closure) {
+        this.schemaTool.configureExtensionAndTasks(closure);
     }
-
 }
