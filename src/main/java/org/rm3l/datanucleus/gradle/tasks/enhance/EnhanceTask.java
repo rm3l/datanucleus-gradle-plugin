@@ -127,6 +127,7 @@ public class EnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public Property<Boolean> getFork() {
         return fork;
     }

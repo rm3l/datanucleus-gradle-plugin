@@ -22,12 +22,19 @@
 
 package org.rm3l.datanucleus.gradle.extensions.enhance;
 
+import groovy.lang.Closure;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPluginConvention;
+import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
+import org.gradle.api.tasks.TaskContainer;
+import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
+import org.rm3l.datanucleus.gradle.extensions.DataNucleusExtension;
+import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
 
 import java.io.File;
+import java.util.Set;
 
 /**
  * Extension for the 'enhance' DSL, part of the parent 'datanucleus' one
@@ -35,6 +42,8 @@ import java.io.File;
 @SuppressWarnings("unused")
 public class EnhanceExtension {
 
+    private final Project project;
+    private final DataNucleusExtension dataNucleusExtension;
     private String persistenceUnitName;
     private File log4jConfiguration;
     private File jdkLogConfiguration;
@@ -54,11 +63,13 @@ public class EnhanceExtension {
     private SourceSet sourceSet;
     private Boolean skip = null;
 
-    public EnhanceExtension(Project project, String defaultSourceSetName) {
-        this(false, project, defaultSourceSetName);
+    public EnhanceExtension(DataNucleusExtension dataNucleusExtension, String defaultSourceSetName) {
+        this(dataNucleusExtension, false, defaultSourceSetName);
     }
 
-    public EnhanceExtension(boolean skip, Project project, String defaultSourceSetName) {
+    public EnhanceExtension(DataNucleusExtension dataNucleusExtension, boolean skip, String defaultSourceSetName) {
+        this.dataNucleusExtension = dataNucleusExtension;
+        this.project = dataNucleusExtension.getProject();
         this.skip(skip);
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
@@ -197,4 +208,60 @@ public class EnhanceExtension {
         this.ignoreMetaDataForMissingClasses = ignoreMetaDataForMissingClasses;
         return this;
     }
+
+    public void configureExtensionAndTask(final Closure closure,
+                                           final String taskName,
+                                           final String[] dependentTasks) {
+
+        ConfigureUtil.configure(closure, this);
+
+        final TaskContainer projectTasks = project.getTasks();
+        projectTasks.create(taskName, EnhanceTask.class,
+                task -> {
+                    configureTask(task);
+                    task.getCheckOnly().set(false);
+                });
+
+        for (final String dependentTask : dependentTasks) {
+            projectTasks.getByName(dependentTask).dependsOn(taskName);
+        }
+
+        projectTasks.create(taskName + "Check", EnhanceTask.class,
+                task -> {
+                    configureTask(task);
+                    task.getCheckOnly().set(true);
+                });
+    }
+
+    private void configureTask(EnhanceTask task) {
+        final Boolean enhanceExtensionSkip = this.getSkip();
+        final Property<Boolean> taskSkip = task.getSkip();
+        taskSkip.set(this.dataNucleusExtension.getSkip());
+        taskSkip.set(enhanceExtensionSkip);
+        task.getPersistenceUnitName().set(this.getPersistenceUnitName());
+        task.getLog4jConfiguration().set(this.getLog4jConfiguration());
+        task.getJdkLogConfiguration().set(this.getJdkLogConfiguration());
+        task.getApi().set(this.getApi());
+        task.getVerbose().set(this.isVerbose());
+        task.getQuiet().set(this.isQuiet());
+        final File targetDirectory = this.getTargetDirectory();
+        final Property<File> taskTargetDirectory = task.getTargetDirectory();
+        if (targetDirectory != null) {
+            taskTargetDirectory.set(targetDirectory);
+        } else {
+            final SourceSet sourceSet = this.getSourceSet();
+            final Set<File> files = sourceSet.getOutput().getClassesDirs().getFiles();
+            if (!files.isEmpty()) {
+                taskTargetDirectory.set(files.iterator().next());
+            }
+        }
+        task.getFork().set(this.isFork());
+        task.getGeneratePK().set(this.isGeneratePK());
+        task.getPersistenceUnitName().set(this.getPersistenceUnitName());
+        task.getGenerateConstructor().set(this.isGenerateConstructor());
+        task.getDetachListener().set(this.isDetachListener());
+        task.getIgnoreMetaDataForMissingClasses()
+                .set(this.isIgnoreMetaDataForMissingClasses());
+    }
+
 }

@@ -66,42 +66,11 @@ public class DataNucleusExtension {
 
     //Auto-bind the DSL to a Gradle task
     private void enhance(Closure closure) {
-        configureExtensionAndTask(this.enhance,
-                closure,
-                ENHANCE_TASK_NAME,
-                new String[] {"classes"});
+        this.enhance.configureExtensionAndTask(closure, ENHANCE_TASK_NAME, new String[] {"classes"});
     }
 
     private void testEnhance(Closure closure) {
-        configureExtensionAndTask(this.testEnhance,
-                closure,
-                TEST_ENHANCE_TASK_NAME,
-                new String[] {"testClasses"});
-    }
-
-    private void configureExtensionAndTask(final EnhanceExtension enhanceExtension,
-                                           final Closure closure,
-                                           final String taskName,
-                                           final String[] dependentTasks) {
-        ConfigureUtil.configure(closure, enhanceExtension);
-
-        final TaskContainer projectTasks = project.getTasks();
-        projectTasks.create(taskName, EnhanceTask.class,
-                task -> {
-                    configureTask(enhanceExtension, task);
-                    task.getCheckOnly().set(false);
-                });
-
-
-        for (final String dependentTask : dependentTasks) {
-            projectTasks.getByName(dependentTask).dependsOn(taskName);
-        }
-
-        projectTasks.create(taskName + "Check", EnhanceTask.class,
-                task -> {
-                    configureTask(enhanceExtension, task);
-                    task.getCheckOnly().set(true);
-                });
+        this.testEnhance.configureExtensionAndTask(closure, TEST_ENHANCE_TASK_NAME, new String[] {"testClasses"});
     }
 
     private void configureTask(EnhanceExtension enhanceExtension, EnhanceTask task) {
