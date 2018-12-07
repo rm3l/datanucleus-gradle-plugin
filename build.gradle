@@ -28,7 +28,7 @@ plugins {
 }
 
 group 'org.rm3l'
-version '1.0.181124-SNAPSHOT'
+version '1.0.181206-SNAPSHOT'
 
 ext {
     datanucleusVersion = '5.+'
