@@ -2,7 +2,6 @@ package org.rm3l.datanucleus.gradle.extensions.schematool;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
-import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
@@ -23,7 +22,7 @@ public class SchemaToolExtension {
     public static final String CREATE_DATABASE_TABLES = "createDatabaseTables";
     public static final String DELETE_DATABASE_TABLES = "deleteDatabaseTables";
     public static final String DELETE_THEN_CREATE_DATABASE_TABLES = "deleteThenCreateDatabaseTables";
-    public static final String VALIDATE_DATABASE_TABBLES = "validateDatabaseTabbles";
+    public static final String VALIDATE_DATABASE_TABLES = "validateDatabaseTables";
     public static final String DBINFO = "dbinfo";
     public static final String SCHEMAINFO = "schemainfo";
     private final DataNucleusExtension datanucleusExtension;
@@ -234,7 +233,7 @@ public class SchemaToolExtension {
         schemaToolTasks.add(projectTasks.create(CREATE_DATABASE_TABLES, CreateDatabaseTablesTask.class, this::configureTask));
         schemaToolTasks.add(projectTasks.create(DELETE_DATABASE_TABLES, DeleteDatabaseTablesTask.class, this::configureTask));
         schemaToolTasks.add(projectTasks.create(DELETE_THEN_CREATE_DATABASE_TABLES, DeleteThenCreateDatabaseTablesTask.class, this::configureTask));
-        schemaToolTasks.add(projectTasks.create(VALIDATE_DATABASE_TABBLES, ValidateDatabaseTablesTask.class, this::configureTask));
+        schemaToolTasks.add(projectTasks.create(VALIDATE_DATABASE_TABLES, ValidateDatabaseTablesTask.class, this::configureTask));
         schemaToolTasks.add(projectTasks.create(DBINFO, DBInfoTask.class, this::configureTask));
         schemaToolTasks.add(projectTasks.create(SCHEMAINFO, SchemaInfoTask.class, this::configureTask));
 
