@@ -2,7 +2,6 @@ package org.rm3l.datanucleus.gradle.tasks.schematool;
 
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.BuildTask;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -16,8 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 
 @ExpectedSystemExit
@@ -36,9 +34,8 @@ class ValidateDatabaseTablesTaskTest {
                     });
 
     @Test
-    @DisplayName("should succeed creating the database against an in-memory datastore")
-    @Disabled("Disabled due to classloader issues with DN")
-    void test_schematool_CreateDatabase_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+    @DisplayName("should succeed validating the database tables against an in-memory datastore")
+    void test_ValidateDBTables_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
         final Path buildGradle = tempDir.resolve("build.gradle");
         Files.write(buildGradle,
                 ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
@@ -53,10 +50,6 @@ class ValidateDatabaseTablesTaskTest {
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
-//                        "  enhance {\n" +
-//                        "    api 'JPA'\n" +
-//                        "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
-//                        "  }\n" +
                         "  schemaTool {\n" +
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnit'\n" +
@@ -67,23 +60,14 @@ class ValidateDatabaseTablesTaskTest {
                 StandardOpenOption.TRUNCATE_EXISTING);
 
         //This does not make the build fail. Instead, a stacktrace is output by DataNucleus Enhancer
-        BuildResult result = gradle(tempDir, "build", "enhance", "validate");
+        BuildResult result = gradle(tempDir, "build", "validateDatabaseTables");
         assertNotNull(result);
-        BuildTask createDatabaseTask = result.task(":createDatabase");
-        assertNotNull(createDatabaseTask);
-        assertSame(SUCCESS, createDatabaseTask.getOutcome());
-//        String output = result.getOutput();
-//        assertNotNull(output);
-//        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
-//
-//        result = gradle(tempDir, "enhanceCheck");
-//        assertNotNull(result);
-//        createDatabaseTask = result.task(":enhanceCheck");
-//        assertNotNull(createDatabaseTask);
-//        assertSame(SUCCESS, createDatabaseTask.getOutcome());
-//        output = result.getOutput();
-//        assertNotNull(output);
-//        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
-
+        BuildTask validateDatabaseTablesTask = result.task(":validateDatabaseTables");
+        assertNotNull(validateDatabaseTablesTask);
+        assertSame(SUCCESS, validateDatabaseTablesTask.getOutcome());
+        String output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains("DataNucleus SchemaTool : Validation of the schema for classes"));
+        assertTrue(output.contains("DataNucleus SchemaTool completed successfully"));
     }
 }
