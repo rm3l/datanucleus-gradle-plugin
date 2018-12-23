@@ -160,34 +160,15 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
                     test.getResources().getSrcDirs().stream()
             );
 
-//            final Stream<File> fileStream = Stream.concat(mainStream, testStream);
-
-            final Set<String> duplicates = new HashSet<>();
             final Stream<File> fileStream = Stream.concat(
                     Stream.concat(mainStream, testStream),
-                    Stream.concat(main.getCompileClasspath().getFiles().stream(),
-                            test.getCompileClasspath().getFiles().stream()))
-                    .filter(file -> {
-                        final String fileName = file.getName();
-                        String dnLib = null;
-                        if (fileName.startsWith("datanucleus-core")) {
-                            dnLib = "datanucleus-core";
-                        } else if (fileName.startsWith("datanucleus-api-jpa")) {
-                            dnLib = "datanucleus-api-jpa";
-                        } else if (fileName.startsWith("datanucleus-jpa-query")) {
-                            dnLib = "datanucleus-jpa-query";
-                        } else if (fileName.startsWith("datanucleus-rdbms")) {
-                            dnLib = "datanucleus-rdbms";
-                        }
-                        if (dnLib == null) {
-                            return true;
-                        }
-                        if (duplicates.contains(dnLib)) {
-                            return false;
-                        }
-                        duplicates.add(dnLib);
-                        return true;
-                    });
+                    Stream.concat(
+                            main.getCompileClasspath().getFiles().stream(),
+                            test.getCompileClasspath().getFiles().stream()
+                    )
+                            .filter(file -> !file.getName().startsWith("datanucleus-core"))
+                            .filter(file -> !file.getName().startsWith("datanucleus-api-jpa"))
+            );
             final List<String> sourcePathList = fileStream.map(File::getAbsolutePath).collect(Collectors.toList());
             final URL[] classloaderUrls = new URL[sourcePathList.size()];
             int index = 0;
