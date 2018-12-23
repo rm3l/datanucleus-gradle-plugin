@@ -202,6 +202,12 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
             if (this.persistenceUnitName.isPresent()) {
                 args.addAll(Arrays.asList("-pu", this.persistenceUnitName.get()));
             }
+            if (this.catalogName.isPresent()) {
+                args.addAll(Arrays.asList("-catalog", this.catalogName.get()));
+            }
+            if (this.schemaName.isPresent()) {
+                args.addAll(Arrays.asList("-schema", this.schemaName.get()));
+            }
 
             final ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
             try {
