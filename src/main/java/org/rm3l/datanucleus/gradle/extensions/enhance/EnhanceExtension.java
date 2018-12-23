@@ -209,6 +209,10 @@ public class EnhanceExtension {
         return this;
     }
 
+    //Dummy method, just for the EnhanceTask to be created from SchemaTool extension
+    public void catalogName(String catalogName) {}
+    public void schemaName(String schemaName) {}
+
     public void configureExtensionAndTask(final Closure closure,
                                            final String taskName,
                                            final String[] dependentTasks) {
