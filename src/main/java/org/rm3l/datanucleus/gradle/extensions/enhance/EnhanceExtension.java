@@ -43,7 +43,7 @@ import java.util.Set;
 public class EnhanceExtension {
 
     private final Project project;
-    private final DataNucleusExtension dataNucleusExtension;
+    private final DataNucleusExtension datanucleusExtension;
     private String persistenceUnitName;
     private File log4jConfiguration;
     private File jdkLogConfiguration;
@@ -63,13 +63,13 @@ public class EnhanceExtension {
     private SourceSet sourceSet;
     private Boolean skip = null;
 
-    public EnhanceExtension(DataNucleusExtension dataNucleusExtension, String defaultSourceSetName) {
-        this(dataNucleusExtension, false, defaultSourceSetName);
+    public EnhanceExtension(DataNucleusExtension datanucleusExtension, String defaultSourceSetName) {
+        this(datanucleusExtension, false, defaultSourceSetName);
     }
 
-    public EnhanceExtension(DataNucleusExtension dataNucleusExtension, boolean skip, String defaultSourceSetName) {
-        this.dataNucleusExtension = dataNucleusExtension;
-        this.project = dataNucleusExtension.getProject();
+    public EnhanceExtension(DataNucleusExtension datanucleusExtension, boolean skip, String defaultSourceSetName) {
+        this.datanucleusExtension = datanucleusExtension;
+        this.project = datanucleusExtension.getProject();
         this.skip(skip);
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
@@ -236,8 +236,14 @@ public class EnhanceExtension {
     private void configureTask(EnhanceTask task) {
         final Boolean enhanceExtensionSkip = this.getSkip();
         final Property<Boolean> taskSkip = task.getSkip();
-        taskSkip.set(this.dataNucleusExtension.getSkip());
-        taskSkip.set(enhanceExtensionSkip);
+        boolean skip = false;
+        if (this.datanucleusExtension.getSkip() != null) {
+            skip = this.datanucleusExtension.getSkip();
+        }
+        if (enhanceExtensionSkip != null) {
+            skip = enhanceExtensionSkip;
+        }
+        taskSkip.set(skip);
         task.getPersistenceUnitName().set(this.getPersistenceUnitName());
         task.getLog4jConfiguration().set(this.getLog4jConfiguration());
         task.getJdkLogConfiguration().set(this.getJdkLogConfiguration());

@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class DeleteDatabaseTablesTask extends AbstractSchemaToolTask {
     @Override
-    void doExecuteSchemaToolOperation(SchemaAwareStoreManager storeManager, Properties properties) {
-//        storeManager.deleteSchemaForClasses();
+    protected String[] withSchemaToolArguments() {
+        throw new UnsupportedOperationException("TODO");
     }
 }

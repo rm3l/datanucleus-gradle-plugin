@@ -80,6 +80,8 @@ public class DataNucleusExtension {
     }
 
     private void schemaTool(Closure closure) {
+        this.enhance(closure);
+        this.testEnhance(closure);
         this.schemaTool.configureExtensionAndTasks(closure);
     }
 }

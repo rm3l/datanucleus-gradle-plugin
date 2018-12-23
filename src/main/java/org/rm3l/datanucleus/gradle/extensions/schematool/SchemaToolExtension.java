@@ -2,6 +2,7 @@ package org.rm3l.datanucleus.gradle.extensions.schematool;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
@@ -15,6 +16,14 @@ import java.io.File;
 
 public class SchemaToolExtension {
 
+    public static final String CREATE_DATABASE = "createDatabase";
+    public static final String DELETE_DATABASE = "deleteDatabase";
+    public static final String CREATE_DATABASE_TABLES = "createDatabaseTables";
+    public static final String DELETE_DATABASE_TABLES = "deleteDatabaseTables";
+    public static final String DELETE_THEN_CREATE_DATABASE_TABLES = "deleteThenCreateDatabaseTables";
+    public static final String VALIDATE_DATABASE_TABBLES = "validateDatabaseTabbles";
+    public static final String DBINFO = "dbinfo";
+    public static final String SCHEMAINFO = "schemainfo";
     private final DataNucleusExtension datanucleusExtension;
     private final Project project;
     private final SourceSet sourceSet;
@@ -216,21 +225,33 @@ public class SchemaToolExtension {
         ConfigureUtil.configure(closure, this);
 
         final TaskContainer projectTasks = datanucleusExtension.getProject().getTasks();
-        projectTasks.create("createDatabase", CreateDatabaseTask.class, this::configureTask);
-        projectTasks.create("deleteDatabase", DeleteDatabaseTask.class, this::configureTask);
-        projectTasks.create("createDatabaseTables", CreateDatabaseTablesTask.class, this::configureTask);
-        projectTasks.create("deleteDatabaseTables", DeleteDatabaseTablesTask.class, this::configureTask);
-        projectTasks.create("deleteThenCreateDatabaseTables", DeleteThenCreateDatabaseTablesTask.class, this::configureTask);
-        projectTasks.create("validateDatabaseTabbles", ValidateDatabaseTablesTask.class, this::configureTask);
-        projectTasks.create("dbinfo", DBInfoTask.class, this::configureTask);
-        projectTasks.create("schemainfo", SchemaInfoTask.class, this::configureTask);
+        projectTasks.create(CREATE_DATABASE, CreateDatabaseTask.class, this::configureTask);
+        projectTasks.create(DELETE_DATABASE, DeleteDatabaseTask.class, this::configureTask);
+        projectTasks.create(CREATE_DATABASE_TABLES, CreateDatabaseTablesTask.class, this::configureTask);
+        projectTasks.create(DELETE_DATABASE_TABLES, DeleteDatabaseTablesTask.class, this::configureTask);
+        projectTasks.create(DELETE_THEN_CREATE_DATABASE_TABLES, DeleteThenCreateDatabaseTablesTask.class, this::configureTask);
+        projectTasks.create(VALIDATE_DATABASE_TABBLES, ValidateDatabaseTablesTask.class, this::configureTask);
+        projectTasks.create(DBINFO, DBInfoTask.class, this::configureTask);
+        projectTasks.create(SCHEMAINFO, SchemaInfoTask.class, this::configureTask);
+
+        final Task enhanceTask = projectTasks.getByName("enhance");
+        for (final String enhancementDependentTask : new String[] {CREATE_DATABASE, DELETE_DATABASE, CREATE_DATABASE_TABLES,
+        DELETE_DATABASE_TABLES, DELETE_THEN_CREATE_DATABASE_TABLES, VALIDATE_DATABASE_TABBLES, DBINFO, SCHEMAINFO}) {
+            enhanceTask.dependsOn(enhancementDependentTask);
+        }
     }
 
     private void configureTask(AbstractSchemaToolTask task) {
-        final Boolean enhanceExtensionSkip = this.getSkip();
+        final Boolean schemaToolExtensionSkip = this.getSkip();
         final Property<Boolean> taskSkip = task.getSkip();
-        taskSkip.set(this.datanucleusExtension.getSkip());
-        taskSkip.set(enhanceExtensionSkip);
+        boolean skip = false;
+        if (this.datanucleusExtension.getSkip() != null) {
+            skip = this.datanucleusExtension.getSkip();
+        }
+        if (schemaToolExtensionSkip != null) {
+            skip = schemaToolExtensionSkip;
+        }
+        taskSkip.set(skip);
         task.getPersistenceUnitName().set(this.getPersistenceUnitName());
         task.getLog4jConfiguration().set(this.getLog4jConfiguration());
         task.getJdkLogConfiguration().set(this.getJdkLogConfiguration());

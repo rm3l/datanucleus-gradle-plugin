@@ -6,8 +6,7 @@ import java.util.Properties;
 
 public class DeleteThenCreateDatabaseTablesTask extends AbstractSchemaToolTask {
     @Override
-    void doExecuteSchemaToolOperation(SchemaAwareStoreManager storeManager, Properties properties) {
-//        storeManager.deleteSchemaForClasses();
-//        storeManager.createSchemaForClasses();
+    protected String[] withSchemaToolArguments() {
+        throw new UnsupportedOperationException("TODO");
     }
 }

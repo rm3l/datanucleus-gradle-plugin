@@ -1,21 +1,24 @@
 package org.rm3l.datanucleus.gradle.tasks.schematool;
 
-import org.datanucleus.PersistenceNucleusContext;
-import org.datanucleus.store.schema.SchemaAwareStoreManager;
+import org.datanucleus.store.schema.SchemaTool;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.model.ObjectFactory;
+import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.provider.Property;
-import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.*;
 import org.gradle.api.tasks.Optional;
-import org.gradle.api.tasks.TaskAction;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.File;
-import java.util.Properties;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.datanucleus.store.schema.SchemaTool.*;
 
 @SuppressWarnings("unused")
 public abstract class AbstractSchemaToolTask  extends DefaultTask {
@@ -123,7 +126,7 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
     }
 
     @TaskAction
-    public final void performSchemaToolOperation() {
+    public final void performSchemaToolOperation() throws Exception {
 
         final Project project = getProject();
         final Logger projectLogger = project.getLogger();
@@ -134,17 +137,95 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
                 projectLogger.debug("SchemaTool Task Execution skipped as requested");
             }
         } else {
-            final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnitName.get());
-            final PersistenceNucleusContext persistenceNucleusContext = entityManagerFactory.unwrap(PersistenceNucleusContext.class);
+            final JavaPluginConvention javaConvention =
+                    project.getConvention().getPlugin(JavaPluginConvention.class);
+            final SourceSet main = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
+            final SourceSetOutput mainOutput = main.getOutput();
 
-            final SchemaAwareStoreManager storeManager = (SchemaAwareStoreManager) persistenceNucleusContext.getStoreManager();
+            final SourceSet test = javaConvention.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME);
+            final SourceSetOutput testOutput = main.getOutput();
 
-            final Properties properties = new Properties();
-            // TODO Set any properties for schema generation
+            final Stream<File> mainStream = Stream.concat(
+                    Stream.concat(
+                            mainOutput.getClassesDirs().getFiles().stream(),
+                            Stream.of(mainOutput.getResourcesDir())
+                    ),
+                    main.getResources().getSrcDirs().stream()
+            );
+            final Stream<File> testStream = Stream.concat(
+                    Stream.concat(
+                            testOutput.getClassesDirs().getFiles().stream(),
+                            Stream.of(testOutput.getResourcesDir())
+                    ),
+                    test.getResources().getSrcDirs().stream()
+            );
 
-            this.doExecuteSchemaToolOperation(storeManager, properties);
+//            final Stream<File> fileStream = Stream.concat(mainStream, testStream);
+
+            final Set<String> duplicates = new HashSet<>();
+            final Stream<File> fileStream = Stream.concat(
+                    Stream.concat(mainStream, testStream),
+                    Stream.concat(main.getCompileClasspath().getFiles().stream(),
+                            test.getCompileClasspath().getFiles().stream()))
+                    .filter(file -> {
+                        final String fileName = file.getName();
+                        String dnLib = null;
+                        if (fileName.startsWith("datanucleus-core")) {
+                            dnLib = "datanucleus-core";
+                        } else if (fileName.startsWith("datanucleus-api-jpa")) {
+                            dnLib = "datanucleus-api-jpa";
+                        } else if (fileName.startsWith("datanucleus-jpa-query")) {
+                            dnLib = "datanucleus-jpa-query";
+                        } else if (fileName.startsWith("datanucleus-rdbms")) {
+                            dnLib = "datanucleus-rdbms";
+                        }
+                        if (dnLib == null) {
+                            return true;
+                        }
+                        if (duplicates.contains(dnLib)) {
+                            return false;
+                        }
+                        duplicates.add(dnLib);
+                        return true;
+                    });
+            final List<String> sourcePathList = fileStream.map(File::getAbsolutePath).collect(Collectors.toList());
+            final URL[] classloaderUrls = new URL[sourcePathList.size()];
+            int index = 0;
+            for (final String sourcePath : sourcePathList) {
+                classloaderUrls[index++] = new File(sourcePath + "/").toURI().toURL();
+            }
+            final URLClassLoader classLoader = new URLClassLoader(classloaderUrls,
+                    Thread.currentThread().getContextClassLoader());
+
+            final List<String> args = new ArrayList<>(Arrays.asList(this.withSchemaToolArguments()));
+            if (this.api.isPresent()) {
+                args.addAll(Arrays.asList("-" + OPTION_API, this.api.get().name()));
+            }
+            if (this.ddlFile.isPresent()) {
+                args.addAll(Arrays.asList("-" + OPTION_DDL_FILE, this.ddlFile.get().getAbsolutePath()));
+            }
+            if (this.completeDdl.isPresent()) {
+                args.addAll(Arrays.asList("-" + OPTION_COMPLETE_DDL, this.completeDdl.get().toString()));
+            }
+            if (this.completeDdl.isPresent()) {
+                args.addAll(Arrays.asList("-" + OPTION_COMPLETE_DDL, this.completeDdl.get().toString()));
+            }
+            if (this.ignoreMetaDataForMissingClasses.isPresent()) {
+                args.addAll(Arrays.asList("-ignoreMetaDataForMissingClasses", this.ignoreMetaDataForMissingClasses.get().toString()));
+            }
+            if (this.persistenceUnitName.isPresent()) {
+                args.addAll(Arrays.asList("-pu", this.persistenceUnitName.get()));
+            }
+
+            final ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
+            try {
+                Thread.currentThread().setContextClassLoader(classLoader);
+                SchemaTool.main(args.toArray(new String[0]));
+            } finally {
+                Thread.currentThread().setContextClassLoader(originalClassLoader);
+            }
         }
     }
 
-    abstract void doExecuteSchemaToolOperation(SchemaAwareStoreManager storeManager, Properties properties);
+    protected abstract String[] withSchemaToolArguments();
 }

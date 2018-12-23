@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class ValidateDatabaseTablesTask extends AbstractSchemaToolTask {
     @Override
-    void doExecuteSchemaToolOperation(SchemaAwareStoreManager storeManager, Properties properties) {
-//        storeManager.validateSchemaForClasses();
+    protected String[] withSchemaToolArguments() {
+        throw new UnsupportedOperationException("TODO");
     }
 }

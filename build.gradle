@@ -37,6 +37,7 @@ ext {
     javapoetVersion = '1.11.1'
     junitVersion = '5.3.1'
     junitPioneerVersion = '0.3.0'
+    systemRulesVersion = '1.19.0'
 }
 
 sourceCompatibility = 1.8
@@ -56,7 +57,10 @@ dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testCompile "org.junit-pioneer:junit-pioneer:${junitPioneerVersion}"
     testCompile "com.squareup:javapoet:${javapoetVersion}"
+    testCompile "com.github.stefanbirkner:system-rules:${systemRulesVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly "org.datanucleus:datanucleus-accessplatform-jpa-rdbms:${datanucleusVersion}"
+    testRuntimeOnly 'com.h2database:h2:1.4.192'
 }
 
 test {

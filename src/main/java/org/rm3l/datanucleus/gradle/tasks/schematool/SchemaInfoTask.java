@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class SchemaInfoTask extends AbstractSchemaToolTask {
     @Override
-    void doExecuteSchemaToolOperation(SchemaAwareStoreManager storeManager, Properties properties) {
-        //TODO
+    protected String[] withSchemaToolArguments() {
+        throw new UnsupportedOperationException("TODO");
     }
 }
