@@ -68,6 +68,10 @@ test {
     include 'org/rm3l/**/*Test*'
 }
 
+tasks.withType(Test) {
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+}
+
 gradlePlugin {
     plugins {
         datanucleusPlugin {
