@@ -125,6 +125,8 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
         return schemaName;
     }
 
+    protected void checkTaskOptionsValidity() {}
+
     @TaskAction
     public final void performSchemaToolOperation() throws Exception {
 
@@ -137,6 +139,9 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
                 projectLogger.debug("SchemaTool Task Execution skipped as requested");
             }
         } else {
+
+            this.checkTaskOptionsValidity();
+
             final JavaPluginConvention javaConvention =
                     project.getConvention().getPlugin(JavaPluginConvention.class);
             final SourceSet main = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);

@@ -10,4 +10,14 @@ public class CreateDatabaseTask extends AbstractSchemaToolTask  {
                 "-" + OPTION_CREATE_DATABASE
         };
     }
+
+    @Override
+    protected void checkTaskOptionsValidity() {
+        if (!this.getSchemaName().isPresent()) {
+            throw new IllegalArgumentException("Missing option: schemaName");
+        }
+        if (!this.getCatalogName().isPresent()) {
+            throw new IllegalArgumentException("Missing option: catalogName");
+        }
+    }
 }
