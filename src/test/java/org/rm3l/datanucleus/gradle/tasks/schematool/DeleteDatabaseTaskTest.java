@@ -16,12 +16,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
-import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
 @ExpectedSystemExit
-class CreateDatabaseTaskTest {
+class DeleteDatabaseTaskTest {
 
     @RegisterExtension
     final DataNucleusPluginTestExtension dataNucleusPluginTestExtension
@@ -67,7 +67,7 @@ class CreateDatabaseTaskTest {
                 StandardOpenOption.TRUNCATE_EXISTING);
 
         //This does not make the build fail. Instead, a stacktrace is output by DataNucleus Enhancer
-        BuildResult result = gradle(tempDir, "build", "enhance", "dbInfo");
+        BuildResult result = gradle(tempDir, "build", "enhance", "deleteDatabase");
         assertNotNull(result);
         BuildTask createDatabaseTask = result.task(":createDatabase");
         assertNotNull(createDatabaseTask);

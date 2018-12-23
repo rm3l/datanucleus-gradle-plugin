@@ -4,9 +4,14 @@ import org.datanucleus.store.schema.SchemaAwareStoreManager;
 
 import java.util.Properties;
 
+import static org.datanucleus.store.schema.SchemaTool.OPTION_DELETE_DATABASE;
+import static org.datanucleus.store.schema.SchemaTool.OPTION_DELETE_TABLES_FOR_CLASSES;
+
 public class DeleteDatabaseTask extends AbstractSchemaToolTask {
     @Override
     protected String[] withSchemaToolArguments() {
-        throw new UnsupportedOperationException("TODO");
+        return new String[] {
+                "-" + OPTION_DELETE_DATABASE
+        };
     }
 }
