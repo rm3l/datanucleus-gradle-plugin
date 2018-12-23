@@ -1,11 +1,6 @@
 package org.rm3l.datanucleus.gradle.tasks.schematool;
 
-import org.datanucleus.store.schema.SchemaAwareStoreManager;
-
-import java.util.Properties;
-
 import static org.datanucleus.store.schema.SchemaTool.OPTION_DELETE_DATABASE;
-import static org.datanucleus.store.schema.SchemaTool.OPTION_DELETE_TABLES_FOR_CLASSES;
 
 public class DeleteDatabaseTask extends AbstractSchemaToolTask {
     @Override
@@ -13,5 +8,15 @@ public class DeleteDatabaseTask extends AbstractSchemaToolTask {
         return new String[] {
                 "-" + OPTION_DELETE_DATABASE
         };
+    }
+
+    @Override
+    protected void checkTaskOptionsValidity() {
+        if (!this.getSchemaName().isPresent()) {
+            throw new IllegalArgumentException("Missing option: schemaName");
+        }
+        if (!this.getCatalogName().isPresent()) {
+            throw new IllegalArgumentException("Missing option: catalogName");
+        }
     }
 }

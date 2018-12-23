@@ -42,13 +42,6 @@ public final class TestUtils {
                 .withPluginClasspath()
                 .forwardOutput()
                 .withDebug(true);
-//        runner.withPluginClasspath(
-//                runner.getPluginClasspath()
-//                .stream()
-//                .filter(file -> !file.getName().startsWith("datanucleus-core"))
-////                .filter(file -> !file.getName().startsWith("datanucleus-rdbms"))
-////                .filter(file -> !file.getName().startsWith("datanucleus-api"))
-//                .collect(Collectors.toList()));
         return isSuccessExpected ? runner.build() : runner.buildAndFail();
     }
 
