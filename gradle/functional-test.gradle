@@ -13,6 +13,11 @@ configurations {
 }
 
 task functionalTest(type: Test) {
+    jacoco {
+        append = true
+        destinationFile = file("$buildDir/jacoco/test.exec")
+        classDumpDir = file("$buildDir/jacoco/classpathdumps")
+    }
     description = 'Runs the functional tests.'
     group = 'verification'
     testClassesDirs = sourceSets.functionalTest.output.classesDirs

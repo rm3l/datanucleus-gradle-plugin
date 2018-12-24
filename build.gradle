@@ -82,13 +82,15 @@ gradlePlugin {
 }
 
 jacocoTestReport {
+    executionData fileTree(buildDir).include("/jacoco/*.exec")
     reports {
-        xml.enabled true
-        html.enabled true
+        xml.enabled = true
+        html.enabled = true
     }
 }
 
 check.dependsOn jacocoTestReport
+jacocoTestReport.dependsOn functionalTest
 
 // The configuration example below shows the minimum required properties
 // configured to publish your plugin to the plugin portal
