@@ -21,7 +21,7 @@ import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
 @ExpectedSystemExit
-class CreateDatabaseTaskTest {
+class CreateDatabaseTaskFTest {
 
     @RegisterExtension
     final DataNucleusPluginTestExtension dataNucleusPluginTestExtension

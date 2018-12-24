@@ -16,10 +16,9 @@ import java.nio.file.StandardOpenOption;
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
-import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
 @ExtendWith(DataNucleusPluginTestExtension.class)
-class EnhanceCheckTaskTest {
+class TestEnhanceCheckTaskFTest {
 
     @Test
     @DisplayName("should not succeed calling enhanceCheck if no enhancement beforehand")
@@ -37,7 +36,7 @@ class EnhanceCheckTaskTest {
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
-                        "  enhance {\n" +
+                        "  testEnhance {\n" +
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
                         "  }\n" +
@@ -46,9 +45,9 @@ class EnhanceCheckTaskTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult enhanceCheckResult = gradle(tempDir, "enhanceCheck");
-        assertNotNull(enhanceCheckResult);
-        final String output = enhanceCheckResult.getOutput();
+        final BuildResult testEnhanceCheckResult = gradle(tempDir, "testEnhanceCheck");
+        assertNotNull(testEnhanceCheckResult);
+        final String output = testEnhanceCheckResult.getOutput();
         assertNotNull(output);
         assertTrue(output.contains(
                 "Class \"org.rm3l.datanucleus.gradle.test.domain.Person\" was not found in the CLASSPATH. " +
@@ -57,8 +56,8 @@ class EnhanceCheckTaskTest {
     }
 
     @Test
-    @DisplayName("should succeed checking class enhancement domain test classes if a build had been performed beforehand")
-    void test_enhanceCheck_with_build_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+    @DisplayName("should succeed checking domain test classes if a build had been performed beforehand")
+    void test_testEnhanceCheck_with_build_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
         final Path buildGradle = tempDir.resolve("build.gradle");
         Files.write(buildGradle,
                 ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
@@ -72,7 +71,7 @@ class EnhanceCheckTaskTest {
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
-                        "  enhance {\n" +
+                        "  testEnhance {\n" +
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
                         "  }\n" +
@@ -82,23 +81,22 @@ class EnhanceCheckTaskTest {
                 StandardOpenOption.TRUNCATE_EXISTING);
 
         //This does not make the build fail. Instead, a stacktrace is output by DataNucleus Enhancer
-        BuildResult result = gradle(tempDir, "build", "enhanceCheck");
+        BuildResult result = gradle(tempDir, "build", "testEnhanceCheck");
         assertNotNull(result);
-        BuildTask enhanceCheckTask = result.task(":enhanceCheck");
-        assertNotNull(enhanceCheckTask);
+        BuildTask testEnhanceCheckTask = result.task(":testEnhanceCheck");
+        assertNotNull(testEnhanceCheckTask);
         String output = result.getOutput();
         assertNotNull(output);
         assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
 
-        result = gradle(tempDir, "enhanceCheck");
+        result = gradle(tempDir, "testEnhanceCheck");
         assertNotNull(result);
-        enhanceCheckTask = result.task(":enhanceCheck");
-        assertNotNull(enhanceCheckTask);
-        assertSame(SUCCESS, enhanceCheckTask.getOutcome());
+        testEnhanceCheckTask = result.task(":testEnhanceCheck");
+        assertNotNull(testEnhanceCheckTask);
+        assertSame(SUCCESS, testEnhanceCheckTask.getOutcome());
         output = result.getOutput();
         assertNotNull(output);
         assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
 
     }
-
 }

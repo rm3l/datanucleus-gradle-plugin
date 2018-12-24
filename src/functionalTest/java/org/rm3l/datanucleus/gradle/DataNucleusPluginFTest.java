@@ -24,9 +24,11 @@ package org.rm3l.datanucleus.gradle;
 
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.BuildTask;
+import org.gradle.testkit.runner.TaskOutcome;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rm3l.datanucleus.gradle.utils.DataNucleusPluginTestExtension;
+import org.rm3l.datanucleus.gradle.utils.TestUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -34,12 +36,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
-import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
-
 @ExtendWith(DataNucleusPluginTestExtension.class)
-class DataNucleusPluginTest {
+class DataNucleusPluginFTest {
 
     @Test
     @DisplayName("should add DN extension to the build")
@@ -52,18 +50,18 @@ class DataNucleusPluginTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
-        final BuildResult result = gradle(tempDir, "--debug", "build");
-        assertNotNull(result);
+        final BuildResult result = TestUtils.gradle(tempDir, "--debug", "build");
+        Assertions.assertNotNull(result);
 
         final String output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("Adding DataNucleus extensions to the build "));
+        Assertions.assertNotNull(output);
+        Assertions.assertTrue(output.contains("Adding DataNucleus extensions to the build "));
     }
 
     @Test
@@ -77,8 +75,8 @@ class DataNucleusPluginTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -91,18 +89,18 @@ class DataNucleusPluginTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = gradle(tempDir, "build");
-        assertNotNull(result);
+        final BuildResult result = TestUtils.gradle(tempDir, "build");
+        Assertions.assertNotNull(result);
         final BuildTask enhanceTask = result.task(":enhance");
-        assertNotNull(enhanceTask);
-        assertSame(SUCCESS, enhanceTask.getOutcome());
+        Assertions.assertNotNull(enhanceTask);
+        Assertions.assertSame(TaskOutcome.SUCCESS, enhanceTask.getOutcome());
 
         final BuildTask enhanceCheckTask = result.task(":enhanceCheck");
-        assertNull(enhanceCheckTask);
+        Assertions.assertNull(enhanceCheckTask);
 
         final String output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        Assertions.assertNotNull(output);
+        Assertions.assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
     }
 
     @Test
@@ -116,8 +114,8 @@ class DataNucleusPluginTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -130,15 +128,15 @@ class DataNucleusPluginTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = gradle(tempDir, "build");
-        assertNotNull(result);
+        final BuildResult result = TestUtils.gradle(tempDir, "build");
+        Assertions.assertNotNull(result);
         final BuildTask enhanceTask = result.task(":testEnhance");
-        assertNotNull(enhanceTask);
-        assertSame(SUCCESS, enhanceTask.getOutcome());
+        Assertions.assertNotNull(enhanceTask);
+        Assertions.assertSame(TaskOutcome.SUCCESS, enhanceTask.getOutcome());
 
         final String output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        Assertions.assertNotNull(output);
+        Assertions.assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
     }
 
     @Test
@@ -152,8 +150,8 @@ class DataNucleusPluginTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -171,26 +169,26 @@ class DataNucleusPluginTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = gradle(tempDir, "build");
-        assertNotNull(result);
+        final BuildResult result = TestUtils.gradle(tempDir, "build");
+        Assertions.assertNotNull(result);
 
         final BuildTask enhanceTask = result.task(":enhance");
-        assertNotNull(enhanceTask);
-        assertSame(SUCCESS, enhanceTask.getOutcome());
+        Assertions.assertNotNull(enhanceTask);
+        Assertions.assertSame(TaskOutcome.SUCCESS, enhanceTask.getOutcome());
 
         final BuildTask testEnhanceTask = result.task(":testEnhance");
-        assertNotNull(testEnhanceTask);
-        assertSame(SUCCESS, testEnhanceTask.getOutcome());
+        Assertions.assertNotNull(testEnhanceTask);
+        Assertions.assertSame(TaskOutcome.SUCCESS, testEnhanceTask.getOutcome());
 
         final String output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        Assertions.assertNotNull(output);
+        Assertions.assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
 
         final BuildTask enhanceCheckTask = result.task(":enhanceCheck");
-        assertNull(enhanceCheckTask);
+        Assertions.assertNull(enhanceCheckTask);
 
         final BuildTask testEnhanceCheckTask = result.task(":testEnhanceCheck");
-        assertNull(testEnhanceCheckTask);
+        Assertions.assertNull(testEnhanceCheckTask);
     }
 
     @Test
@@ -203,8 +201,8 @@ class DataNucleusPluginTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -223,21 +221,21 @@ class DataNucleusPluginTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = gradle(tempDir, "build", "--debug");
-        assertNotNull(result);
+        final BuildResult result = TestUtils.gradle(tempDir, "build", "--debug");
+        Assertions.assertNotNull(result);
 
         final BuildTask enhanceTask = result.task(":enhance");
-        assertNotNull(enhanceTask);
-        assertSame(SUCCESS, enhanceTask.getOutcome());
+        Assertions.assertNotNull(enhanceTask);
+        Assertions.assertSame(TaskOutcome.SUCCESS, enhanceTask.getOutcome());
 
         final BuildTask testEnhanceTask = result.task(":testEnhance");
-        assertNotNull(testEnhanceTask);
-        assertSame(SUCCESS, testEnhanceTask.getOutcome());
+        Assertions.assertNotNull(testEnhanceTask);
+        Assertions.assertSame(TaskOutcome.SUCCESS, testEnhanceTask.getOutcome());
 
         final String output = result.getOutput();
-        assertNotNull(output);
-        assertFalse(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
-        assertTrue(output.contains("Enhancement Task Execution skipped as requested"));
+        Assertions.assertNotNull(output);
+        Assertions.assertFalse(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        Assertions.assertTrue(output.contains("Enhancement Task Execution skipped as requested"));
     }
 
     @Test
@@ -250,8 +248,8 @@ class DataNucleusPluginTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -266,17 +264,17 @@ class DataNucleusPluginTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = gradle(tempDir, "build", "--debug");
-        assertNotNull(result);
+        final BuildResult result = TestUtils.gradle(tempDir, "build", "--debug");
+        Assertions.assertNotNull(result);
 
         final BuildTask enhanceTask = result.task(":enhance");
-        assertNotNull(enhanceTask);
-        assertSame(SUCCESS, enhanceTask.getOutcome());
+        Assertions.assertNotNull(enhanceTask);
+        Assertions.assertSame(TaskOutcome.SUCCESS, enhanceTask.getOutcome());
 
         final String output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
-        assertFalse(output.contains("Enhancement Task Execution skipped as requested"));
+        Assertions.assertNotNull(output);
+        Assertions.assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        Assertions.assertFalse(output.contains("Enhancement Task Execution skipped as requested"));
     }
 
 }

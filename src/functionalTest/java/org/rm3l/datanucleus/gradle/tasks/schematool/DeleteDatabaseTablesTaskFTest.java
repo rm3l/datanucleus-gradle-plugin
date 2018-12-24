@@ -16,11 +16,10 @@ import java.nio.file.StandardOpenOption;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 
 @ExpectedSystemExit
-class CreateDatabaseTablesTaskTest {
+class DeleteDatabaseTablesTaskFTest {
 
     @RegisterExtension
     final DataNucleusPluginTestExtension dataNucleusPluginTestExtension
@@ -35,8 +34,8 @@ class CreateDatabaseTablesTaskTest {
                     });
 
     @Test
-    @DisplayName("should succeed creating the database tables against an in-memory datastore")
-    void test_CreateDBTables_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+    @DisplayName("should succeed deleting the database tables against an in-memory datastore")
+    void test_DeleteDBTables_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
         final Path buildGradle = tempDir.resolve("build.gradle");
         Files.write(buildGradle,
                 ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
@@ -61,14 +60,14 @@ class CreateDatabaseTablesTaskTest {
                 StandardOpenOption.TRUNCATE_EXISTING);
 
         //This does not make the build fail. Instead, a stacktrace is output by DataNucleus Enhancer
-        BuildResult result = gradle(tempDir, "build", "createDatabaseTables");
+        BuildResult result = gradle(tempDir, "build", "deleteDatabaseTables");
         assertNotNull(result);
-        BuildTask createDatabaseTablesTask = result.task(":createDatabaseTables");
-        assertNotNull(createDatabaseTablesTask);
-        assertSame(SUCCESS, createDatabaseTablesTask.getOutcome());
+        BuildTask deleteDatabaseTablesTask = result.task(":deleteDatabaseTables");
+        assertNotNull(deleteDatabaseTablesTask);
+        assertSame(SUCCESS, deleteDatabaseTablesTask.getOutcome());
         String output = result.getOutput();
         assertNotNull(output);
-        assertTrue(output.contains("DataNucleus SchemaTool : Creation of the schema for classes"));
+        assertTrue(output.contains("DataNucleus SchemaTool : Deletion of the schema for classes"));
         assertTrue(output.contains("DataNucleus SchemaTool completed successfully"));
     }
 }

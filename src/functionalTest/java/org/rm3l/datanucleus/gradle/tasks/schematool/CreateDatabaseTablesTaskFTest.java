@@ -16,10 +16,11 @@ import java.nio.file.StandardOpenOption;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 
 @ExpectedSystemExit
-class ValidateDatabaseTablesTaskTest {
+class CreateDatabaseTablesTaskFTest {
 
     @RegisterExtension
     final DataNucleusPluginTestExtension dataNucleusPluginTestExtension
@@ -34,8 +35,8 @@ class ValidateDatabaseTablesTaskTest {
                     });
 
     @Test
-    @DisplayName("should succeed validating the database tables against an in-memory datastore")
-    void test_ValidateDBTables_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+    @DisplayName("should succeed creating the database tables against an in-memory datastore")
+    void test_CreateDBTables_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
         final Path buildGradle = tempDir.resolve("build.gradle");
         Files.write(buildGradle,
                 ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
@@ -60,52 +61,14 @@ class ValidateDatabaseTablesTaskTest {
                 StandardOpenOption.TRUNCATE_EXISTING);
 
         //This does not make the build fail. Instead, a stacktrace is output by DataNucleus Enhancer
-        BuildResult result = gradle(tempDir, "build", "validateDatabaseTables");
+        BuildResult result = gradle(tempDir, "build", "createDatabaseTables");
         assertNotNull(result);
-        BuildTask validateDatabaseTablesTask = result.task(":validateDatabaseTables");
-        assertNotNull(validateDatabaseTablesTask);
-        assertSame(SUCCESS, validateDatabaseTablesTask.getOutcome());
+        BuildTask createDatabaseTablesTask = result.task(":createDatabaseTables");
+        assertNotNull(createDatabaseTablesTask);
+        assertSame(SUCCESS, createDatabaseTablesTask.getOutcome());
         String output = result.getOutput();
         assertNotNull(output);
-        assertTrue(output.contains("DataNucleus SchemaTool : Validation of the schema for classes"));
+        assertTrue(output.contains("DataNucleus SchemaTool : Creation of the schema for classes"));
         assertTrue(output.contains("DataNucleus SchemaTool completed successfully"));
-    }
-
-    @Test
-    @DisplayName("should skip validating the database tables against an in-memory datastore")
-    void test_ValidateDBTables_skip(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
-        final Path buildGradle = tempDir.resolve("build.gradle");
-        Files.write(buildGradle,
-                ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
-                        "repositories {\n" +
-                        "  mavenCentral()\n" +
-                        "}\n" +
-                        "\n" +
-                        "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  compile 'com.h2database:h2:" + H2_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
-                        "}\n" +
-                        "\n" +
-                        "datanucleus {\n" +
-                        "  schemaTool {\n" +
-                        "    skip true\n" +
-                        "    api 'JPA'\n" +
-                        "    persistenceUnitName 'myPersistenceUnit'\n" +
-                        "  }\n" +
-                        "}\n")
-                        .getBytes(StandardCharsets.UTF_8),
-                StandardOpenOption.CREATE,
-                StandardOpenOption.TRUNCATE_EXISTING);
-
-        //This does not make the build fail. Instead, a stacktrace is output by DataNucleus Enhancer
-        BuildResult result = gradle(tempDir, "build", "validateDatabaseTables", "--debug");
-        assertNotNull(result);
-        BuildTask validateDatabaseTablesTask = result.task(":validateDatabaseTables");
-        assertNotNull(validateDatabaseTablesTask);
-        assertSame(SUCCESS, validateDatabaseTablesTask.getOutcome());
-        String output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("SchemaTool Task Execution skipped as requested"));
     }
 }

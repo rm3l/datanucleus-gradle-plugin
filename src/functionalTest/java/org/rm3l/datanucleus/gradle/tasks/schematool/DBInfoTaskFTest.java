@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 
 @ExpectedSystemExit
-class DeleteThenCreateDatabaseTablesTaskTest {
+class DBInfoTaskFTest {
 
     @RegisterExtension
     final DataNucleusPluginTestExtension dataNucleusPluginTestExtension
@@ -34,8 +34,8 @@ class DeleteThenCreateDatabaseTablesTaskTest {
                     });
 
     @Test
-    @DisplayName("should succeed deleting then creating the database tables against an in-memory datastore")
-    void test_OK(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+    @DisplayName("should succeed outputting info about the database tables against an in-memory datastore")
+    void test_DBInfo_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
         final Path buildGradle = tempDir.resolve("build.gradle");
         Files.write(buildGradle,
                 ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
@@ -60,14 +60,14 @@ class DeleteThenCreateDatabaseTablesTaskTest {
                 StandardOpenOption.TRUNCATE_EXISTING);
 
         //This does not make the build fail. Instead, a stacktrace is output by DataNucleus Enhancer
-        BuildResult result = gradle(tempDir, "build", "deleteThenCreateDatabaseTables");
+        BuildResult result = gradle(tempDir, "build", "dbinfo");
         assertNotNull(result);
-        BuildTask deleteThenCreateDatabaseTablesTask = result.task(":deleteThenCreateDatabaseTables");
-        assertNotNull(deleteThenCreateDatabaseTablesTask);
-        assertSame(SUCCESS, deleteThenCreateDatabaseTablesTask.getOutcome());
+        BuildTask dbInfoTask = result.task(":dbinfo");
+        assertNotNull(dbInfoTask);
+        assertSame(SUCCESS, dbInfoTask.getOutcome());
         String output = result.getOutput();
         assertNotNull(output);
-        assertTrue(output.contains("DataNucleus SchemaTool : Deletion+Creation of the schema"));
+        assertTrue(output.contains("DataNucleus SchemaTool : Database information"));
         assertTrue(output.contains("DataNucleus SchemaTool completed successfully"));
     }
 }

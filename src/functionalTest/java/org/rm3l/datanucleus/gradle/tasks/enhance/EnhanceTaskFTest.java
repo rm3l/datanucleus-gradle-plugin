@@ -19,7 +19,7 @@ import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
 @ExtendWith(DataNucleusPluginTestExtension.class)
-class EnhanceTaskTest {
+class EnhanceTaskFTest {
 
     @Test
     @DisplayName("should not succeed enhancing domain classes if no build had been performed beforehand")
