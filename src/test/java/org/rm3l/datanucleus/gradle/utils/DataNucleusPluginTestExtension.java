@@ -29,6 +29,22 @@ public class DataNucleusPluginTestExtension implements ParameterResolver, Before
     @Documented
     public @interface TempDir {}
 
+    @FunctionalInterface
+    public interface PersistenceUnitMetadataProvider {
+        void customizePersistenceUnitMetadata(PersistenceUnitMetaData persistenceUnitMetaData,
+                                              PersistenceUnitMetaData testPersistenceUnitMetaData);
+    }
+
+    private final PersistenceUnitMetadataProvider persistenceUnitMetadataProvider;
+
+    public DataNucleusPluginTestExtension() {
+        this(null);
+    }
+
+    public DataNucleusPluginTestExtension(final PersistenceUnitMetadataProvider persistenceUnitMetadataProvider) {
+        this.persistenceUnitMetadataProvider = persistenceUnitMetadataProvider;
+    }
+
     @Override
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
         System.out.println("--> Running test: " + extensionContext.getDisplayName() + "...");
@@ -78,7 +94,28 @@ public class DataNucleusPluginTestExtension implements ParameterResolver, Before
         final PersistenceUnitMetaData persistenceUnitMetaData =
                 new PersistenceUnitMetaData("myPersistenceUnit", "RESOURCE_LOCAL", null);
         persistenceUnitMetaData.addClassName(DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT + ".Person");
+        persistenceUnitMetaData.setProvider(org.datanucleus.api.jpa.PersistenceProviderImpl.class.getCanonicalName());
         persistenceUnitMetaData.setExcludeUnlistedClasses(true);
+
+        //Also create a persistence.xml file
+        final Path testSourceSetDir = tempDir.resolve("src").resolve("test");
+        final Path testJavaSourceSetDir = testSourceSetDir.resolve("java");
+        Files.createDirectories(testJavaSourceSetDir);
+
+        Path metaInfTestResourcesSet = testSourceSetDir.resolve("resources").resolve("META-INF");
+        Files.createDirectories(metaInfTestResourcesSet);
+        final PersistenceUnitMetaData testPersistenceUnitMetaData =
+                new PersistenceUnitMetaData("myPersistenceUnitForTest", "RESOURCE_LOCAL", null);
+        testPersistenceUnitMetaData.addClassName(DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT + ".Person");
+        testPersistenceUnitMetaData.setExcludeUnlistedClasses(true);
+        testPersistenceUnitMetaData.setProvider(org.datanucleus.api.jpa.PersistenceProviderImpl.class.getCanonicalName());
+
+
+        if (this.persistenceUnitMetadataProvider != null) {
+            this.persistenceUnitMetadataProvider
+                    .customizePersistenceUnitMetadata(persistenceUnitMetaData, testPersistenceUnitMetaData);
+        }
+
         Files.write(metaInfResourcesSet.resolve("persistence.xml"),
                 (("<persistence xmlns=\"http://xmlns.jcp.org/xml/ns/persistence\"\n" +
                         "  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
@@ -92,17 +129,6 @@ public class DataNucleusPluginTestExtension implements ParameterResolver, Before
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        //Also create a persistence.xml file
-        final Path testSourceSetDir = tempDir.resolve("src").resolve("test");
-        final Path testJavaSourceSetDir = testSourceSetDir.resolve("java");
-        Files.createDirectories(testJavaSourceSetDir);
-
-        Path metaInfTestResourcesSet = testSourceSetDir.resolve("resources").resolve("META-INF");
-        Files.createDirectories(metaInfTestResourcesSet);
-        final PersistenceUnitMetaData testPersistenceUnitMetaData =
-                new PersistenceUnitMetaData("myPersistenceUnitForTest", "RESOURCE_LOCAL", null);
-        testPersistenceUnitMetaData.addClassName(DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT + ".Person");
-        testPersistenceUnitMetaData.setExcludeUnlistedClasses(true);
         Files.write(metaInfTestResourcesSet.resolve("persistence.xml"),
                 (("<persistence xmlns=\"http://xmlns.jcp.org/xml/ns/persistence\"\n" +
                         "  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +

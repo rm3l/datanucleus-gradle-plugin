@@ -20,7 +20,7 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-package org.rm3l.datanucleus.gradle.tasks;
+package org.rm3l.datanucleus.gradle.tasks.enhance;
 
 import org.datanucleus.enhancer.DataNucleusEnhancer;
 import org.gradle.api.DefaultTask;
@@ -127,6 +127,7 @@ public class EnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public Property<Boolean> getFork() {
         return fork;
     }

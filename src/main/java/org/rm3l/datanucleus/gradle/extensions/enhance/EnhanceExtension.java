@@ -20,14 +20,22 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-package org.rm3l.datanucleus.gradle.extensions;
+package org.rm3l.datanucleus.gradle.extensions.enhance;
 
+import groovy.lang.Closure;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPluginConvention;
+import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
+import org.gradle.api.tasks.TaskContainer;
+import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
+import org.rm3l.datanucleus.gradle.extensions.DataNucleusExtension;
+import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
 
 import java.io.File;
+import java.util.Set;
 
 /**
  * Extension for the 'enhance' DSL, part of the parent 'datanucleus' one
@@ -35,6 +43,8 @@ import java.io.File;
 @SuppressWarnings("unused")
 public class EnhanceExtension {
 
+    private final Project project;
+    private final DataNucleusExtension datanucleusExtension;
     private String persistenceUnitName;
     private File log4jConfiguration;
     private File jdkLogConfiguration;
@@ -54,31 +64,33 @@ public class EnhanceExtension {
     private SourceSet sourceSet;
     private Boolean skip = null;
 
-    EnhanceExtension(Project project, String defaultSourceSetName) {
-        this(false, project, defaultSourceSetName);
+    public EnhanceExtension(DataNucleusExtension datanucleusExtension, String defaultSourceSetName) {
+        this(datanucleusExtension, false, defaultSourceSetName);
     }
 
-    private EnhanceExtension(boolean skip, Project project, String defaultSourceSetName) {
+    public EnhanceExtension(DataNucleusExtension datanucleusExtension, boolean skip, String defaultSourceSetName) {
+        this.datanucleusExtension = datanucleusExtension;
+        this.project = datanucleusExtension.getProject();
         this.skip(skip);
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
         this.sourceSet = javaConvention.getSourceSets().getByName(defaultSourceSetName);
     }
 
-    Boolean getSkip() {
+    public Boolean getSkip() {
         return skip;
     }
 
-    EnhanceExtension skip(Boolean skip) {
+    public EnhanceExtension skip(Boolean skip) {
         this.skip = skip;
         return this;
     }
 
-    SourceSet getSourceSet() {
+    public SourceSet getSourceSet() {
         return this.sourceSet;
     }
 
-    String getPersistenceUnitName() {
+    public String getPersistenceUnitName() {
         return persistenceUnitName;
     }
 
@@ -87,7 +99,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    File getLog4jConfiguration() {
+    public File getLog4jConfiguration() {
         return log4jConfiguration;
     }
 
@@ -100,7 +112,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    File getJdkLogConfiguration() {
+    public File getJdkLogConfiguration() {
         return jdkLogConfiguration;
     }
 
@@ -113,7 +125,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    DataNucleusApi getApi() {
+    public DataNucleusApi getApi() {
         return api;
     }
 
@@ -122,7 +134,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isVerbose() {
+    public boolean isVerbose() {
         return verbose;
     }
 
@@ -131,7 +143,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isQuiet() {
+    public boolean isQuiet() {
         return quiet;
     }
 
@@ -140,7 +152,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    File getTargetDirectory() {
+    public File getTargetDirectory() {
         return targetDirectory;
     }
 
@@ -153,7 +165,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isFork() {
+    public boolean isFork() {
         return fork;
     }
 
@@ -162,7 +174,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isGeneratePK() {
+    public boolean isGeneratePK() {
         return generatePK;
     }
 
@@ -171,7 +183,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isGenerateConstructor() {
+    public boolean isGenerateConstructor() {
         return generateConstructor;
     }
 
@@ -180,7 +192,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isDetachListener() {
+    public boolean isDetachListener() {
         return detachListener;
     }
 
@@ -189,7 +201,7 @@ public class EnhanceExtension {
         return this;
     }
 
-    boolean isIgnoreMetaDataForMissingClasses() {
+    public boolean isIgnoreMetaDataForMissingClasses() {
         return ignoreMetaDataForMissingClasses;
     }
 
@@ -197,4 +209,76 @@ public class EnhanceExtension {
         this.ignoreMetaDataForMissingClasses = ignoreMetaDataForMissingClasses;
         return this;
     }
+
+    //Dummy method, just for the EnhanceTask to be created from SchemaTool extension
+    public void catalogName(String catalogName) {}
+    public void schemaName(String schemaName) {}
+    public void completeDdl(boolean completeDdl) {}
+    public void ddlFile(String ddlFile) {}
+
+    public void configureExtensionAndTask(final Closure closure,
+                                           final String taskName,
+                                           final String[] dependentTasks) {
+
+        ConfigureUtil.configure(closure, this);
+
+        final TaskContainer projectTasks = project.getTasks();
+        final Task tasksByName = projectTasks.findByName(taskName);
+        if (tasksByName != null) {
+            projectTasks.remove(tasksByName);
+        }
+        projectTasks.create(taskName, EnhanceTask.class,
+                task -> {
+                    configureTask(task);
+                    task.getCheckOnly().set(false);
+                });
+
+        for (final String dependentTask : dependentTasks) {
+            projectTasks.getByName(dependentTask).dependsOn(taskName);
+        }
+
+        projectTasks.create(taskName + "Check", EnhanceTask.class,
+                task -> {
+                    configureTask(task);
+                    task.getCheckOnly().set(true);
+                });
+    }
+
+    private void configureTask(EnhanceTask task) {
+        final Boolean enhanceExtensionSkip = this.getSkip();
+        final Property<Boolean> taskSkip = task.getSkip();
+        boolean skip = false;
+        if (this.datanucleusExtension.getSkip() != null) {
+            skip = this.datanucleusExtension.getSkip();
+        }
+        if (enhanceExtensionSkip != null) {
+            skip = enhanceExtensionSkip;
+        }
+        taskSkip.set(skip);
+        task.getPersistenceUnitName().set(this.getPersistenceUnitName());
+        task.getLog4jConfiguration().set(this.getLog4jConfiguration());
+        task.getJdkLogConfiguration().set(this.getJdkLogConfiguration());
+        task.getApi().set(this.getApi());
+        task.getVerbose().set(this.isVerbose());
+        task.getQuiet().set(this.isQuiet());
+        final File targetDirectory = this.getTargetDirectory();
+        final Property<File> taskTargetDirectory = task.getTargetDirectory();
+        if (targetDirectory != null) {
+            taskTargetDirectory.set(targetDirectory);
+        } else {
+            final SourceSet sourceSet = this.getSourceSet();
+            final Set<File> files = sourceSet.getOutput().getClassesDirs().getFiles();
+            if (!files.isEmpty()) {
+                taskTargetDirectory.set(files.iterator().next());
+            }
+        }
+        task.getFork().set(this.isFork());
+        task.getGeneratePK().set(this.isGeneratePK());
+        task.getPersistenceUnitName().set(this.getPersistenceUnitName());
+        task.getGenerateConstructor().set(this.isGenerateConstructor());
+        task.getDetachListener().set(this.isDetachListener());
+        task.getIgnoreMetaDataForMissingClasses()
+                .set(this.isIgnoreMetaDataForMissingClasses());
+    }
+
 }

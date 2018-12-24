@@ -13,6 +13,7 @@
 - [Getting Started](#getting-started)
 - [Tasks](#tasks)
   - [Bytecode Enhancement](#bytecode-enhancement)
+  - [SchemaTool](#schematool)
 - [Credits](#credits)
 - [Developed by](#developed-by)
 - [License](#license)
@@ -25,7 +26,7 @@ This is a follow-up to a [blog post](https://rm3l.org/datanucleus-jpa-enhancemen
 
 Heavily inspired by the official DataNucleus Maven Plugin, this one defines a Gradle plugin for introducing DataNucleus specific tasks and capabilities into an end-user Gradle Project build.
 
-Currently the only capability added is for bytecode enhancement of the user domain model, although other capabilities are planned.
+Currently the only capabilities added are for bytecode enhancement of the user domain model and schema operations, although other capabilities are planned.
 
 ## Getting Started
 
@@ -72,10 +73,21 @@ by the official [DataNucleus Maven Plugin](https://github.com/datanucleus/datanu
 Applying this plugin automatically applies the [Java Plugin](https://docs.gradle.org/current/userguide/java_plugin.html) (if not already the case)
 and adds the following tasks to your project:
 
-- `enhance` : to enhance classes from the main source set. Run automatically during the build since the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
-- `testEnhance` : to enhance classes from the test source set. Run automatically during the build since the [`testClasses`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
-- `enhanceCheck` : to check the main classes for enhancement status
-- `testEnhanceCheck` : to check the test classes for enhancement status
+- Enhancement tasks
+  - `enhance` : to enhance classes from the main source set. Run automatically during the build since the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
+  - `testEnhance` : to enhance classes from the test source set. Run automatically during the build since the [`testClasses`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
+  - `enhanceCheck` : to check the main classes for enhancement status
+  - `testEnhanceCheck` : to check the test classes for enhancement status
+
+- Schema Tool tasks
+  - `createDatabase` : to create the specified database (catalog/schema) if the datastore supports that operation
+  - `deleteDatabase` : to delete the specified database (catalog.schema) if the datastore supports that operation
+  - `createDatabaseTables` : to create all database tables required for the classes defined by the input data
+  - `deleteDatabaseTables` : to delete all database tables required for the classes defined by the input data
+  - `validateDatabaseTables` : to validate all database tables required for the classes defined by the input data
+  - `deleteThenCreateDatabaseTables` : delete all database tables required for the classes defined by the input data, then create the tables
+  - `dbinfo` : provide detailed information about the database, its limits and datatypes support. Only for RDBMS currently
+  - `schemainfo` : provide detailed information about the database schema. Only for RDBMS currently
 
 ### Bytecode Enhancement
 
@@ -151,6 +163,46 @@ Similarly, the [`testClasses`](https://docs.gradle.org/current/userguide/java_pl
 is automatically marked as depending on the `testEnhance` task.
 
 This way, your resulting artifacts will contain the enhanced classes.
+
+### SchemaTool
+
+This plugin works hand-by-hand with DataNucleus SchemaTool, which currently works with
+RDBMS, HBase, Excel, OOXML,  ODF, MongoDB, Cassandra datastores.
+
+To use the plugin in your Gradle project, after applying it as depicted above,
+you need to configure it, e.g.:
+
+```groovy
+datanucleus {
+  schematool {
+    api 'JPA'
+    persistenceUnitName 'myPersistenceUnit'
+    //... other options are possible
+  }
+}
+```
+
+Configuring the DSL provides you with all the SchemaTool tasks, and
+all those tasks support the same set of options as in
+the official datanucleus-maven-plugin, i.e.:
+
+| Property        | Default value           | Description  |
+|-----------------|-------------------------|--------------|
+| `persistenceUnitName`      | - | Name of the persistence-unit to enhance. **Mandatory** |
+| `log4jConfiguration`      | - | Config file location for Log4J (if using it) |
+| `jdkLogConfiguration`      | - | Config file location for JDK1.4 logging (if using it) |
+| `api`      | `JDO` | API to enhance to (`JDO` or `JPA`). **Mandatory** |
+| `catalogName`      | - | Name of the catalog. **Mandatory** when using `createDatabase` or `deleteDatabase` options |
+| `schemaName`      | - | Name of the schema. **Mandatory** when using `createDatabase` or `deleteDatabase` options |
+| `verbose`      | `false` | Verbose output? |
+| `quiet`      | `false` | No output? |
+| `completeDdl`      | `false` | Whether to generate DDL including things that already exist? (for RDBMS)|
+| `ddlFile`      | - | Name of an output file to dump any DDL to (for RDBMS) |
+| `fork`      | `true` | Whether to fork the enhancer process |
+| `ignoreMetaDataForMissingClasses`      | `false` | Whether to ignore when we have metadata specified for classes that are not found (e.g in *orm.xml*) |
+| `skip`      | `false` | Whether to skip execution |
+
+
 
 ## Credits
 

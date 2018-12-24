@@ -24,14 +24,11 @@ package org.rm3l.datanucleus.gradle.extensions;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
-import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
-import org.rm3l.datanucleus.gradle.tasks.EnhanceTask;
-
-import java.io.File;
-import java.util.Set;
+import org.rm3l.datanucleus.gradle.extensions.enhance.EnhanceExtension;
+import org.rm3l.datanucleus.gradle.extensions.schematool.SchemaToolExtension;
 
 /**
  * Extension for the 'datanucleus' DSL entrypoint
@@ -50,10 +47,21 @@ public class DataNucleusExtension {
 
     private final EnhanceExtension testEnhance;
 
+    private final SchemaToolExtension schemaTool;
+
     public DataNucleusExtension(Project project) {
         this.project = project;
-        this.enhance = new EnhanceExtension(project, SourceSet.MAIN_SOURCE_SET_NAME);
-        this.testEnhance = new EnhanceExtension(project, SourceSet.TEST_SOURCE_SET_NAME);
+        this.enhance = new EnhanceExtension(this, SourceSet.MAIN_SOURCE_SET_NAME);
+        this.testEnhance = new EnhanceExtension(this, SourceSet.TEST_SOURCE_SET_NAME);
+        this.schemaTool = new SchemaToolExtension(this);
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public Boolean getSkip() {
+        return skip;
     }
 
     private DataNucleusExtension skip(Boolean skip) {
@@ -65,73 +73,21 @@ public class DataNucleusExtension {
 
     //Auto-bind the DSL to a Gradle task
     private void enhance(Closure closure) {
-        configureExtensionAndTask(this.enhance,
-                closure,
-                ENHANCE_TASK_NAME,
-                new String[] {"classes"});
+        this.enhance.configureExtensionAndTask(closure, ENHANCE_TASK_NAME, new String[] {"classes"});
     }
 
     private void testEnhance(Closure closure) {
-        configureExtensionAndTask(this.testEnhance,
-                closure,
-                TEST_ENHANCE_TASK_NAME,
-                new String[] {"testClasses"});
+        this.testEnhance.configureExtensionAndTask(closure, TEST_ENHANCE_TASK_NAME, new String[] {"testClasses"});
     }
 
-    private void configureExtensionAndTask(final EnhanceExtension enhanceExtension,
-                                           final Closure closure,
-                                           final String taskName,
-                                           final String[] dependentTasks) {
-        ConfigureUtil.configure(closure, enhanceExtension);
-
-        final TaskContainer projectTasks = project.getTasks();
-        projectTasks.create(taskName, EnhanceTask.class,
-                task -> {
-                    configureTask(enhanceExtension, task);
-                    task.getCheckOnly().set(false);
-                });
-
-
-        for (final String dependentTask : dependentTasks) {
-            projectTasks.getByName(dependentTask).dependsOn(taskName);
+    private void schemaTool(Closure closure) {
+        this.schemaTool.configureExtensionAndTasks(closure);
+        final TaskContainer tasks = this.getProject().getTasks();
+        if (tasks.findByName("enhance") == null) {
+            this.enhance(closure);
         }
-
-        projectTasks.create(taskName + "Check", EnhanceTask.class,
-                task -> {
-                    configureTask(enhanceExtension, task);
-                    task.getCheckOnly().set(true);
-                });
-    }
-
-    private void configureTask(EnhanceExtension enhanceExtension, EnhanceTask task) {
-        final Boolean enhanceExtensionSkip = enhanceExtension.getSkip();
-        final Property<Boolean> taskSkip = task.getSkip();
-        taskSkip.set(this.skip);
-        taskSkip.set(enhanceExtensionSkip);
-        task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
-        task.getLog4jConfiguration().set(enhanceExtension.getLog4jConfiguration());
-        task.getJdkLogConfiguration().set(enhanceExtension.getJdkLogConfiguration());
-        task.getApi().set(enhanceExtension.getApi());
-        task.getVerbose().set(enhanceExtension.isVerbose());
-        task.getQuiet().set(enhanceExtension.isQuiet());
-        final File targetDirectory = enhanceExtension.getTargetDirectory();
-        final Property<File> taskTargetDirectory = task.getTargetDirectory();
-        if (targetDirectory != null) {
-            taskTargetDirectory.set(targetDirectory);
-        } else {
-            final SourceSet sourceSet = enhanceExtension.getSourceSet();
-            final Set<File> files = sourceSet.getOutput().getClassesDirs().getFiles();
-            if (!files.isEmpty()) {
-                taskTargetDirectory.set(files.iterator().next());
-            }
+        if (tasks.findByName("testEnhance") == null) {
+            this.testEnhance(closure);
         }
-        task.getFork().set(enhanceExtension.isFork());
-        task.getGeneratePK().set(enhanceExtension.isGeneratePK());
-        task.getPersistenceUnitName().set(enhanceExtension.getPersistenceUnitName());
-        task.getGenerateConstructor().set(enhanceExtension.isGenerateConstructor());
-        task.getDetachListener().set(enhanceExtension.isDetachListener());
-        task.getIgnoreMetaDataForMissingClasses()
-                .set(enhanceExtension.isIgnoreMetaDataForMissingClasses());
     }
-
 }

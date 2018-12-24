@@ -3,14 +3,17 @@ package org.rm3l.datanucleus.gradle.utils;
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public final class TestUtils {
 
     static final String DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT = "org.rm3l.datanucleus.gradle.test.domain";
     public static final String DN_JPA_RDBMS_VERSION = "5.1.11";
     public static final String JUNIT_VERSION = "4.12";
+    public static final String H2_VERSION = "1.4.192";
 
     private TestUtils() {
         throw new UnsupportedOperationException("Not instantiable");
