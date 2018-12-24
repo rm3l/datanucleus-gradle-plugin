@@ -14,7 +14,7 @@
 - [Tasks](#tasks)
   - [Bytecode Enhancement](#bytecode-enhancement)
   - [SchemaTool](#schematool)
-- [Credits](#credits)
+- [Credits / Inspiration](#credits--inspiration)
 - [Developed by](#developed-by)
 - [License](#license)
 
@@ -136,6 +136,12 @@ datanucleus {
 }
 ```
 
+This provides you with the following set of additional tasks:
+- `enhance` : to enhance classes from the main source set. Run automatically during the build since the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
+- `testEnhance` : to enhance classes from the test source set. Run automatically during the build since the [`testClasses`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
+- `enhanceCheck` : to check the main classes for enhancement status
+- `testEnhanceCheck` : to check the test classes for enhancement status
+
 All those tasks support the same set of enhancement options as in
 the official datanucleus-maven-plugin, i.e.:
 
@@ -182,9 +188,17 @@ datanucleus {
 }
 ```
 
-Configuring the DSL provides you with all the SchemaTool tasks, and
-all those tasks support the same set of options as in
-the official datanucleus-maven-plugin, i.e.:
+Configuring the DSL provides you with the following set of SchemaTool tasks:
+- `createDatabase` : to create the specified database (catalog/schema) if the datastore supports that operation
+- `deleteDatabase` : to delete the specified database (catalog.schema) if the datastore supports that operation
+- `createDatabaseTables` : to create all database tables required for the classes defined by the input data
+- `deleteDatabaseTables` : to delete all database tables required for the classes defined by the input data
+- `validateDatabaseTables` : to validate all database tables required for the classes defined by the input data
+- `deleteThenCreateDatabaseTables` : delete all database tables required for the classes defined by the input data, then create the tables
+- `dbinfo` : provide detailed information about the database, its limits and datatypes support. Only for RDBMS currently
+- `schemainfo` : provide detailed information about the database schema. Only for RDBMS currently
+
+All those tasks support the same set of options as in the official DataNucleus Maven Plugin, i.e.:
 
 | Property        | Default value           | Description  |
 |-----------------|-------------------------|--------------|
@@ -203,8 +217,7 @@ the official datanucleus-maven-plugin, i.e.:
 | `skip`      | `false` | Whether to skip execution |
 
 
-
-## Credits
+## Credits / Inspiration
 
 * [Gradle Build Tool](https://gradle.org/)
 * [DataNucleus Maven Plugin](https://github.com/datanucleus/datanucleus-maven-plugin)
