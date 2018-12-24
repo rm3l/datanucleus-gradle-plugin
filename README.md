@@ -38,7 +38,7 @@ Grab via Gradle, by applying the plugin (and configure it) in your `build.gradle
 
 ```groovy
 plugins {
-  id "org.rm3l.datanucleus-gradle-plugin" version "1.0.181124-SNAPSHOT"
+  id "org.rm3l.datanucleus-gradle-plugin" version "1.0.0"
 }
 ```
 
@@ -52,7 +52,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "org.rm3l:datanucleus-gradle-plugin:1.0.181124-SNAPSHOT"
+    classpath "org.rm3l:datanucleus-gradle-plugin:1.0.0"
   }
 }
 
