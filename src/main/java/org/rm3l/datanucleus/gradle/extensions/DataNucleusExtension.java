@@ -25,6 +25,7 @@ package org.rm3l.datanucleus.gradle.extensions;
 import groovy.lang.Closure;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.SourceSet;
+import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.extensions.enhance.EnhanceExtension;
 import org.rm3l.datanucleus.gradle.extensions.schematool.SchemaToolExtension;
@@ -81,7 +82,12 @@ public class DataNucleusExtension {
 
     private void schemaTool(Closure closure) {
         this.schemaTool.configureExtensionAndTasks(closure);
-        this.enhance(closure);
-        this.testEnhance(closure);
+        final TaskContainer tasks = this.getProject().getTasks();
+        if (tasks.findByName("enhance") == null) {
+            this.enhance(closure);
+        }
+        if (tasks.findByName("testEnhance") == null) {
+            this.testEnhance(closure);
+        }
     }
 }

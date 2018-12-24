@@ -24,6 +24,7 @@ package org.rm3l.datanucleus.gradle.extensions.enhance;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
@@ -212,6 +213,8 @@ public class EnhanceExtension {
     //Dummy method, just for the EnhanceTask to be created from SchemaTool extension
     public void catalogName(String catalogName) {}
     public void schemaName(String schemaName) {}
+    public void completeDdl(boolean completeDdl) {}
+    public void ddlFile(String ddlFile) {}
 
     public void configureExtensionAndTask(final Closure closure,
                                            final String taskName,
@@ -220,6 +223,10 @@ public class EnhanceExtension {
         ConfigureUtil.configure(closure, this);
 
         final TaskContainer projectTasks = project.getTasks();
+        final Task tasksByName = projectTasks.findByName(taskName);
+        if (tasksByName != null) {
+            projectTasks.remove(tasksByName);
+        }
         projectTasks.create(taskName, EnhanceTask.class,
                 task -> {
                     configureTask(task);
