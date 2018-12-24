@@ -74,20 +74,20 @@ Applying this plugin automatically applies the [Java Plugin](https://docs.gradle
 and adds the following tasks to your project:
 
 - Enhancement tasks
--- `enhance` : to enhance classes from the main source set. Run automatically during the build since the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
--- `testEnhance` : to enhance classes from the test source set. Run automatically during the build since the [`testClasses`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
--- `enhanceCheck` : to check the main classes for enhancement status
--- `testEnhanceCheck` : to check the test classes for enhancement status
+  - `enhance` : to enhance classes from the main source set. Run automatically during the build since the [`classes`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
+  - `testEnhance` : to enhance classes from the test source set. Run automatically during the build since the [`testClasses`](https://docs.gradle.org/current/userguide/java_plugin.html#sec:java_tasks) task depends on it.
+  - `enhanceCheck` : to check the main classes for enhancement status
+  - `testEnhanceCheck` : to check the test classes for enhancement status
 
 - Schema Tool tasks
--- `createDatabase` : to create the specified database (catalog/schema) if the datastore supports that operation
--- `deleteDatabase` : to delete the specified database (catalog.schema) if the datastore supports that operation
--- `createDatabaseTables` : to create all database tables required for the classes defined by the input data
--- `deleteDatabaseTables` : to delete all database tables required for the classes defined by the input data
--- `validateDatabaseTables` : to validate all database tables required for the classes defined by the input data
--- `deleteThenCreateDatabaseTables` : delete all database tables required for the classes defined by the input data, then create the tables
--- `dbinfo` : provide detailed information about the database, its limits and datatypes support. Only for RDBMS currently
--- `schemainfo` : provide detailed information about the database schema. Only for RDBMS currently
+  - `createDatabase` : to create the specified database (catalog/schema) if the datastore supports that operation
+  - `deleteDatabase` : to delete the specified database (catalog.schema) if the datastore supports that operation
+  - `createDatabaseTables` : to create all database tables required for the classes defined by the input data
+  - `deleteDatabaseTables` : to delete all database tables required for the classes defined by the input data
+  - `validateDatabaseTables` : to validate all database tables required for the classes defined by the input data
+  - `deleteThenCreateDatabaseTables` : delete all database tables required for the classes defined by the input data, then create the tables
+  - `dbinfo` : provide detailed information about the database, its limits and datatypes support. Only for RDBMS currently
+  - `schemainfo` : provide detailed information about the database schema. Only for RDBMS currently
 
 ### Bytecode Enhancement
 
