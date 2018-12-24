@@ -55,8 +55,13 @@ class CreateDatabaseTaskTest {
                         "  schemaTool {\n" +
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnit'\n" +
+                        "    verbose true\n" +
                         "    schemaName 'mySchemaName'\n" +
                         "    catalogName 'myCatalogName'\n" +
+                        "    log4jConfiguration null\n" + //Ignored if null
+                        "    jdkLogConfiguration null\n" + //Ignored if null
+                        "    completeDdl true\n" + //Ignored if null
+                        "    ddlFile null\n" + //Ignored if null
                         "  }\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
