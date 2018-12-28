@@ -1,6 +1,6 @@
 [![Travis branch](https://img.shields.io/travis/rm3l/datanucleus-gradle-plugin/master.svg)](https://travis-ci.org/rm3l/datanucleus-gradle-plugin)
 [![Code Coverage](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin)
-[![Known Vulnerabilities](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin/badge.svg?targetFile=build.gradle)](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin?targetFile=build.gradle)
+[![Known Vulnerabilities](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin/badge.svg?targetFile=buildSrc%2Fbuild.gradle)](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin?targetFile=buildSrc%2Fbuild.gradle)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/rm3l/datanucleus-gradle-plugin/blob/master/LICENSE)
 
 [![GitHub watchers](https://img.shields.io/github/watchers/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Watch)](https://github.com/rm3l/datanucleus-gradle-plugin)
