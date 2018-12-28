@@ -15,6 +15,9 @@
 - [Tasks](#tasks)
   - [Bytecode Enhancement](#bytecode-enhancement)
   - [SchemaTool](#schematool)
+- [Contribution Guidelines](#contribution-guidelines)
+  - [Source Code Layout](#source-code-layout)
+  - [Building from source](#building-from-source)
 - [Credits / Inspiration](#credits--inspiration)
 - [Developed by](#developed-by)
 - [License](#license)
@@ -216,6 +219,34 @@ All those tasks support the same set of options as in the official DataNucleus M
 | `fork`      | `true` | Whether to fork the enhancer process |
 | `ignoreMetaDataForMissingClasses`      | `false` | Whether to ignore when we have metadata specified for classes that are not found (e.g in *orm.xml*) |
 | `skip`      | `false` | Whether to skip execution |
+
+
+## Contribution Guidelines
+
+Contributions and issue reporting are more than welcome. So to help out, do feel free to fork this repo and open up a pull request.
+I'll review and merge your changes as quickly as possible.
+
+You can use [GitHub issues](https://github.com/rm3l/datanucleus-gradle-plugin/issues) to report bugs.
+However, please make sure your description is clear enough and has sufficient instructions to be able to reproduce the issue.
+
+### Source Code Layout
+
+Source Code is organized as much as possible per the official Gradle conventions, as follows:
+
+* `buildSrc` : the actual code of the Plugin
+* `src` : sample code serving as a reference project that can be used to test and play with the plugin
+
+Please note that Jacoco coverage metrics displayed here are reported against the plugin code solely.
+
+### Building from source
+
+This can be built as a standard Gradle Project, by issuing the following command:
+
+```bash
+./gradlew build
+```
+
+This command automatically builds the plugin code (from the `buildSrc` folder) and then continues with the sample project.
 
 
 ## Credits / Inspiration

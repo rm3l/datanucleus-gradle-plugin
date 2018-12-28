@@ -1,0 +1,130 @@
+//MIT License
+//
+//Copyright (c) 2018 Armel Soro
+//
+//Permission is hereby granted, free of charge, to any person obtaining a copy
+//of this software and associated documentation files (the "Software"), to deal
+//in the Software without restriction, including without limitation the rights
+//to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//copies of the Software, and to permit persons to whom the Software is
+//furnished to do so, subject to the following conditions:
+//
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//SOFTWARE.
+
+plugins {
+    id 'java-gradle-plugin'
+    id 'jacoco'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.10.0'
+    id 'com.gradle.build-scan' version '1.15.2'
+}
+apply from: "$rootDir/integration-test.gradle"
+apply from: "$rootDir/functional-test.gradle"
+
+group 'org.rm3l'
+//version '1.0.181224-SNAPSHOT'
+version '1.0.0'
+
+ext {
+    datanucleusVersion = '5.+'
+    javaxJdoVersion = '3.+'
+    jpaVersion = '2.+'
+    javapoetVersion = '1.11.1'
+    junitVersion = '5.3.1'
+    junitPioneerVersion = '0.3.0'
+    systemRulesVersion = '1.19.0'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.datanucleus:datanucleus-core:${datanucleusVersion}"
+    compile "org.datanucleus:javax.jdo:${javaxJdoVersion}"
+    compile "org.datanucleus:javax.persistence:${jpaVersion}"
+    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusVersion}"
+    compile "org.datanucleus:datanucleus-api-jdo:${datanucleusVersion}"
+
+    testCompile gradleTestKit()
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testCompile "org.junit-pioneer:junit-pioneer:${junitPioneerVersion}"
+    testCompile "com.squareup:javapoet:${javapoetVersion}"
+    testCompile "com.github.stefanbirkner:system-rules:${systemRulesVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly "org.datanucleus:datanucleus-accessplatform-jpa-rdbms:${datanucleusVersion}"
+    testRuntimeOnly 'com.h2database:h2:1.4.192'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+}
+
+gradlePlugin {
+    plugins {
+        datanucleusPlugin {
+            id = 'org.rm3l.datanucleus-gradle-plugin'
+            implementationClass = 'org.rm3l.datanucleus.gradle.DataNucleusPlugin'
+        }
+    }
+}
+
+jacocoTestReport {
+    executionData fileTree(buildDir).include("/jacoco/*.exec")
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
+jacocoTestReport.dependsOn functionalTest
+
+// The configuration example below shows the minimum required properties
+// configured to publish your plugin to the plugin portal
+pluginBundle {
+    website = 'https://datanucleus-gradle-plugin.rm3l.org'
+    vcsUrl = 'https://github.com/rm3l/datanucleus-gradle-plugin'
+    description = 'Unofficial Gradle Plugin for DataNucleus JPA/JDO provider'
+    tags = ['jpa', 'jdo', 'orm', 'javax-persistence', 'persistence', 'metamodel', 'enhancement', 'weaving', 'datanucleus', 'schemagen', 'schema', 'generate', 'pojo', 'bytecode']
+
+    plugins {
+        datanucleusPlugin {
+            // id is captured from java-gradle-plugin configuration
+            displayName = 'DataNucleus Gradle Plugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        pluginPublication (MavenPublication) {
+            from    components.java
+            groupId    project.group
+            artifactId    "datanucleus-gradle-plugin"
+            version    project.version
+        }
+    }
+}
+
+buildScan {
+    setTermsOfServiceUrl("https://gradle.com/terms-of-service")
+    setTermsOfServiceAgree("yes")
+    def ciFromEnv = System.getenv("CI")
+    if (!(ciFromEnv == null || ciFromEnv.isEmpty())) {
+        publishAlways()
+        tag("CI")
+    }
+}

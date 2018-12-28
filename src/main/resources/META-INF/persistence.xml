@@ -1,0 +1,21 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+  version="2.2">
+
+  <persistence-unit name="myPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
+    <class>org.rm3l.datanucleus.gradle.test.domain.Person</class>
+    <exclude-unlisted-classes/>
+    <properties>
+      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=FALSE"/>
+      <property name="datanucleus.schema.autoCreateAll" value="true"/>
+      <property name="javax.persistence.jdbc.user" value="SA"/>
+    </properties>
+  </persistence-unit>
+
+
+</persistence>
