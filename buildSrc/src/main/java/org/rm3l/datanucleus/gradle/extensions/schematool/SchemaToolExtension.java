@@ -238,7 +238,7 @@ public class SchemaToolExtension {
         schemaToolTasks.add(projectTasks.create(SCHEMAINFO, SchemaInfoTask.class, this::configureTask));
 
         for (final AbstractSchemaToolTask enhancementDependentTask : schemaToolTasks) {
-            enhancementDependentTask.dependsOn("enhance");
+            enhancementDependentTask.dependsOn("classes");
         }
     }
 
