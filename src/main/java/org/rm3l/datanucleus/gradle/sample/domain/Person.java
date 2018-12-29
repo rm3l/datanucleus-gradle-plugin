@@ -1,4 +1,4 @@
-package org.rm3l.datanucleus.gradle.test.domain;
+package org.rm3l.datanucleus.gradle.sample.domain;
 
 import java.lang.Long;
 import java.lang.String;

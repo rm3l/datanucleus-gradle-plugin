@@ -6,7 +6,7 @@
 
   <persistence-unit name="myPersistenceUnitForTest" transaction-type="RESOURCE_LOCAL">
     <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
-    <class>org.rm3l.datanucleus.gradle.test.domain.Person</class>
+    <class>org.rm3l.datanucleus.gradle.sample.domain.Person</class>
     <exclude-unlisted-classes/>
   </persistence-unit>
 
