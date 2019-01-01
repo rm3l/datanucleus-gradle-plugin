@@ -14,10 +14,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
+import static org.gradle.testkit.runner.TaskOutcome.UP_TO_DATE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
+@SuppressWarnings("Duplicates")
 @ExtendWith(DataNucleusPluginTestExtension.class)
 class EnhanceCheckTaskFTest {
 
@@ -65,7 +67,7 @@ class EnhanceCheckTaskFTest {
                         "repositories {\n" +
                         "  mavenCentral()\n" +
                         "}\n" +
-                        "\n" +
+    "\n" +
                         "dependencies {\n" +
                         "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
                         "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
@@ -94,10 +96,7 @@ class EnhanceCheckTaskFTest {
         assertNotNull(result);
         enhanceCheckTask = result.task(":enhanceCheck");
         assertNotNull(enhanceCheckTask);
-        assertSame(SUCCESS, enhanceCheckTask.getOutcome());
-        output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        assertSame(UP_TO_DATE, enhanceCheckTask.getOutcome());
 
     }
 

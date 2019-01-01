@@ -14,9 +14,11 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
+import static org.gradle.testkit.runner.TaskOutcome.UP_TO_DATE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 
+@SuppressWarnings("Duplicates")
 @ExtendWith(DataNucleusPluginTestExtension.class)
 class TestEnhanceCheckTaskFTest {
 
@@ -93,10 +95,7 @@ class TestEnhanceCheckTaskFTest {
         assertNotNull(result);
         testEnhanceCheckTask = result.task(":testEnhanceCheck");
         assertNotNull(testEnhanceCheckTask);
-        assertSame(SUCCESS, testEnhanceCheckTask.getOutcome());
-        output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        assertSame(UP_TO_DATE, testEnhanceCheckTask.getOutcome());
 
     }
 }
