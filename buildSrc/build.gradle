@@ -69,7 +69,7 @@ dependencies {
 
 tasks.withType(Test) {
     useJUnitPlatform()
-    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
 }
 
 gradlePlugin {

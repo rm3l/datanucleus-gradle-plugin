@@ -17,12 +17,13 @@ repositories {
 dependencies {
   compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.0-m2'
   compile 'com.h2database:h2:1.4.192'
-  testCompile 'junit:junit:4.12'
+  testCompile "org.junit.jupiter:junit-jupiter-api:5.3.1"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.1"
 }
 
 tasks.withType(Test) {
   useJUnitPlatform()
-  maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+  maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
 }
 
 datanucleus {
