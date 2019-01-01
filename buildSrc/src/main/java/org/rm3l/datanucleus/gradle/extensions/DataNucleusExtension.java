@@ -26,14 +26,13 @@ import groovy.lang.Closure;
 import org.gradle.api.Project;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
-import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.extensions.enhance.EnhanceExtension;
 import org.rm3l.datanucleus.gradle.extensions.schematool.SchemaToolExtension;
 
 /**
  * Extension for the 'datanucleus' DSL entrypoint
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class DataNucleusExtension {
 
     private static final String ENHANCE_TASK_NAME = "enhance";
@@ -72,15 +71,15 @@ public class DataNucleusExtension {
     }
 
     //Auto-bind the DSL to a Gradle task
-    private void enhance(Closure closure) {
+    public void enhance(Closure closure) {
         this.enhance.configureExtensionAndTask(closure, ENHANCE_TASK_NAME, new String[] {"classes"});
     }
 
-    private void testEnhance(Closure closure) {
+    public void testEnhance(Closure closure) {
         this.testEnhance.configureExtensionAndTask(closure, TEST_ENHANCE_TASK_NAME, new String[] {"testClasses"});
     }
 
-    private void schemaTool(Closure closure) {
+    public void schemaTool(Closure closure) {
         this.schemaTool.configureExtensionAndTasks(closure);
         final TaskContainer tasks = this.getProject().getTasks();
         if (tasks.findByName("enhance") == null) {
