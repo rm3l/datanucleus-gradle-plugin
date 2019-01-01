@@ -230,7 +230,7 @@ public class EnhanceExtension {
         projectTasks.create(taskName, EnhanceTask.class,
                 task -> {
                     configureTask(task);
-                    task.getCheckOnly().set(false);
+                    task.setCheckOnly(false);
                 });
 
         for (final String dependentTask : dependentTasks) {
@@ -240,13 +240,12 @@ public class EnhanceExtension {
         projectTasks.create(taskName + "Check", EnhanceTask.class,
                 task -> {
                     configureTask(task);
-                    task.getCheckOnly().set(true);
+                    task.setCheckOnly(true);
                 });
     }
 
     private void configureTask(EnhanceTask task) {
         final Boolean enhanceExtensionSkip = this.getSkip();
-        final Property<Boolean> taskSkip = task.getSkip();
         boolean skip = false;
         if (this.datanucleusExtension.getSkip() != null) {
             skip = this.datanucleusExtension.getSkip();
@@ -254,31 +253,35 @@ public class EnhanceExtension {
         if (enhanceExtensionSkip != null) {
             skip = enhanceExtensionSkip;
         }
-        taskSkip.set(skip);
-        task.getPersistenceUnitName().set(this.getPersistenceUnitName());
-        task.getLog4jConfiguration().set(this.getLog4jConfiguration());
-        task.getJdkLogConfiguration().set(this.getJdkLogConfiguration());
-        task.getApi().set(this.getApi());
-        task.getVerbose().set(this.isVerbose());
-        task.getQuiet().set(this.isQuiet());
+        task.setSkip(skip);
+        task.setPersistenceUnitName(this.getPersistenceUnitName());
+        task.setLog4jConfiguration(this.getLog4jConfiguration());
+        task.setJdkLogConfiguration(this.getJdkLogConfiguration());
+        task.setApi(this.getApi());
+        task.setVerbose(this.isVerbose());
+        task.setQuiet(this.isQuiet());
         final File targetDirectory = this.getTargetDirectory();
-        final Property<File> taskTargetDirectory = task.getTargetDirectory();
         if (targetDirectory != null) {
-            taskTargetDirectory.set(targetDirectory);
+            task.setTargetDirectory(targetDirectory);
         } else {
             final SourceSet sourceSet = this.getSourceSet();
             final Set<File> files = sourceSet.getOutput().getClassesDirs().getFiles();
             if (!files.isEmpty()) {
-                taskTargetDirectory.set(files.iterator().next());
+                task.setTargetDirectory(files.iterator().next());
             }
         }
-        task.getFork().set(this.isFork());
-        task.getGeneratePK().set(this.isGeneratePK());
-        task.getPersistenceUnitName().set(this.getPersistenceUnitName());
-        task.getGenerateConstructor().set(this.isGenerateConstructor());
-        task.getDetachListener().set(this.isDetachListener());
-        task.getIgnoreMetaDataForMissingClasses()
-                .set(this.isIgnoreMetaDataForMissingClasses());
+        final File taskTargetDirectory = task.getTargetDirectory();
+        if (!(taskTargetDirectory == null || taskTargetDirectory.exists() || taskTargetDirectory.isDirectory())) {
+            if (!taskTargetDirectory.mkdirs()) {
+                project.getLogger().warn("Failed to create target directory: " + taskTargetDirectory);
+            }
+        }
+        task.setFork(this.isFork());
+        task.setGeneratePK(this.isGeneratePK());
+        task.setPersistenceUnitName(this.getPersistenceUnitName());
+        task.setGenerateConstructor(this.isGenerateConstructor());
+        task.setDetachListener(this.isDetachListener());
+        task.setIgnoreMetaDataForMissingClasses(this.isIgnoreMetaDataForMissingClasses());
     }
 
 }

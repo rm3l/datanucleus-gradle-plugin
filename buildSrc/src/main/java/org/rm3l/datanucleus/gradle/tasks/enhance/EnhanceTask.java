@@ -26,17 +26,18 @@ import org.datanucleus.enhancer.DataNucleusEnhancer;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
-import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.plugins.JavaPluginConvention;
-import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.*;
-import org.gradle.internal.impldep.org.apache.commons.lang.BooleanUtils;
+import org.gradle.api.tasks.options.Option;
+import org.gradle.api.tasks.options.OptionValues;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,119 +47,190 @@ import java.util.stream.Stream;
  */
 public class EnhanceTask extends DefaultTask {
 
-    private final Property<Boolean> skip;
-    private final Property<String> persistenceUnitName;
-    private final Property<File> log4jConfiguration;
-    private final Property<File> jdkLogConfiguration;
-    private final Property<DataNucleusApi> api;
-    private final Property<Boolean> verbose;
-    private final Property<Boolean> quiet;
-    private final Property<File> targetDirectory;
-    private final Property<Boolean> fork;
-    private final Property<Boolean> generatePK;
-    private final Property<Boolean> generateConstructor;
-    private final Property<Boolean> detachListener;
-    private final Property<Boolean> ignoreMetaDataForMissingClasses;
-    private final Property<Boolean> checkOnly;
+    private Boolean skip;
+    private String persistenceUnitName;
+    private File log4jConfiguration;
+    private File jdkLogConfiguration;
+    private DataNucleusApi api;
+    private Boolean verbose;
+    private Boolean quiet;
+    private File targetDirectory;
+    private Boolean fork;
+    private Boolean generatePK;
+    private Boolean generateConstructor;
+    private Boolean detachListener;
+    private Boolean ignoreMetaDataForMissingClasses;
+    private Boolean checkOnly;
 
-    @SuppressWarnings("WeakerAccess")
-    public EnhanceTask() {
-        final ObjectFactory objects = getProject().getObjects();
-        skip = objects.property(Boolean.class);
-        persistenceUnitName = objects.property(String.class);
-        log4jConfiguration = objects.property(File.class);
-        jdkLogConfiguration = objects.property(File.class);
-        api = objects.property(DataNucleusApi.class);
-        verbose = objects.property(Boolean.class);
-        quiet = objects.property(Boolean.class);
-        targetDirectory = objects.property(File.class);
-        fork = objects.property(Boolean.class);
-        generatePK = objects.property(Boolean.class);
-        generateConstructor = objects.property(Boolean.class);
-        detachListener = objects.property(Boolean.class);
-        ignoreMetaDataForMissingClasses = objects.property(Boolean.class);
-        checkOnly = objects.property(Boolean.class);
+    @Option(option = "skip", description = "Skip Enhance Task execution")
+    public void setSkip(Boolean skip) {
+        this.skip = skip;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getSkip() {
+    public Boolean getSkip() {
         return skip;
     }
 
+    @Option(option = "persistence-unit-name", description = "Persistence Unit Name")
+    public void setPersistenceUnitName(String persistenceUnitName) {
+        this.persistenceUnitName = persistenceUnitName;
+    }
+
     @Input
-    public Property<String> getPersistenceUnitName() {
+    public String getPersistenceUnitName() {
         return persistenceUnitName;
     }
 
-    @Input
+    @InputFile
     @Optional
-    public Property<File> getLog4jConfiguration() {
+    public File getLog4jConfiguration() {
         return log4jConfiguration;
     }
 
-    @Input
+    @InputFile
     @Optional
-    public Property<File> getJdkLogConfiguration() {
+    public File getJdkLogConfiguration() {
         return jdkLogConfiguration;
     }
 
     @Input
-    public Property<DataNucleusApi> getApi() {
+    public DataNucleusApi getApi() {
         return api;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getVerbose() {
+    public Boolean getVerbose() {
         return verbose;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getQuiet() {
+    public Boolean getQuiet() {
         return quiet;
     }
 
-    @Input
-    @Optional
-    public Property<File> getTargetDirectory() {
+    @OutputDirectory
+    public File getTargetDirectory() {
         return targetDirectory;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getFork() {
+    public Boolean getFork() {
         return fork;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getGeneratePK() {
+    public Boolean getGeneratePK() {
         return generatePK;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getGenerateConstructor() {
+    public Boolean getGenerateConstructor() {
         return generateConstructor;
     }
 
     @Input
-    public Property<Boolean> getDetachListener() {
+    public Boolean getDetachListener() {
         return detachListener;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getIgnoreMetaDataForMissingClasses() {
+    public Boolean getIgnoreMetaDataForMissingClasses() {
         return ignoreMetaDataForMissingClasses;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getCheckOnly() {
+    public Boolean getCheckOnly() {
         return checkOnly;
+    }
+
+    @Option(option = "log4j-conf", description = "Path to Log4J configuration file")
+    public void setLog4jConfiguration(String log4jConfiguration) {
+        this.setLog4jConfiguration(
+                java.util.Optional.ofNullable(log4jConfiguration).map(File::new).orElse(null));
+    }
+
+    public void setLog4jConfiguration(File log4jConfiguration) {
+        this.log4jConfiguration = log4jConfiguration;
+    }
+
+    @Option(option = "jdk-log-conf", description = "Path to JDK Log configuration file")
+    public void setJdkLogConfiguration(String jdkLogConfiguration) {
+        this.setJdkLogConfiguration(
+                java.util.Optional.ofNullable(jdkLogConfiguration).map(File::new).orElse(null));
+    }
+
+    public void setJdkLogConfiguration(File jdkLogConfiguration) {
+        this.jdkLogConfiguration = jdkLogConfiguration;
+    }
+
+    @Option(option = "api", description = "The API to use for bytecode enhancement")
+    public void setApi(DataNucleusApi api) {
+        this.api = api;
+    }
+
+    @OptionValues("api")
+    public List<DataNucleusApi> getApiTypes() {
+        return new ArrayList<>(EnumSet.allOf(DataNucleusApi.class));
+    }
+
+    @Option(option = "verbose", description = "Whether to be verbose or not")
+    public void setVerbose(Boolean verbose) {
+        this.verbose = verbose;
+    }
+
+    @Option(option = "quiet", description = "Whether to be quiet or not")
+    public void setQuiet(Boolean quiet) {
+        this.quiet = quiet;
+    }
+
+    @Option(option = "target-directory", description = "Path to target directory")
+    public void setTargetDirectory(String targetDirectory) {
+        this.setTargetDirectory(
+                java.util.Optional.ofNullable(targetDirectory).map(File::new).orElse(null));
+    }
+
+    public void setTargetDirectory(File targetDirectory) {
+        this.targetDirectory = targetDirectory;
+    }
+
+    @Option(option = "fork", description = "Whether to fork or not")
+    public void setFork(Boolean fork) {
+        this.fork = fork;
+    }
+
+    @Option(option = "generate-pk", description = "Whether to generate PKs or not")
+    public void setGeneratePK(Boolean generatePK) {
+        this.generatePK = generatePK;
+    }
+
+    @Option(option = "generate-constructor", description = "Whether to generate contructors or not")
+    public void setGenerateConstructor(Boolean generateConstructor) {
+        this.generateConstructor = generateConstructor;
+    }
+
+    @Option(option = "detach-listener", description = "Whether to detach listeners or not")
+    public void setDetachListener(Boolean detachListener) {
+        this.detachListener = detachListener;
+    }
+
+    @Option(option = "ignore-metadata-for-missing-classes",
+            description = "Whether to ignore metadata for missing classes")
+    public void setIgnoreMetaDataForMissingClasses(Boolean ignoreMetaDataForMissingClasses) {
+        this.ignoreMetaDataForMissingClasses = ignoreMetaDataForMissingClasses;
+    }
+
+    @Option(option = "check-only", description = "Whether to just check")
+    public void setCheckOnly(Boolean checkOnly) {
+        this.checkOnly = checkOnly;
     }
 
     @SuppressWarnings("unused")
@@ -168,7 +240,7 @@ public class EnhanceTask extends DefaultTask {
         final Project project = getProject();
         final Logger projectLogger = project.getLogger();
 
-        final Boolean shouldSkip = skip.get();
+        final Boolean shouldSkip = skip;
         if (shouldSkip != null && shouldSkip) {
             if (projectLogger.isDebugEnabled()) {
                 projectLogger.debug("Enhancement Task Execution skipped as requested");
@@ -207,18 +279,17 @@ public class EnhanceTask extends DefaultTask {
                 classloaderUrls[index++] = new File(sourcePath + "/").toURI().toURL();
             }
 
-            final DataNucleusEnhancer enhancer = new DataNucleusEnhancer(api.get().name(), null)
-                    .setVerbose(verbose.get())
+            final DataNucleusEnhancer enhancer = new DataNucleusEnhancer(api.name(), null)
+                    .setVerbose(verbose)
                     .setClassLoader(new URLClassLoader(classloaderUrls, Thread.currentThread().getContextClassLoader()))
-                    .addPersistenceUnit(persistenceUnitName.get())
-                    .setDetachListener(detachListener.get())
-                    .setGenerateConstructor(generateConstructor.get())
-                    .setGeneratePK(generatePK.get())
-                    .setSystemOut(!quiet.get())
-                    .setOutputDirectory(targetDirectory.get().getAbsolutePath());
+                    .addPersistenceUnit(persistenceUnitName)
+                    .setDetachListener(detachListener)
+                    .setGenerateConstructor(generateConstructor)
+                    .setGeneratePK(generatePK)
+                    .setSystemOut(!quiet)
+                    .setOutputDirectory(targetDirectory.getAbsolutePath());
             final int result;
-            //noinspection ConstantConditions
-            if (checkOnly.get() != null && checkOnly.get()) {
+            if (checkOnly != null && checkOnly) {
                 result = enhancer.validate();
                 getProject().getLogger().info("Enhancement validation succeeded for {} class(es)", result);
             } else {
