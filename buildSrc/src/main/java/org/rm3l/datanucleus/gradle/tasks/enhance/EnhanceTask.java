@@ -62,7 +62,7 @@ public class EnhanceTask extends DefaultTask {
     private Boolean ignoreMetaDataForMissingClasses;
     private Boolean checkOnly;
 
-    @Option(option = "skip", description = "Skip Enhance Task execution")
+    @Option(option = "skip", description = "Whether to skip execution")
     public void setSkip(Boolean skip) {
         this.skip = skip;
     }
@@ -73,7 +73,7 @@ public class EnhanceTask extends DefaultTask {
         return skip;
     }
 
-    @Option(option = "persistence-unit-name", description = "Persistence Unit Name")
+    @Option(option = "persistence-unit-name", description = "Name of the persistence-unit to enhance. Mandatory")
     public void setPersistenceUnitName(String persistenceUnitName) {
         this.persistenceUnitName = persistenceUnitName;
     }
@@ -152,7 +152,7 @@ public class EnhanceTask extends DefaultTask {
         return checkOnly;
     }
 
-    @Option(option = "log4j-conf", description = "Path to Log4J configuration file")
+    @Option(option = "log4j-conf", description = "Config file location for Log4J (if using it)")
     public void setLog4jConfiguration(String log4jConfiguration) {
         this.setLog4jConfiguration(
                 java.util.Optional.ofNullable(log4jConfiguration).map(File::new).orElse(null));
@@ -162,7 +162,7 @@ public class EnhanceTask extends DefaultTask {
         this.log4jConfiguration = log4jConfiguration;
     }
 
-    @Option(option = "jdk-log-conf", description = "Path to JDK Log configuration file")
+    @Option(option = "jdk-log-conf", description = "Config file location for JDK logging (if using it)")
     public void setJdkLogConfiguration(String jdkLogConfiguration) {
         this.setJdkLogConfiguration(
                 java.util.Optional.ofNullable(jdkLogConfiguration).map(File::new).orElse(null));
@@ -172,7 +172,7 @@ public class EnhanceTask extends DefaultTask {
         this.jdkLogConfiguration = jdkLogConfiguration;
     }
 
-    @Option(option = "api", description = "The API to use for bytecode enhancement")
+    @Option(option = "api", description = "API to enhance to (JDO or JPA). Mandatory. Default is JDO.")
     public void setApi(DataNucleusApi api) {
         this.api = api;
     }
@@ -192,7 +192,7 @@ public class EnhanceTask extends DefaultTask {
         this.quiet = quiet;
     }
 
-    @Option(option = "target-directory", description = "Path to target directory")
+    @Option(option = "target-directory", description = "Where the enhanced classes are written (default is to overwrite them)")
     public void setTargetDirectory(String targetDirectory) {
         this.setTargetDirectory(
                 java.util.Optional.ofNullable(targetDirectory).map(File::new).orElse(null));
@@ -202,22 +202,26 @@ public class EnhanceTask extends DefaultTask {
         this.targetDirectory = targetDirectory;
     }
 
-    @Option(option = "fork", description = "Whether to fork or not")
+    @Option(option = "fork", description = "Whether to fork the enhancer process")
     public void setFork(Boolean fork) {
         this.fork = fork;
     }
 
-    @Option(option = "generate-pk", description = "Whether to generate PKs or not")
+    @Option(option = "generate-pk",
+            description = "Whether to generate a PK class (of name {MyClass}_PK) for cases where there are multiple PK " +
+                    "fields yet no IdClass is defined.")
     public void setGeneratePK(Boolean generatePK) {
         this.generatePK = generatePK;
     }
 
-    @Option(option = "generate-constructor", description = "Whether to generate contructors or not")
+    @Option(option = "generate-constructor",
+            description = "Whether to generate a default constructor if not defined for the class being enhanced.")
     public void setGenerateConstructor(Boolean generateConstructor) {
         this.generateConstructor = generateConstructor;
     }
 
-    @Option(option = "detach-listener", description = "Whether to detach listeners or not")
+    @Option(option = "detach-listener", description = "Whether to enhance classes to make use of a detach listener " +
+            "for attempts to access an un-detached field.")
     public void setDetachListener(Boolean detachListener) {
         this.detachListener = detachListener;
     }
@@ -228,7 +232,8 @@ public class EnhanceTask extends DefaultTask {
         this.ignoreMetaDataForMissingClasses = ignoreMetaDataForMissingClasses;
     }
 
-    @Option(option = "check-only", description = "Whether to just check")
+    @Option(option = "check-only",
+            description = "Whether to ignore when we have metadata specified for classes that are not found (e.g in orm.xml)")
     public void setCheckOnly(Boolean checkOnly) {
         this.checkOnly = checkOnly;
     }
