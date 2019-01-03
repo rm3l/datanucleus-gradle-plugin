@@ -158,7 +158,6 @@ the official datanucleus-maven-plugin, i.e.:
 | `verbose`      | `false` | Verbose output? |
 | `quiet`      | `false` | No output? |
 | `targetDirectory`      | - | Where the enhanced classes are written (default is to overwrite them) |
-| `fork`      | `true` | Whether to fork the enhancer process |
 | `generatePK`      | `true` | Generate a PK class (of name `{MyClass}_PK`) for cases where there are multiple PK fields yet no *IdClass* is defined. |
 | `generateConstructor`      | `true` | Generate a default constructor if not defined for the class being enhanced. |
 | `detachListener`      | `false` | Whether to enhance classes to make use of a detach listener for attempts to access an un-detached field. |
