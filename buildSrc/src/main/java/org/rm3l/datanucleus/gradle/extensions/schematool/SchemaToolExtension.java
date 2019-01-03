@@ -3,7 +3,6 @@ package org.rm3l.datanucleus.gradle.extensions.schematool;
 import groovy.lang.Closure;
 import org.gradle.api.Project;
 import org.gradle.api.plugins.JavaPluginConvention;
-import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
@@ -15,18 +14,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class SchemaToolExtension {
 
-    public static final String CREATE_DATABASE = "createDatabase";
-    public static final String DELETE_DATABASE = "deleteDatabase";
-    public static final String CREATE_DATABASE_TABLES = "createDatabaseTables";
-    public static final String DELETE_DATABASE_TABLES = "deleteDatabaseTables";
-    public static final String DELETE_THEN_CREATE_DATABASE_TABLES = "deleteThenCreateDatabaseTables";
-    public static final String VALIDATE_DATABASE_TABLES = "validateDatabaseTables";
-    public static final String DBINFO = "dbinfo";
-    public static final String SCHEMAINFO = "schemainfo";
+    private static final String CREATE_DATABASE = "createDatabase";
+    private static final String DELETE_DATABASE = "deleteDatabase";
+    private static final String CREATE_DATABASE_TABLES = "createDatabaseTables";
+    private static final String DELETE_DATABASE_TABLES = "deleteDatabaseTables";
+    private static final String DELETE_THEN_CREATE_DATABASE_TABLES = "deleteThenCreateDatabaseTables";
+    private static final String VALIDATE_DATABASE_TABLES = "validateDatabaseTables";
+    private static final String DBINFO = "dbinfo";
+    private static final String SCHEMAINFO = "schemainfo";
     private final DataNucleusExtension datanucleusExtension;
-    private final Project project;
     private final SourceSet sourceSet;
 
     /**
@@ -91,8 +90,7 @@ public class SchemaToolExtension {
 
     public SchemaToolExtension(DataNucleusExtension dataNucleusExtension) {
         this.datanucleusExtension = dataNucleusExtension;
-        this.project = dataNucleusExtension.getProject();
-        this.skip(skip);
+        Project project = dataNucleusExtension.getProject();
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
         this.sourceSet = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
@@ -242,9 +240,9 @@ public class SchemaToolExtension {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     private void configureTask(AbstractSchemaToolTask task) {
         final Boolean schemaToolExtensionSkip = this.getSkip();
-        final Property<Boolean> taskSkip = task.getSkip();
         boolean skip = false;
         if (this.datanucleusExtension.getSkip() != null) {
             skip = this.datanucleusExtension.getSkip();
@@ -252,26 +250,19 @@ public class SchemaToolExtension {
         if (schemaToolExtensionSkip != null) {
             skip = schemaToolExtensionSkip;
         }
-        taskSkip.set(skip);
-        task.getPersistenceUnitName().set(this.getPersistenceUnitName());
-        task.getLog4jConfiguration().set(this.getLog4jConfiguration());
-        task.getJdkLogConfiguration().set(this.getJdkLogConfiguration());
-        task.getApi().set(this.getApi());
-        task.getVerbose().set(this.isVerbose());
-        task.getFork().set(this.isFork());
+        task.setSkip(skip);
 
-        final File ddlFile = this.getDdlFile();
-        final Property<File> taskDdlFile = task.getDdlFile();
-        if (ddlFile != null) {
-            taskDdlFile.set(ddlFile);
-        }
-        task.getPersistenceUnitName().set(this.getPersistenceUnitName());
-        task.getCatalogName().set(this.getCatalogName());
-        task.getSchemaName().set(this.getSchemaName());
-
-        task.getCompleteDdl().set(this.isCompleteDdl());
-        task.getIgnoreMetaDataForMissingClasses()
-                .set(this.isIgnoreMetaDataForMissingClasses());
+        task.setPersistenceUnitName(this.getPersistenceUnitName());
+        task.setLog4jConfiguration(this.getLog4jConfiguration());
+        task.setJdkLogConfiguration(this.getJdkLogConfiguration());
+        task.setApi(this.getApi());
+        task.setVerbose(this.isVerbose());
+        task.setDdlFile(this.getDdlFile());
+        task.setPersistenceUnitName(this.getPersistenceUnitName());
+        task.setCatalogName(this.getCatalogName());
+        task.setSchemaName(this.getSchemaName());
+        task.setCompleteDdl(this.isCompleteDdl());
+        task.setIgnoreMetaDataForMissingClasses(this.isIgnoreMetaDataForMissingClasses());
     }
 
 }

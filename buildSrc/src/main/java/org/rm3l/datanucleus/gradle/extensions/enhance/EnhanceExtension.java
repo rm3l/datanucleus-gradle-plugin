@@ -40,7 +40,7 @@ import java.util.Set;
 /**
  * Extension for the 'enhance' DSL, part of the parent 'datanucleus' one
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class EnhanceExtension {
 
     private final Project project;
@@ -244,6 +244,7 @@ public class EnhanceExtension {
         }
     }
 
+    @SuppressWarnings("Duplicates")
     private void configureTask(AbstractEnhanceTask task) {
         final Boolean enhanceExtensionSkip = this.getSkip();
         boolean skip = false;

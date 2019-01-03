@@ -9,6 +9,8 @@ import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.*;
 import org.gradle.api.tasks.Optional;
+import org.gradle.api.tasks.options.Option;
+import org.gradle.api.tasks.options.OptionValues;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
 
 import java.io.File;
@@ -23,106 +25,156 @@ import static org.datanucleus.store.schema.SchemaTool.*;
 @SuppressWarnings("unused")
 public abstract class AbstractSchemaToolTask  extends DefaultTask {
 
-    final Property<Boolean> skip;
-    final Property<String> persistenceUnitName;
-    final Property<File> log4jConfiguration;
-    final Property<File> jdkLogConfiguration;
-    final Property<DataNucleusApi> api;
-    final Property<Boolean> verbose;
-    final Property<Boolean> fork;
-    final Property<Boolean> ignoreMetaDataForMissingClasses;
-    final Property<String> catalogName;
-    final Property<String> schemaName;
-    final Property<Boolean> completeDdl;
-    final Property<File> ddlFile;
-
-    AbstractSchemaToolTask() {
-        final ObjectFactory objects = getProject().getObjects();
-        skip = objects.property(Boolean.class);
-        persistenceUnitName = objects.property(String.class);
-        log4jConfiguration = objects.property(File.class);
-        jdkLogConfiguration = objects.property(File.class);
-        api = objects.property(DataNucleusApi.class);
-        verbose = objects.property(Boolean.class);
-        fork = objects.property(Boolean.class);
-        ddlFile = objects.property(File.class);
-        ignoreMetaDataForMissingClasses = objects.property(Boolean.class);
-        completeDdl = objects.property(Boolean.class);
-        catalogName = objects.property(String.class);
-        schemaName = objects.property(String.class);
-    }
+    private Boolean skip;
+    private String persistenceUnitName;
+    private File log4jConfiguration;
+    private File jdkLogConfiguration;
+    private DataNucleusApi api;
+    private Boolean verbose;
+    private Boolean ignoreMetaDataForMissingClasses;
+    private String catalogName;
+    private String schemaName;
+    private Boolean completeDdl;
+    private File ddlFile;
 
     @Input
     @Optional
-    public Property<Boolean> getSkip() {
+    public Boolean getSkip() {
         return skip;
     }
 
+    @Option(option = "skip", description = "Whether to skip execution")
+    public void setSkip(Boolean skip) {
+        this.skip = skip;
+    }
+
     @Input
-    public Property<String> getPersistenceUnitName() {
+    public String getPersistenceUnitName() {
         return persistenceUnitName;
     }
 
-    @Input
+    @Option(option = "persistence-unit-name", description = "Name of the persistence-unit to enhance. Mandatory")
+    public void setPersistenceUnitName(String persistenceUnitName) {
+        this.persistenceUnitName = persistenceUnitName;
+    }
+
+    @InputFile
     @Optional
-    public Property<File> getLog4jConfiguration() {
+    public File getLog4jConfiguration() {
         return log4jConfiguration;
     }
 
-    @Input
+    @Option(option = "log4j-conf", description = "Config file location for Log4J (if using it)")
+    public void setLog4jConfiguration(String log4jConfiguration) {
+        this.setLog4jConfiguration(
+                java.util.Optional.ofNullable(log4jConfiguration).map(File::new).orElse(null));
+    }
+
+    public void setLog4jConfiguration(File log4jConfiguration) {
+        this.log4jConfiguration = log4jConfiguration;
+    }
+
+    @InputFile
     @Optional
-    public Property<File> getJdkLogConfiguration() {
+    public File getJdkLogConfiguration() {
         return jdkLogConfiguration;
     }
 
+    @Option(option = "jdk-log-conf", description = "Config file location for JDK logging (if using it)")
+    public void setJdkLogConfiguration(String jdkLogConfiguration) {
+        this.setJdkLogConfiguration(
+                java.util.Optional.ofNullable(jdkLogConfiguration).map(File::new).orElse(null));
+    }
+
+    public void setJdkLogConfiguration(File jdkLogConfiguration) {
+        this.jdkLogConfiguration = jdkLogConfiguration;
+    }
+
     @Input
-    public Property<DataNucleusApi> getApi() {
+    public DataNucleusApi getApi() {
         return api;
     }
 
+    @Option(option = "api", description = "API to enhance to (JDO or JPA). Mandatory. Default is JDO.")
+    public void setApi(DataNucleusApi api) {
+        this.api = api;
+    }
+
+    @OptionValues("api")
+    public List<DataNucleusApi> getApiTypes() {
+        return new ArrayList<>(EnumSet.allOf(DataNucleusApi.class));
+    }
+
     @Input
     @Optional
-    public Property<Boolean> getVerbose() {
+    public Boolean getVerbose() {
         return verbose;
     }
 
-    @Input
-    @Optional
-    public Property<Boolean> getFork() {
-        return fork;
+    @Option(option = "verbose", description = "Whether to be verbose or not")
+    public void setVerbose(Boolean verbose) {
+        this.verbose = verbose;
     }
 
     @Input
     @Optional
-    public Property<Boolean> getIgnoreMetaDataForMissingClasses() {
+    public Boolean getIgnoreMetaDataForMissingClasses() {
         return ignoreMetaDataForMissingClasses;
     }
 
+    @Option(option = "ignore-metadata-for-missing-classes",
+            description = "Whether to ignore when we have metadata specified for classes that are not found (e.g in orm.xml)")
+    public void setIgnoreMetaDataForMissingClasses(Boolean ignoreMetaDataForMissingClasses) {
+        this.ignoreMetaDataForMissingClasses = ignoreMetaDataForMissingClasses;
+    }
+
     @Input
     @Optional
-    public Property<Boolean> getCompleteDdl() {
+    public Boolean getCompleteDdl() {
         return completeDdl;
     }
 
+    @Option(option = "complete-ddl", description = "Whether to consider complete DDL or not")
+    public void setCompleteDdl(Boolean completeDdl) {
+        this.completeDdl = completeDdl;
+    }
 
-    @Input
+    @InputFile
     @Optional
-    public Property<File> getDdlFile() {
+    public File getDdlFile() {
         return ddlFile;
     }
 
+    @Option(option = "ddl-file", description = "Path to DDL file")
+    public void setDdlFile(String ddlFile) {
+        this.setJdkLogConfiguration(
+                java.util.Optional.ofNullable(ddlFile).map(File::new).orElse(null));
+    }
+
+    public void setDdlFile(File ddlFile) {
+        this.ddlFile = ddlFile;
+    }
 
     @Input
     @Optional
-    public Property<String> getCatalogName() {
+    public String getCatalogName() {
         return catalogName;
     }
 
+    @Option(option = "catalog-name", description = "Catalog Name")
+    public void setCatalogName(String catalogName) {
+        this.catalogName = catalogName;
+    }
 
     @Input
     @Optional
-    public Property<String> getSchemaName() {
+    public String getSchemaName() {
         return schemaName;
+    }
+
+    @Option(option = "schema-name", description = "Schema Name")
+    public void setSchemaName(String schemaName) {
+        this.schemaName = schemaName;
     }
 
     protected void checkTaskOptionsValidity() {}
@@ -133,7 +185,7 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
         final Project project = getProject();
         final Logger projectLogger = project.getLogger();
 
-        final Boolean shouldSkip = skip.get();
+        final Boolean shouldSkip = skip;
         if (shouldSkip != null && shouldSkip) {
             if (projectLogger.isDebugEnabled()) {
                 projectLogger.debug("SchemaTool Task Execution skipped as requested");
@@ -184,29 +236,29 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
                     Thread.currentThread().getContextClassLoader());
 
             final List<String> args = new ArrayList<>(Arrays.asList(this.withSchemaToolArguments()));
-            if (this.api.isPresent()) {
-                args.addAll(Arrays.asList("-" + OPTION_API, this.api.get().name()));
+            if (this.api != null) {
+                args.addAll(Arrays.asList("-" + OPTION_API, this.api.name()));
             }
-            if (this.ddlFile.isPresent()) {
-                args.addAll(Arrays.asList("-" + OPTION_DDL_FILE, this.ddlFile.get().getAbsolutePath()));
+            if (this.ddlFile != null) {
+                args.addAll(Arrays.asList("-" + OPTION_DDL_FILE, this.ddlFile.getAbsolutePath()));
             }
-            if (this.completeDdl.isPresent()) {
-                args.addAll(Arrays.asList("-" + OPTION_COMPLETE_DDL, this.completeDdl.get().toString()));
+            if (this.completeDdl != null) {
+                args.addAll(Arrays.asList("-" + OPTION_COMPLETE_DDL, this.completeDdl.toString()));
             }
-            if (this.completeDdl.isPresent()) {
-                args.addAll(Arrays.asList("-" + OPTION_COMPLETE_DDL, this.completeDdl.get().toString()));
+            if (this.completeDdl != null) {
+                args.addAll(Arrays.asList("-" + OPTION_COMPLETE_DDL, this.completeDdl.toString()));
             }
-            if (this.ignoreMetaDataForMissingClasses.isPresent()) {
-                args.addAll(Arrays.asList("-ignoreMetaDataForMissingClasses", this.ignoreMetaDataForMissingClasses.get().toString()));
+            if (this.ignoreMetaDataForMissingClasses != null) {
+                args.addAll(Arrays.asList("-ignoreMetaDataForMissingClasses", this.ignoreMetaDataForMissingClasses.toString()));
             }
-            if (this.persistenceUnitName.isPresent()) {
-                args.addAll(Arrays.asList("-pu", this.persistenceUnitName.get()));
+            if (this.persistenceUnitName != null) {
+                args.addAll(Arrays.asList("-pu", this.persistenceUnitName));
             }
-            if (this.catalogName.isPresent()) {
-                args.addAll(Arrays.asList("-catalog", this.catalogName.get()));
+            if (this.catalogName != null) {
+                args.addAll(Arrays.asList("-catalog", this.catalogName));
             }
-            if (this.schemaName.isPresent()) {
-                args.addAll(Arrays.asList("-schema", this.schemaName.get()));
+            if (this.schemaName != null) {
+                args.addAll(Arrays.asList("-schema", this.schemaName));
             }
 
             final ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();

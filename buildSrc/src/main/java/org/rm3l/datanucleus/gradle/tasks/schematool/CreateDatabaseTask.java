@@ -13,10 +13,10 @@ public class CreateDatabaseTask extends AbstractSchemaToolTask  {
 
     @Override
     protected void checkTaskOptionsValidity() {
-        if (!this.getSchemaName().isPresent()) {
+        if (this.getSchemaName() == null) {
             throw new IllegalArgumentException("Missing option: schemaName");
         }
-        if (!this.getCatalogName().isPresent()) {
+        if (this.getCatalogName() == null) {
             throw new IllegalArgumentException("Missing option: catalogName");
         }
     }
