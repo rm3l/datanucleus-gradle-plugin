@@ -28,6 +28,10 @@ import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.rm3l.datanucleus.gradle.extensions.enhance.EnhanceExtension;
 import org.rm3l.datanucleus.gradle.extensions.schematool.SchemaToolExtension;
+import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceCheckTask;
+import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
+import org.rm3l.datanucleus.gradle.tasks.enhance.TestEnhanceCheckTask;
+import org.rm3l.datanucleus.gradle.tasks.enhance.TestEnhanceTask;
 
 /**
  * Extension for the 'datanucleus' DSL entrypoint
@@ -36,7 +40,9 @@ import org.rm3l.datanucleus.gradle.extensions.schematool.SchemaToolExtension;
 public class DataNucleusExtension {
 
     private static final String ENHANCE_TASK_NAME = "enhance";
+    private static final String ENHANCE_CHECK_TASK_NAME = "enhanceCheck";
     private static final String TEST_ENHANCE_TASK_NAME = "testEnhance";
+    private static final String TEST_ENHANCE_CHECK_TASK_NAME = "testEnhanceCheck";
 
     private final Project project;
 
@@ -72,11 +78,19 @@ public class DataNucleusExtension {
 
     //Auto-bind the DSL to a Gradle task
     public void enhance(Closure closure) {
-        this.enhance.configureExtensionAndTask(closure, ENHANCE_TASK_NAME, new String[] {"classes"});
+        this.enhance.configureExtensionAndTask(closure, ENHANCE_TASK_NAME, EnhanceTask.class,
+                new String[] {"compileJava"}, new String[] {"classes"});
+        this.enhance.configureExtensionAndTask(closure, ENHANCE_CHECK_TASK_NAME, EnhanceCheckTask.class,
+                null, null);
     }
 
     public void testEnhance(Closure closure) {
-        this.testEnhance.configureExtensionAndTask(closure, TEST_ENHANCE_TASK_NAME, new String[] {"testClasses"});
+        this.testEnhance.configureExtensionAndTask(
+                closure, TEST_ENHANCE_TASK_NAME, TestEnhanceTask.class,
+                new String[] {"compileTestJava"},
+                new String[] {"testClasses"});
+        this.testEnhance.configureExtensionAndTask(
+                closure, TEST_ENHANCE_CHECK_TASK_NAME, TestEnhanceCheckTask.class, null, null);
     }
 
     public void schemaTool(Closure closure) {

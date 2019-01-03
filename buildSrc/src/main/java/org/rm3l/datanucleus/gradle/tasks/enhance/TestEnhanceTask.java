@@ -25,9 +25,9 @@ package org.rm3l.datanucleus.gradle.tasks.enhance;
 /**
  * Actual enhancer task
  */
-public class EnhanceTask extends AbstractMainEnhanceTask {
+public class TestEnhanceTask extends AbstractTestEnhanceTask {
 
-    public EnhanceTask() {
+    public TestEnhanceTask() {
         super(false);
     }
 }

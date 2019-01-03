@@ -26,15 +26,15 @@ import groovy.lang.Closure;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPluginConvention;
-import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
 import org.rm3l.datanucleus.gradle.extensions.DataNucleusExtension;
-import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
+import org.rm3l.datanucleus.gradle.tasks.enhance.AbstractEnhanceTask;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Set;
 
 /**
@@ -216,9 +216,12 @@ public class EnhanceExtension {
     public void completeDdl(boolean completeDdl) {}
     public void ddlFile(String ddlFile) {}
 
-    public void configureExtensionAndTask(final Closure closure,
-                                           final String taskName,
-                                           final String[] dependentTasks) {
+    public <T extends AbstractEnhanceTask> void configureExtensionAndTask(
+                                            final Closure closure,
+                                            final String taskName,
+                                            final Class<T> taskType,
+                                            final String[] dependencies,
+                                            final String[] dependentTasks) {
 
         ConfigureUtil.configure(closure, this);
 
@@ -227,24 +230,21 @@ public class EnhanceExtension {
         if (tasksByName != null) {
             projectTasks.remove(tasksByName);
         }
-        projectTasks.create(taskName, EnhanceTask.class,
-                task -> {
-                    configureTask(task);
-                    task.setCheckOnly(false);
-                });
+        final T task = projectTasks.create(taskName, taskType, this::configureTask);
 
-        for (final String dependentTask : dependentTasks) {
-            projectTasks.getByName(dependentTask).dependsOn(taskName);
+        if (dependencies != null) {
+            Arrays.stream(dependencies).forEach(task::dependsOn);
         }
-
-        projectTasks.create(taskName + "Check", EnhanceTask.class,
-                task -> {
-                    configureTask(task);
-                    task.setCheckOnly(true);
-                });
+        if (dependentTasks != null) {
+            for (final String dependentTask : dependentTasks) {
+                if (dependentTask != null) {
+                    projectTasks.getByName(dependentTask).dependsOn(taskName);
+                }
+            }
+        }
     }
 
-    private void configureTask(EnhanceTask task) {
+    private void configureTask(AbstractEnhanceTask task) {
         final Boolean enhanceExtensionSkip = this.getSkip();
         boolean skip = false;
         if (this.datanucleusExtension.getSkip() != null) {
@@ -276,7 +276,6 @@ public class EnhanceExtension {
                 project.getLogger().warn("Failed to create target directory: " + taskTargetDirectory);
             }
         }
-        task.setFork(this.isFork());
         task.setGeneratePK(this.isGeneratePK());
         task.setPersistenceUnitName(this.getPersistenceUnitName());
         task.setGenerateConstructor(this.isGenerateConstructor());

@@ -41,7 +41,7 @@ class EnhanceCheckTaskFTest {
                         "datanucleus {\n" +
                         "  enhance {\n" +
                         "    api 'JPA'\n" +
-                        "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
+                        "    persistenceUnitName 'myPersistenceUnit'\n" +
                         "  }\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
@@ -76,7 +76,7 @@ class EnhanceCheckTaskFTest {
                         "datanucleus {\n" +
                         "  enhance {\n" +
                         "    api 'JPA'\n" +
-                        "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
+                        "    persistenceUnitName 'myPersistenceUnit'\n" +
                         "  }\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
@@ -96,7 +96,10 @@ class EnhanceCheckTaskFTest {
         assertNotNull(result);
         enhanceCheckTask = result.task(":enhanceCheck");
         assertNotNull(enhanceCheckTask);
-        assertSame(UP_TO_DATE, enhanceCheckTask.getOutcome());
+        assertSame(SUCCESS, enhanceCheckTask.getOutcome());
+        output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
 
     }
 

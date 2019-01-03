@@ -95,7 +95,10 @@ class TestEnhanceCheckTaskFTest {
         assertNotNull(result);
         testEnhanceCheckTask = result.task(":testEnhanceCheck");
         assertNotNull(testEnhanceCheckTask);
-        assertSame(UP_TO_DATE, testEnhanceCheckTask.getOutcome());
+        assertSame(SUCCESS, testEnhanceCheckTask.getOutcome());
+        output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
 
     }
 }

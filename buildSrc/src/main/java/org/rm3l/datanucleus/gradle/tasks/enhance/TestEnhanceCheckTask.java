@@ -25,9 +25,11 @@ package org.rm3l.datanucleus.gradle.tasks.enhance;
 /**
  * Actual enhancer task
  */
-public class EnhanceTask extends AbstractMainEnhanceTask {
+public class TestEnhanceCheckTask extends AbstractTestEnhanceTask {
 
-    public EnhanceTask() {
-        super(false);
+    public TestEnhanceCheckTask() {
+        super(true);
+        //Instruct Gradle to always run this task on demand, bypassing the task cache
+        super.getOutputs().upToDateWhen(element -> false);
     }
 }
