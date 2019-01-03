@@ -37,6 +37,11 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
     private Boolean completeDdl;
     private File ddlFile;
 
+    public AbstractSchemaToolTask() {
+        //Instruct Gradle to always run this task on demand, bypassing the task cache
+        super.getOutputs().upToDateWhen(element -> false);
+    }
+
     @Input
     @Optional
     public Boolean getSkip() {
