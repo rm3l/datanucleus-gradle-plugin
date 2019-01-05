@@ -29,7 +29,7 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
     private String persistenceUnitName;
     private File log4jConfiguration;
     private File jdkLogConfiguration;
-    private DataNucleusApi api;
+    private DataNucleusApi api = DataNucleusApi.JDO;
     private Boolean verbose;
     private Boolean ignoreMetaDataForMissingClasses;
     private String catalogName;
