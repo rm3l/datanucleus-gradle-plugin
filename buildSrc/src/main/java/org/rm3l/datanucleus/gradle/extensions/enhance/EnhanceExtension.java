@@ -211,10 +211,21 @@ public class EnhanceExtension {
     }
 
     //Dummy method, just for the EnhanceTask to be created from SchemaTool extension
-    public void catalogName(String catalogName) {}
-    public void schemaName(String schemaName) {}
-    public void completeDdl(boolean completeDdl) {}
-    public void ddlFile(String ddlFile) {}
+    public EnhanceExtension catalogName(String catalogName) {
+        return this;
+    }
+
+    public EnhanceExtension schemaName(String schemaName) {
+        return this;
+    }
+
+    public EnhanceExtension completeDdl(boolean completeDdl) {
+        return this;
+    }
+
+    public EnhanceExtension ddlFile(String ddlFile) {
+        return this;
+    }
 
     public <T extends AbstractEnhanceTask> void configureExtensionAndTask(
                                             final Closure closure,

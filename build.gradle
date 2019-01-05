@@ -26,12 +26,13 @@ tasks.withType(Test) {
   maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
 }
 
-datanucleus {
-  schemaTool {
-    api 'JPA'
-    persistenceUnitName 'myPersistenceUnit'
-  }
-}
+//DN tasks are auto-registered, and can be configured either via DSL or CLI options
+//datanucleus {
+//  schemaTool {
+//    api 'JPA'
+//    persistenceUnitName 'myPersistenceUnit'
+//  }
+//}
 
 buildScan {
   setTermsOfServiceUrl("https://gradle.com/terms-of-service")

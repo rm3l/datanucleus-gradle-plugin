@@ -2,6 +2,7 @@ package org.rm3l.datanucleus.gradle.extensions.schematool;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
@@ -17,14 +18,14 @@ import java.util.List;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class SchemaToolExtension {
 
-    private static final String CREATE_DATABASE = "createDatabase";
-    private static final String DELETE_DATABASE = "deleteDatabase";
-    private static final String CREATE_DATABASE_TABLES = "createDatabaseTables";
-    private static final String DELETE_DATABASE_TABLES = "deleteDatabaseTables";
-    private static final String DELETE_THEN_CREATE_DATABASE_TABLES = "deleteThenCreateDatabaseTables";
-    private static final String VALIDATE_DATABASE_TABLES = "validateDatabaseTables";
-    private static final String DBINFO = "dbinfo";
-    private static final String SCHEMAINFO = "schemainfo";
+    public static final String CREATE_DATABASE = "createDatabase";
+    public static final String DELETE_DATABASE = "deleteDatabase";
+    public static final String CREATE_DATABASE_TABLES = "createDatabaseTables";
+    public static final String DELETE_DATABASE_TABLES = "deleteDatabaseTables";
+    public static final String DELETE_THEN_CREATE_DATABASE_TABLES = "deleteThenCreateDatabaseTables";
+    public static final String VALIDATE_DATABASE_TABLES = "validateDatabaseTables";
+    public static final String DBINFO = "dbinfo";
+    public static final String SCHEMAINFO = "schemainfo";
     private final DataNucleusExtension datanucleusExtension;
     private final SourceSet sourceSet;
 
@@ -225,6 +226,14 @@ public class SchemaToolExtension {
 
         final TaskContainer projectTasks = datanucleusExtension.getProject().getTasks();
         final List<AbstractSchemaToolTask> schemaToolTasks = new ArrayList<>();
+
+        for (final String taskName : new String[]{CREATE_DATABASE, DELETE_DATABASE, CREATE_DATABASE_TABLES,
+                DELETE_DATABASE_TABLES, DELETE_THEN_CREATE_DATABASE_TABLES, VALIDATE_DATABASE_TABLES, DBINFO, SCHEMAINFO}) {
+            final Task tasksByName = projectTasks.findByName(taskName);
+            if (tasksByName != null) {
+                projectTasks.remove(tasksByName);
+            }
+        }
 
         schemaToolTasks.add(projectTasks.create(CREATE_DATABASE, CreateDatabaseTask.class, this::configureTask));
         schemaToolTasks.add(projectTasks.create(DELETE_DATABASE, DeleteDatabaseTask.class, this::configureTask));

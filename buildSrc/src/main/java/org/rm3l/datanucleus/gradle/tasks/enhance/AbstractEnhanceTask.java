@@ -53,7 +53,7 @@ public abstract class AbstractEnhanceTask extends DefaultTask {
     private String persistenceUnitName;
     private File log4jConfiguration;
     private File jdkLogConfiguration;
-    private DataNucleusApi api;
+    private DataNucleusApi api = DataNucleusApi.JDO;
     private Boolean verbose;
     private Boolean quiet;
     private File targetDirectory;
@@ -84,6 +84,7 @@ public abstract class AbstractEnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public String getPersistenceUnitName() {
         return persistenceUnitName;
     }
@@ -101,6 +102,7 @@ public abstract class AbstractEnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public DataNucleusApi getApi() {
         return api;
     }
@@ -118,6 +120,7 @@ public abstract class AbstractEnhanceTask extends DefaultTask {
     }
 
     @OutputDirectory
+    @Optional
     public File getTargetDirectory() {
         return targetDirectory;
     }
@@ -135,6 +138,7 @@ public abstract class AbstractEnhanceTask extends DefaultTask {
     }
 
     @Input
+    @Optional
     public Boolean getDetachListener() {
         return detachListener;
     }
@@ -233,6 +237,11 @@ public abstract class AbstractEnhanceTask extends DefaultTask {
                 projectLogger.debug("Enhancement Task Execution skipped as requested");
             }
         } else {
+
+            if (persistenceUnitName == null || persistenceUnitName.trim().isEmpty()) {
+                projectLogger.info("Missing or blank 'persistenceUnitName'");
+                return;
+            }
 
             final JavaPluginConvention javaConvention =
                     project.getConvention().getPlugin(JavaPluginConvention.class);
