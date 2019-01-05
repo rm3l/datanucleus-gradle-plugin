@@ -14,4 +14,9 @@ public class DeleteThenCreateDatabaseTablesTask extends AbstractSchemaToolTask {
                 "-" + OPTION_DELETE_CREATE_TABLES_FOR_CLASSES
         };
     }
+
+    @Override
+    public String getDescription() {
+        return "Deletes all database tables required for the classes defined by the input data, then create the tables.";
+    }
 }

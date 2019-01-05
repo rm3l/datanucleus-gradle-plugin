@@ -31,6 +31,7 @@ import org.gradle.api.tasks.*;
 import org.gradle.api.tasks.options.Option;
 import org.gradle.api.tasks.options.OptionValues;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
+import org.rm3l.datanucleus.gradle.tasks.AbstractDataNucleusTask;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -45,7 +46,7 @@ import java.util.stream.Stream;
 /**
  * Actual enhancer task
  */
-public abstract class AbstractEnhanceTask extends DefaultTask {
+public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
 
     private final boolean checkOnly;
     private final boolean testClasses;
@@ -63,6 +64,7 @@ public abstract class AbstractEnhanceTask extends DefaultTask {
     private Boolean ignoreMetaDataForMissingClasses;
 
     AbstractEnhanceTask(final boolean testClasses, final boolean checkOnly) {
+        super.setGroup("DataNucleus Enhancement");
         this.testClasses = testClasses;
         this.checkOnly = checkOnly;
     }

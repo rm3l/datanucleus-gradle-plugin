@@ -9,4 +9,9 @@ public class DBInfoTask extends AbstractSchemaToolTask  {
                 "-" + OPTION_DBINFO
         };
     }
+
+    @Override
+    public String getDescription() {
+        return "Provides detailed information about the database, it’s limits and datatypes support. Only for RDBMS currently.";
+    }
 }

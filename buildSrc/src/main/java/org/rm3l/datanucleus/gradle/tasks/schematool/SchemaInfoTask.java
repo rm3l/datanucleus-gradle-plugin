@@ -14,4 +14,9 @@ public class SchemaInfoTask extends AbstractSchemaToolTask {
                 "-" + OPTION_SCHEMAINFO
         };
     }
+
+    @Override
+    public String getDescription() {
+        return "Provides detailed information about the database schema. Only for RDBMS currently.";
+    }
 }

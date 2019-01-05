@@ -32,4 +32,9 @@ public class TestEnhanceCheckTask extends AbstractTestEnhanceTask {
         //Instruct Gradle to always run this task on demand, bypassing the task cache
         super.getOutputs().upToDateWhen(element -> false);
     }
+
+    @Override
+    public String getDescription() {
+        return "Checks the current status of the test classes enhancement.";
+    }
 }

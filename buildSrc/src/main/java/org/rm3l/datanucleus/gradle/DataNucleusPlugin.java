@@ -30,6 +30,7 @@ import org.gradle.api.logging.Logger;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.tasks.TaskContainer;
 import org.rm3l.datanucleus.gradle.extensions.DataNucleusExtension;
+import org.rm3l.datanucleus.gradle.tasks.AbstractDataNucleusTask;
 import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceCheckTask;
 import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
 import org.rm3l.datanucleus.gradle.tasks.enhance.TestEnhanceCheckTask;
@@ -74,7 +75,7 @@ public class DataNucleusPlugin implements Plugin<Project> {
         project.getExtensions().add( "datanucleus", dataNucleusExtension);
     }
 
-    private <T extends DefaultTask> void addTask(final Project project, final String taskName, final Class<T> taskType,
+    private <T extends AbstractDataNucleusTask> void addTask(final Project project, final String taskName, final Class<T> taskType,
                                                  final String[] dependencies, final String[] dependentTasks) {
         final TaskContainer projectTasks = project.getTasks();
 

@@ -30,4 +30,9 @@ public class EnhanceTask extends AbstractMainEnhanceTask {
     public EnhanceTask() {
         super(false);
     }
+
+    @Override
+    public String getDescription() {
+        return "Performs enhancement of the main classes.";
+    }
 }

@@ -30,4 +30,9 @@ public class TestEnhanceTask extends AbstractTestEnhanceTask {
     public TestEnhanceTask() {
         super(false);
     }
+
+    @Override
+    public String getDescription() {
+        return "Performs enhancement of the test classes.";
+    }
 }

@@ -19,4 +19,9 @@ public class DeleteDatabaseTask extends AbstractSchemaToolTask {
             throw new IllegalArgumentException("Missing option: catalogName");
         }
     }
+
+    @Override
+    public String getDescription() {
+        return "Deletes the specified database (catalog.schema) if the datastore supports that operation.";
+    }
 }

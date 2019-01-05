@@ -12,6 +12,11 @@ public class CreateDatabaseTask extends AbstractSchemaToolTask  {
     }
 
     @Override
+    public String getDescription() {
+        return "Creates the specified database (catalog/schema) if the datastore supports that operation.";
+    }
+
+    @Override
     protected void checkTaskOptionsValidity() {
         if (this.getSchemaName() == null) {
             throw new IllegalArgumentException("Missing option: schemaName");

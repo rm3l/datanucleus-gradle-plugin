@@ -8,6 +8,7 @@ import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
+import org.rm3l.datanucleus.gradle.DataNucleusPlugin;
 import org.rm3l.datanucleus.gradle.extensions.DataNucleusExtension;
 import org.rm3l.datanucleus.gradle.tasks.schematool.*;
 
@@ -250,7 +251,7 @@ public class SchemaToolExtension {
     }
 
     @SuppressWarnings("Duplicates")
-    private void configureTask(AbstractSchemaToolTask task) {
+    private <T extends AbstractSchemaToolTask> void configureTask(T task) {
         final Boolean schemaToolExtensionSkip = this.getSkip();
         boolean skip = false;
         if (this.datanucleusExtension.getSkip() != null) {

@@ -10,4 +10,9 @@ public class CreateDatabaseTablesTask extends AbstractSchemaToolTask {
             "-" + OPTION_CREATE_TABLES_FOR_CLASSES
         };
     }
+
+    @Override
+    public String getDescription() {
+        return "Creates all database tables required for the classes defined by the input data.";
+    }
 }

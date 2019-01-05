@@ -4,14 +4,13 @@ import org.datanucleus.store.schema.SchemaTool;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
-import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.plugins.JavaPluginConvention;
-import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.*;
 import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.options.Option;
 import org.gradle.api.tasks.options.OptionValues;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
+import org.rm3l.datanucleus.gradle.tasks.AbstractDataNucleusTask;
 
 import java.io.File;
 import java.net.URL;
@@ -23,7 +22,7 @@ import java.util.stream.Stream;
 import static org.datanucleus.store.schema.SchemaTool.*;
 
 @SuppressWarnings("unused")
-public abstract class AbstractSchemaToolTask  extends DefaultTask {
+public abstract class AbstractSchemaToolTask  extends AbstractDataNucleusTask {
 
     private Boolean skip;
     private String persistenceUnitName;
@@ -38,6 +37,7 @@ public abstract class AbstractSchemaToolTask  extends DefaultTask {
     private File ddlFile;
 
     public AbstractSchemaToolTask() {
+        super.setGroup("DataNucleus SchemaTool");
         //Instruct Gradle to always run this task on demand, bypassing the task cache
         super.getOutputs().upToDateWhen(element -> false);
     }
