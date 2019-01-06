@@ -279,14 +279,16 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
             }
 
             final DataNucleusEnhancer enhancer = new DataNucleusEnhancer(api.name(), null)
-                    .setVerbose(verbose)
+                    .setVerbose(verbose != null && verbose)
                     .setClassLoader(new URLClassLoader(classloaderUrls, Thread.currentThread().getContextClassLoader()))
                     .addPersistenceUnit(persistenceUnitName)
-                    .setDetachListener(detachListener)
-                    .setGenerateConstructor(generateConstructor)
-                    .setGeneratePK(generatePK)
-                    .setSystemOut(!quiet)
-                    .setOutputDirectory(targetDirectory.getAbsolutePath());
+                    .setDetachListener(detachListener != null && detachListener)
+                    .setGenerateConstructor(generateConstructor != null && generateConstructor)
+                    .setGeneratePK(generatePK != null && generatePK)
+                    .setSystemOut(quiet == null || !quiet);
+            if (targetDirectory != null) {
+                    enhancer.setOutputDirectory(targetDirectory.getAbsolutePath());
+            }
             final int result;
             if (this.checkOnly) {
                 result = enhancer.validate();
