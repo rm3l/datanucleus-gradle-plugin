@@ -93,6 +93,17 @@ and adds the following tasks to your project:
   - `dbinfo` : provide detailed information about the database, its limits and datatypes support. Only for RDBMS currently
   - `schemainfo` : provide detailed information about the database schema. Only for RDBMS currently
 
+You can see the exhaustive list of tasks by issuing the following command from the root of your project:
+
+```bash
+./gradlew tasks
+```
+
+To see the runtime options of a particular tasks (say `createDatabaseTables`):
+```bash
+./gradlew -q help --task createDatabaseTables
+```
+
 ### Bytecode Enhancement
 
 A noteworthy behavior of most JPA providers is to "enhance" the domain JPA classes.
@@ -173,6 +184,58 @@ is automatically marked as depending on the `testEnhance` task.
 
 This way, your resulting artifacts will contain the enhanced classes.
 
+You can also perform enhancement at runtime by running the task and passing its various options. For example, below is the help menu of the `enhance` task:
+```bash
+❯ ./gradlew -q help --task enhance
+
+Detailed task information for enhance
+
+Path
+     :enhance
+
+Type
+     EnhanceTask (org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask)
+
+Options
+     --api     API to enhance to (JDO or JPA). Mandatory. Default is JDO.
+               Available values are:
+                    JDO
+                    JPA
+
+     --detach-listener     Whether to enhance classes to make use of a detach listener for attempts to access an un-detached field.
+
+     --generate-constructor     Whether to generate a default constructor if not defined for the class being enhanced.
+
+     --generate-pk     Whether to generate a PK class (of name {MyClass}_PK) for cases where there are multiple PK fields yet no IdClass is defined.
+
+     --ignore-metadata-for-missing-classes     Whether to ignore when we have metadata specified for classes that are not found (e.g in orm.xml)
+
+     --jdk-log-conf     Config file location for JDK logging (if using it)
+
+     --log4j-conf     Config file location for Log4J (if using it)
+
+     --persistence-unit-name     Name of the persistence-unit to enhance. Mandatory
+
+     --quiet     Whether to be quiet or not
+
+     --skip     Whether to skip execution
+
+     --target-directory     Where the enhanced classes are written (default is to overwrite them)
+
+     --verbose     Whether to be verbose or not
+
+Description
+     Performs enhancement of the main classes.
+
+Group
+     DataNucleus Enhancement
+```
+
+So for example, we can issue the following command to enhance classes part of a given persistence unit (named 'myPersistenceUnit'):
+```bash
+./gradlew enhance --api JPA --persistence-unit-name myPersistenceUnit
+```
+
 ### SchemaTool
 
 This plugin works hand-by-hand with DataNucleus SchemaTool, which currently works with
@@ -219,6 +282,53 @@ All those tasks support the same set of options as in the official DataNucleus M
 | `ignoreMetaDataForMissingClasses`      | `false` | Whether to ignore when we have metadata specified for classes that are not found (e.g in *orm.xml*) |
 | `skip`      | `false` | Whether to skip execution |
 
+
+Like for the Enhancement tasks depicted above, you can also perform SchemaTool operations at runtime by running the task and passing its various options.
+For example, below is the help menu of the `createDatabaseTables` task:
+
+```bash
+./gradlew -q help --task createDatabaseTables
+
+Detailed task information for createDatabaseTables
+
+Path
+     :createDatabaseTables
+
+Type
+     CreateDatabaseTablesTask (org.rm3l.datanucleus.gradle.tasks.schematool.CreateDatabaseTablesTask)
+
+Options
+     --api     API to enhance to (JDO or JPA). Mandatory. Default is JDO.
+               Available values are:
+                    JDO
+                    JPA
+
+     --catalog-name     Catalog Name
+
+     --complete-ddl     Whether to consider complete DDL or not
+
+     --ddl-file     Path to DDL file
+
+     --ignore-metadata-for-missing-classes     Whether to ignore when we have metadata specified for classes that are not found (e.g in orm.xml)
+
+     --jdk-log-conf     Config file location for JDK logging (if using it)
+
+     --log4j-conf     Config file location for Log4J (if using it)
+
+     --persistence-unit-name     Name of the persistence-unit to enhance. Mandatory
+
+     --schema-name     Schema Name
+
+     --skip     Whether to skip execution
+
+     --verbose     Whether to be verbose or not
+
+Description
+     Creates all database tables required for the classes defined by the input data.
+
+Group
+     DataNucleus SchemaTool
+```
 
 ## Contribution Guidelines
 
