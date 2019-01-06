@@ -2,10 +2,12 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="org.rm3l.datanucleus-gradle-plugin-sample.main" target="1.8" />
-      <module name="org.rm3l.datanucleus-gradle-plugin-sample.test" target="1.8" />
-      <module name="org.rm3l.datanucleus-gradle-plugin.functionalTest" target="1.8" />
-      <module name="org.rm3l.datanucleus-gradle-plugin.integrationTest" target="1.8" />
+      <module name="datanucleus-gradle-plugin.org.rm3l.datanucleus-gradle-plugin.main" target="1.8" />
+      <module name="datanucleus-gradle-plugin.org.rm3l.datanucleus-gradle-plugin.test" target="1.8" />
+      <module name="org.rm3l.buildSrc.functionalTest" target="1.8" />
+      <module name="org.rm3l.buildSrc.integrationTest" target="1.8" />
+      <module name="org.rm3l.buildSrc.main" target="1.8" />
+      <module name="org.rm3l.buildSrc.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
