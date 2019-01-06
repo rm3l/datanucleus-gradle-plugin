@@ -23,18 +23,6 @@ import static org.rm3l.datanucleus.gradle.utils.TestUtils.DOMAIN_PACKAGE_NAME_IN
 public class DataNucleusPluginTestExtension implements ParameterResolver, BeforeEachCallback, AfterEachCallback {
 
     private static final String KEY = "temp_dir";
-
-    @Target(ElementType.PARAMETER)
-    @Retention(RetentionPolicy.RUNTIME)
-    @Documented
-    public @interface TempDir {}
-
-    @FunctionalInterface
-    public interface PersistenceUnitMetadataProvider {
-        void customizePersistenceUnitMetadata(PersistenceUnitMetaData persistenceUnitMetaData,
-                                              PersistenceUnitMetaData testPersistenceUnitMetaData);
-    }
-
     private final PersistenceUnitMetadataProvider persistenceUnitMetadataProvider;
 
     public DataNucleusPluginTestExtension() {
@@ -55,9 +43,9 @@ public class DataNucleusPluginTestExtension implements ParameterResolver, Before
         final Path settingsGradle = tempDir.resolve("settings.gradle");
         Files.write(settingsGradle,
                 ("rootProject.name = '" +
-                        extensionContext.getRequiredTestClass()+ "#" +
+                        extensionContext.getRequiredTestClass() + "#" +
                         extensionContext.getRequiredTestMethod() + "'\n" +
-                "enableFeaturePreview(\"IMPROVED_POM_SUPPORT\")\n").getBytes(StandardCharsets.UTF_8),
+                        "enableFeaturePreview(\"IMPROVED_POM_SUPPORT\")\n").getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
@@ -198,6 +186,18 @@ public class DataNucleusPluginTestExtension implements ParameterResolver, Before
                             }
                         },
                         Path.class);
+    }
+
+    @Target(ElementType.PARAMETER)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    public @interface TempDir {
+    }
+
+    @FunctionalInterface
+    public interface PersistenceUnitMetadataProvider {
+        void customizePersistenceUnitMetadata(PersistenceUnitMetaData persistenceUnitMetaData,
+                                              PersistenceUnitMetaData testPersistenceUnitMetaData);
     }
 
 }

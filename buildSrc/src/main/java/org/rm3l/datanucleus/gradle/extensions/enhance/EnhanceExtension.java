@@ -228,11 +228,11 @@ public class EnhanceExtension {
     }
 
     public <T extends AbstractEnhanceTask> void configureExtensionAndTask(
-                                            final Closure closure,
-                                            final String taskName,
-                                            final Class<T> taskType,
-                                            final String[] dependencies,
-                                            final String[] dependentTasks) {
+            final Closure closure,
+            final String taskName,
+            final Class<T> taskType,
+            final String[] dependencies,
+            final String[] dependentTasks) {
 
         ConfigureUtil.configure(closure, this);
 

@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 public final class TestUtils {
 
-    static final String DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT = "org.rm3l.datanucleus.gradle.test.domain";
     public static final String DN_JPA_RDBMS_VERSION = "5.1.11";
     public static final String JUNIT_VERSION = "4.12";
     public static final String H2_VERSION = "1.4.192";
+    static final String DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT = "org.rm3l.datanucleus.gradle.test.domain";
 
     private TestUtils() {
         throw new UnsupportedOperationException("Not instantiable");
@@ -19,7 +19,8 @@ public final class TestUtils {
 
     /**
      * Helper method that runs a Gradle task in the testProjectDir
-     * @param arguments the task arguments to execute
+     *
+     * @param arguments         the task arguments to execute
      * @param isSuccessExpected boolean representing whether or not the build is supposed to fail
      * @return the task's BuildResult
      */
@@ -28,7 +29,7 @@ public final class TestUtils {
                                      String... arguments) {
         final String[] args;
         if (arguments == null) {
-            args = new String[] {"tasks", "--stacktrace"};
+            args = new String[]{"tasks", "--stacktrace"};
         } else {
             args = Arrays.copyOf(arguments, arguments.length + 1);
             args[args.length - 1] = "--stacktrace";

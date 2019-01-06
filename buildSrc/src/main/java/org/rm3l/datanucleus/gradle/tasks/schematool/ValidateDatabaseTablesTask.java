@@ -5,7 +5,7 @@ import static org.datanucleus.store.schema.SchemaTool.OPTION_VALIDATE_TABLES_FOR
 public class ValidateDatabaseTablesTask extends AbstractSchemaToolTask {
     @Override
     protected String[] withSchemaToolArguments() {
-        return new String[] {
+        return new String[]{
                 "-" + OPTION_VALIDATE_TABLES_FOR_CLASSES
         };
     }

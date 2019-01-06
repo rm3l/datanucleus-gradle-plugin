@@ -1,7 +1,7 @@
-plugins { 
-  id 'org.rm3l.datanucleus-gradle-plugin'
-  id 'maven-publish'
-  id 'com.gradle.build-scan' version '1.15.2'
+plugins {
+    id 'org.rm3l.datanucleus-gradle-plugin'
+    id 'maven-publish'
+    id 'com.gradle.build-scan' version '1.15.2'
 }
 
 group 'org.rm3l'
@@ -11,19 +11,19 @@ version '1.1.0'
 sourceCompatibility = 1.8
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.0-m2'
-  compile 'com.h2database:h2:1.4.192'
-  testCompile "org.junit.jupiter:junit-jupiter-api:5.3.1"
-  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+    compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.0-m2'
+    compile 'com.h2database:h2:1.4.192'
+    testCompile "org.junit.jupiter:junit-jupiter-api:5.3.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.1"
 }
 
 tasks.withType(Test) {
-  useJUnitPlatform()
-  maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
+    useJUnitPlatform()
+    maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
 }
 
 //DN tasks are auto-registered, and can be configured either via DSL or CLI options
@@ -35,11 +35,11 @@ tasks.withType(Test) {
 //}
 
 buildScan {
-  setTermsOfServiceUrl("https://gradle.com/terms-of-service")
-  setTermsOfServiceAgree("yes")
-  def ciFromEnv = System.getenv("CI")
-  if (!(ciFromEnv == null || ciFromEnv.isEmpty())) {
-    publishAlways()
-    tag("CI")
-  }
+    setTermsOfServiceUrl("https://gradle.com/terms-of-service")
+    setTermsOfServiceAgree("yes")
+    def ciFromEnv = System.getenv("CI")
+    if (!(ciFromEnv == null || ciFromEnv.isEmpty())) {
+        publishAlways()
+        tag("CI")
+    }
 }

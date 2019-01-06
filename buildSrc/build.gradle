@@ -113,11 +113,11 @@ pluginBundle {
 
 publishing {
     publications {
-        pluginPublication (MavenPublication) {
-            from    components.java
-            groupId    project.group
-            artifactId    "datanucleus-gradle-plugin"
-            version    project.version
+        pluginPublication(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId "datanucleus-gradle-plugin"
+            version project.version
         }
     }
 }

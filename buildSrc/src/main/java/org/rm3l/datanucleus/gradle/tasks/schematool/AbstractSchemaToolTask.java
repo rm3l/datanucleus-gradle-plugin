@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 import static org.datanucleus.store.schema.SchemaTool.*;
 
 @SuppressWarnings("unused")
-public abstract class AbstractSchemaToolTask  extends AbstractDataNucleusTask {
+public abstract class AbstractSchemaToolTask extends AbstractDataNucleusTask {
 
     private Boolean skip;
     private String persistenceUnitName;
@@ -183,7 +183,8 @@ public abstract class AbstractSchemaToolTask  extends AbstractDataNucleusTask {
         this.schemaName = schemaName;
     }
 
-    protected void checkTaskOptionsValidity() {}
+    protected void checkTaskOptionsValidity() {
+    }
 
     @TaskAction
     public final void performSchemaToolOperation() throws Exception {

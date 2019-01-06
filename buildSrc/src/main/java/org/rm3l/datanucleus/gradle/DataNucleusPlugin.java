@@ -50,31 +50,31 @@ public class DataNucleusPlugin implements Plugin<Project> {
         final DataNucleusExtension dataNucleusExtension = new DataNucleusExtension(project);
 
         //Register tasks
-        addTask(project, ENHANCE_TASK_NAME,  EnhanceTask.class, new String[] {"compileJava"}, new String[] {"classes"});
+        addTask(project, ENHANCE_TASK_NAME, EnhanceTask.class, new String[]{"compileJava"}, new String[]{"classes"});
         addTask(project, ENHANCE_CHECK_TASK_NAME, EnhanceCheckTask.class, null, null);
-        addTask(project, TEST_ENHANCE_TASK_NAME,  TestEnhanceTask.class, new String[] {"compileTestJava"},
-                new String[] {"testClasses"});
+        addTask(project, TEST_ENHANCE_TASK_NAME, TestEnhanceTask.class, new String[]{"compileTestJava"},
+                new String[]{"testClasses"});
         addTask(project, TEST_ENHANCE_CHECK_TASK_NAME, TestEnhanceCheckTask.class, null, null);
 
-        addTask(project, CREATE_DATABASE, CreateDatabaseTask.class, new String[] {"classes"}, null);
-        addTask(project, DELETE_DATABASE, DeleteDatabaseTask.class, new String[] {"classes"}, null);
-        addTask(project, CREATE_DATABASE_TABLES, CreateDatabaseTablesTask.class, new String[] {"classes"}, null);
-        addTask(project, DELETE_DATABASE_TABLES, DeleteDatabaseTablesTask.class, new String[] {"classes"}, null);
-        addTask(project, DELETE_THEN_CREATE_DATABASE_TABLES, DeleteThenCreateDatabaseTablesTask.class, new String[] {"classes"}, null);
-        addTask(project, VALIDATE_DATABASE_TABLES, ValidateDatabaseTablesTask.class, new String[] {"classes"}, null);
-        addTask(project, DBINFO, DBInfoTask.class, new String[] {"classes"}, null);
-        addTask(project, SCHEMAINFO, SchemaInfoTask.class, new String[] {"classes"}, null);
+        addTask(project, CREATE_DATABASE, CreateDatabaseTask.class, new String[]{"classes"}, null);
+        addTask(project, DELETE_DATABASE, DeleteDatabaseTask.class, new String[]{"classes"}, null);
+        addTask(project, CREATE_DATABASE_TABLES, CreateDatabaseTablesTask.class, new String[]{"classes"}, null);
+        addTask(project, DELETE_DATABASE_TABLES, DeleteDatabaseTablesTask.class, new String[]{"classes"}, null);
+        addTask(project, DELETE_THEN_CREATE_DATABASE_TABLES, DeleteThenCreateDatabaseTablesTask.class, new String[]{"classes"}, null);
+        addTask(project, VALIDATE_DATABASE_TABLES, ValidateDatabaseTablesTask.class, new String[]{"classes"}, null);
+        addTask(project, DBINFO, DBInfoTask.class, new String[]{"classes"}, null);
+        addTask(project, SCHEMAINFO, SchemaInfoTask.class, new String[]{"classes"}, null);
 
         final Logger projectLogger = project.getLogger();
         if (projectLogger.isDebugEnabled()) {
             projectLogger.debug("Adding DataNucleus extensions to the build [{}]", project.getName());
         }
 
-        project.getExtensions().add( "datanucleus", dataNucleusExtension);
+        project.getExtensions().add("datanucleus", dataNucleusExtension);
     }
 
     private <T extends AbstractDataNucleusTask> void addTask(final Project project, final String taskName, final Class<T> taskType,
-                                                 final String[] dependencies, final String[] dependentTasks) {
+                                                             final String[] dependencies, final String[] dependentTasks) {
         final TaskContainer projectTasks = project.getTasks();
 
         final T task = projectTasks.create(taskName, taskType);

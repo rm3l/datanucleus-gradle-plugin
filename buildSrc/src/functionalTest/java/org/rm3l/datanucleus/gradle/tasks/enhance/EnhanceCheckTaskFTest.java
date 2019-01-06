@@ -65,7 +65,7 @@ class EnhanceCheckTaskFTest {
                         "repositories {\n" +
                         "  mavenCentral()\n" +
                         "}\n" +
-    "\n" +
+                        "\n" +
                         "dependencies {\n" +
                         "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
                         "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +

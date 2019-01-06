@@ -5,7 +5,7 @@ import static org.datanucleus.store.schema.SchemaTool.OPTION_DELETE_CREATE_TABLE
 public class DeleteThenCreateDatabaseTablesTask extends AbstractSchemaToolTask {
     @Override
     protected String[] withSchemaToolArguments() {
-        return new String[] {
+        return new String[]{
                 "-" + OPTION_DELETE_CREATE_TABLES_FOR_CLASSES
         };
     }

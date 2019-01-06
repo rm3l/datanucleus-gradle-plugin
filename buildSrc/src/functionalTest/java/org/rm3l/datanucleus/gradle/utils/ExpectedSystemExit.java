@@ -25,9 +25,8 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author せいうはん (Employee ID: 17092068)
  * @version 1.0.0, 2018-05-27 00:08
  * @link https://github.com/stefanbirkner/system-rules/blob/master/src/main/java/org/junit/contrib/java/lang/system/ExpectedSystemExit.java
- * @since 1.0.0, 2018-05-27 00:08
- *
  * @see {@link https://gist.github.com/rm3l/268241148eb77077950fc31777fad04c}
+ * @since 1.0.0, 2018-05-27 00:08
  */
 @Target({TYPE, METHOD})
 @Retention(RUNTIME)

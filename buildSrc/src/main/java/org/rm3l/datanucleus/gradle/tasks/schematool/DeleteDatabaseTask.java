@@ -5,7 +5,7 @@ import static org.datanucleus.store.schema.SchemaTool.OPTION_DELETE_DATABASE;
 public class DeleteDatabaseTask extends AbstractSchemaToolTask {
     @Override
     protected String[] withSchemaToolArguments() {
-        return new String[] {
+        return new String[]{
                 "-" + OPTION_DELETE_DATABASE
         };
     }

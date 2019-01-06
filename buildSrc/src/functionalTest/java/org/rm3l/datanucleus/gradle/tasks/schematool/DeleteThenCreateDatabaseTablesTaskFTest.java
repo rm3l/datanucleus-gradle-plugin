@@ -25,14 +25,14 @@ class DeleteThenCreateDatabaseTablesTaskFTest {
     @RegisterExtension
     final DataNucleusPluginTestExtension dataNucleusPluginTestExtension
             = new DataNucleusPluginTestExtension(
-                    (persistenceUnitMetaData, testPersistenceUnitMetaData) -> {
-                        persistenceUnitMetaData.addProperty("javax.persistence.jdbc.url",
-                                "jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=FALSE");
-                        persistenceUnitMetaData.addProperty("javax.persistence.jdbc.driver", "org.h2.Driver");
-                        persistenceUnitMetaData.addProperty("javax.persistence.jdbc.user", "SA");
-                        persistenceUnitMetaData.addProperty("javax.persistence.jdbc.password", "");
-                        persistenceUnitMetaData.addProperty("datanucleus.schema.autoCreateAll", "true");
-                    });
+            (persistenceUnitMetaData, testPersistenceUnitMetaData) -> {
+                persistenceUnitMetaData.addProperty("javax.persistence.jdbc.url",
+                        "jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=FALSE");
+                persistenceUnitMetaData.addProperty("javax.persistence.jdbc.driver", "org.h2.Driver");
+                persistenceUnitMetaData.addProperty("javax.persistence.jdbc.user", "SA");
+                persistenceUnitMetaData.addProperty("javax.persistence.jdbc.password", "");
+                persistenceUnitMetaData.addProperty("datanucleus.schema.autoCreateAll", "true");
+            });
 
     @Test
     @DisplayName("should succeed deleting then creating the database tables against an in-memory datastore")

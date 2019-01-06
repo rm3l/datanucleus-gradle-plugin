@@ -6,11 +6,11 @@ import javax.persistence.Id;
 
 @Entity
 public class Person {
-  @Id
-  private Long id;
+    @Id
+    private Long id;
 
-  @Column(
-      nullable = false
-  )
-  private String name;
+    @Column(
+            nullable = false
+    )
+    private String name;
 }

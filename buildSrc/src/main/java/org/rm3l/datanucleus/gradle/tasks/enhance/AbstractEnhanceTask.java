@@ -68,20 +68,15 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
         this.checkOnly = checkOnly;
     }
 
-    @Option(option = "skip", description = "Whether to skip execution")
-    public void setSkip(Boolean skip) {
-        this.skip = skip;
-    }
-
     @Input
     @Optional
     public Boolean getSkip() {
         return skip;
     }
 
-    @Option(option = "persistence-unit-name", description = "Name of the persistence-unit to enhance. Mandatory")
-    public void setPersistenceUnitName(String persistenceUnitName) {
-        this.persistenceUnitName = persistenceUnitName;
+    @Option(option = "skip", description = "Whether to skip execution")
+    public void setSkip(Boolean skip) {
+        this.skip = skip;
     }
 
     @Input
@@ -90,64 +85,15 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
         return persistenceUnitName;
     }
 
+    @Option(option = "persistence-unit-name", description = "Name of the persistence-unit to enhance. Mandatory")
+    public void setPersistenceUnitName(String persistenceUnitName) {
+        this.persistenceUnitName = persistenceUnitName;
+    }
+
     @InputFile
     @Optional
     public File getLog4jConfiguration() {
         return log4jConfiguration;
-    }
-
-    @InputFile
-    @Optional
-    public File getJdkLogConfiguration() {
-        return jdkLogConfiguration;
-    }
-
-    @Input
-    @Optional
-    public DataNucleusApi getApi() {
-        return api;
-    }
-
-    @Input
-    @Optional
-    public Boolean getVerbose() {
-        return verbose;
-    }
-
-    @Input
-    @Optional
-    public Boolean getQuiet() {
-        return quiet;
-    }
-
-    @OutputDirectory
-    @Optional
-    public File getTargetDirectory() {
-        return targetDirectory;
-    }
-
-    @Input
-    @Optional
-    public Boolean getGeneratePK() {
-        return generatePK;
-    }
-
-    @Input
-    @Optional
-    public Boolean getGenerateConstructor() {
-        return generateConstructor;
-    }
-
-    @Input
-    @Optional
-    public Boolean getDetachListener() {
-        return detachListener;
-    }
-
-    @Input
-    @Optional
-    public Boolean getIgnoreMetaDataForMissingClasses() {
-        return ignoreMetaDataForMissingClasses;
     }
 
     @Option(option = "log4j-conf", description = "Config file location for Log4J (if using it)")
@@ -160,6 +106,12 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
         this.log4jConfiguration = log4jConfiguration;
     }
 
+    @InputFile
+    @Optional
+    public File getJdkLogConfiguration() {
+        return jdkLogConfiguration;
+    }
+
     @Option(option = "jdk-log-conf", description = "Config file location for JDK logging (if using it)")
     public void setJdkLogConfiguration(String jdkLogConfiguration) {
         this.setJdkLogConfiguration(
@@ -170,14 +122,21 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
         this.jdkLogConfiguration = jdkLogConfiguration;
     }
 
+    @Input
+    @Optional
+    public DataNucleusApi getApi() {
+        return api;
+    }
+
     @Option(option = "api", description = "API to enhance to (JDO or JPA). Mandatory. Default is JDO.")
     public void setApi(DataNucleusApi api) {
         this.api = api;
     }
 
-    @OptionValues("api")
-    public List<DataNucleusApi> getApiTypes() {
-        return new ArrayList<>(EnumSet.allOf(DataNucleusApi.class));
+    @Input
+    @Optional
+    public Boolean getVerbose() {
+        return verbose;
     }
 
     @Option(option = "verbose", description = "Whether to be verbose or not")
@@ -185,9 +144,21 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
         this.verbose = verbose;
     }
 
+    @Input
+    @Optional
+    public Boolean getQuiet() {
+        return quiet;
+    }
+
     @Option(option = "quiet", description = "Whether to be quiet or not")
     public void setQuiet(Boolean quiet) {
         this.quiet = quiet;
+    }
+
+    @OutputDirectory
+    @Optional
+    public File getTargetDirectory() {
+        return targetDirectory;
     }
 
     @Option(option = "target-directory", description = "Where the enhanced classes are written (default is to overwrite them)")
@@ -200,11 +171,23 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
         this.targetDirectory = targetDirectory;
     }
 
+    @Input
+    @Optional
+    public Boolean getGeneratePK() {
+        return generatePK;
+    }
+
     @Option(option = "generate-pk",
             description = "Whether to generate a PK class (of name {MyClass}_PK) for cases where there are multiple PK " +
                     "fields yet no IdClass is defined.")
     public void setGeneratePK(Boolean generatePK) {
         this.generatePK = generatePK;
+    }
+
+    @Input
+    @Optional
+    public Boolean getGenerateConstructor() {
+        return generateConstructor;
     }
 
     @Option(option = "generate-constructor",
@@ -213,16 +196,33 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
         this.generateConstructor = generateConstructor;
     }
 
+    @Input
+    @Optional
+    public Boolean getDetachListener() {
+        return detachListener;
+    }
+
     @Option(option = "detach-listener", description = "Whether to enhance classes to make use of a detach listener " +
             "for attempts to access an un-detached field.")
     public void setDetachListener(Boolean detachListener) {
         this.detachListener = detachListener;
     }
 
+    @Input
+    @Optional
+    public Boolean getIgnoreMetaDataForMissingClasses() {
+        return ignoreMetaDataForMissingClasses;
+    }
+
     @Option(option = "ignore-metadata-for-missing-classes",
             description = "Whether to ignore when we have metadata specified for classes that are not found (e.g in orm.xml)")
     public void setIgnoreMetaDataForMissingClasses(Boolean ignoreMetaDataForMissingClasses) {
         this.ignoreMetaDataForMissingClasses = ignoreMetaDataForMissingClasses;
+    }
+
+    @OptionValues("api")
+    public List<DataNucleusApi> getApiTypes() {
+        return new ArrayList<>(EnumSet.allOf(DataNucleusApi.class));
     }
 
     @SuppressWarnings("unused")
@@ -269,8 +269,8 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
 
             final List<String> sourcePathList =
                     Stream.concat(mainStream, testStream)
-                    .map(File::getAbsolutePath)
-                    .collect(Collectors.toList());
+                            .map(File::getAbsolutePath)
+                            .collect(Collectors.toList());
             final URL[] classloaderUrls = new URL[sourcePathList.size()];
             int index = 0;
             for (final String sourcePath : sourcePathList) {
@@ -286,7 +286,7 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
                     .setGeneratePK(generatePK != null && generatePK)
                     .setSystemOut(quiet == null || !quiet);
             if (targetDirectory != null) {
-                    enhancer.setOutputDirectory(targetDirectory.getAbsolutePath());
+                enhancer.setOutputDirectory(targetDirectory.getAbsolutePath());
             }
             final int result;
             if (this.checkOnly) {

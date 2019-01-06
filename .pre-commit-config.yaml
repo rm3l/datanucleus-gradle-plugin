@@ -1,5 +1,5 @@
 repos:
--   repo: https://github.com/thlorenz/doctoc
+  - repo: https://github.com/thlorenz/doctoc
     sha: master
     hooks:
-    -   id: doctoc
+      - id: doctoc

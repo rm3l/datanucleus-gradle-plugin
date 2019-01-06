@@ -96,8 +96,8 @@ class EnhanceTaskFTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        for (final String fileToCreate : new String[] {"log4j.properties", "jul.properties"})
-        Files.createFile(tempDir.resolve(fileToCreate));
+        for (final String fileToCreate : new String[]{"log4j.properties", "jul.properties"})
+            Files.createFile(tempDir.resolve(fileToCreate));
 
         BuildResult result = gradle(tempDir, "build", "enhance");
         assertNotNull(result);

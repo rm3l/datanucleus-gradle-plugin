@@ -6,8 +6,8 @@ public class CreateDatabaseTablesTask extends AbstractSchemaToolTask {
 
     @Override
     protected String[] withSchemaToolArguments() {
-        return new String[] {
-            "-" + OPTION_CREATE_TABLES_FOR_CLASSES
+        return new String[]{
+                "-" + OPTION_CREATE_TABLES_FOR_CLASSES
         };
     }
 

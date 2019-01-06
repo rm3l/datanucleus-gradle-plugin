@@ -46,14 +46,10 @@ public class DataNucleusExtension {
     public static final String TEST_ENHANCE_CHECK_TASK_NAME = "testEnhanceCheck";
 
     private final Project project;
-
-    private Boolean skip = false;
-
     private final EnhanceExtension enhance;
-
     private final EnhanceExtension testEnhance;
-
     private final SchemaToolExtension schemaTool;
+    private Boolean skip = false;
 
     public DataNucleusExtension(Project project) {
         this.project = project;
@@ -80,7 +76,7 @@ public class DataNucleusExtension {
     //Auto-bind the DSL to a Gradle task
     public void enhance(Closure closure) {
         this.enhance.configureExtensionAndTask(closure, ENHANCE_TASK_NAME, EnhanceTask.class,
-                new String[] {"compileJava"}, new String[] {"classes"});
+                new String[]{"compileJava"}, new String[]{"classes"});
         this.enhance.configureExtensionAndTask(closure, ENHANCE_CHECK_TASK_NAME, EnhanceCheckTask.class,
                 null, null);
     }
@@ -88,8 +84,8 @@ public class DataNucleusExtension {
     public void testEnhance(Closure closure) {
         this.testEnhance.configureExtensionAndTask(
                 closure, TEST_ENHANCE_TASK_NAME, TestEnhanceTask.class,
-                new String[] {"compileTestJava"},
-                new String[] {"testClasses"});
+                new String[]{"compileTestJava"},
+                new String[]{"testClasses"});
         this.testEnhance.configureExtensionAndTask(
                 closure, TEST_ENHANCE_CHECK_TASK_NAME, TestEnhanceCheckTask.class, null, null);
     }

@@ -5,7 +5,7 @@ import static org.datanucleus.store.schema.SchemaTool.OPTION_DELETE_TABLES_FOR_C
 public class DeleteDatabaseTablesTask extends AbstractSchemaToolTask {
     @Override
     protected String[] withSchemaToolArguments() {
-        return new String[] {
+        return new String[]{
                 "-" + OPTION_DELETE_TABLES_FOR_CLASSES
         };
     }
