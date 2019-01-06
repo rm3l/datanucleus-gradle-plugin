@@ -17,7 +17,6 @@ import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
 import static org.gradle.testkit.runner.TaskOutcome.UP_TO_DATE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
-import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
 @SuppressWarnings("Duplicates")
 @ExtendWith(DataNucleusPluginTestExtension.class)

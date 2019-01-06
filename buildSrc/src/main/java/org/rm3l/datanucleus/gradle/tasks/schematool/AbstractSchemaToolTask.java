@@ -1,12 +1,10 @@
 package org.rm3l.datanucleus.gradle.tasks.schematool;
 
 import org.datanucleus.store.schema.SchemaTool;
-import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.*;
-import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.options.Option;
 import org.gradle.api.tasks.options.OptionValues;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
@@ -15,7 +13,10 @@ import org.rm3l.datanucleus.gradle.tasks.AbstractDataNucleusTask;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

@@ -18,7 +18,6 @@ import static org.gradle.testkit.runner.TaskOutcome.FAILED;
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
-import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
 @SuppressWarnings("Duplicates")
 @ExpectedSystemExit

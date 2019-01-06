@@ -1,7 +1,5 @@
 package org.rm3l.datanucleus.gradle.sample.domain;
 
-import java.lang.Long;
-import java.lang.String;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

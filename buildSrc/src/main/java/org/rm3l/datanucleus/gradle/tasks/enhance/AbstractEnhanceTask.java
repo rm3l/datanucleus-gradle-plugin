@@ -23,7 +23,6 @@
 package org.rm3l.datanucleus.gradle.tasks.enhance;
 
 import org.datanucleus.enhancer.DataNucleusEnhancer;
-import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.plugins.JavaPluginConvention;

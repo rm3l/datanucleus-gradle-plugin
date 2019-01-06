@@ -3,10 +3,8 @@ package org.rm3l.datanucleus.gradle.utils;
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public final class TestUtils {
 

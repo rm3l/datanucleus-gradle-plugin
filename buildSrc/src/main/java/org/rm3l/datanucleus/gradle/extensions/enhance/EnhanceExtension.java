@@ -30,7 +30,6 @@ import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
-import org.rm3l.datanucleus.gradle.DataNucleusPlugin;
 import org.rm3l.datanucleus.gradle.extensions.DataNucleusExtension;
 import org.rm3l.datanucleus.gradle.tasks.enhance.AbstractEnhanceTask;
 
