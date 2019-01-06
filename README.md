@@ -278,7 +278,6 @@ All those tasks support the same set of options as in the official DataNucleus M
 | `quiet`      | `false` | No output? |
 | `completeDdl`      | `false` | Whether to generate DDL including things that already exist? (for RDBMS)|
 | `ddlFile`      | - | Name of an output file to dump any DDL to (for RDBMS) |
-| `fork`      | `true` | Whether to fork the enhancer process |
 | `ignoreMetaDataForMissingClasses`      | `false` | Whether to ignore when we have metadata specified for classes that are not found (e.g in *orm.xml*) |
 | `skip`      | `false` | Whether to skip execution |
 

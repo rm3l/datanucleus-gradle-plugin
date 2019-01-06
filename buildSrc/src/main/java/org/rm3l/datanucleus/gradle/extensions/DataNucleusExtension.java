@@ -101,7 +101,6 @@ public class DataNucleusExtension {
                 .catalogName(this.schemaTool.getCatalogName())
                 .completeDdl(this.schemaTool.isCompleteDdl())
                 .ddlFile(this.schemaTool.getDdlFile() != null ? this.schemaTool.getDdlFile().getAbsolutePath() : null)
-                .fork(this.schemaTool.isFork())
                 .log4jConfiguration(this.schemaTool.getLog4jConfiguration() != null ?
                         this.schemaTool.getLog4jConfiguration().getAbsolutePath() : null)
                 .jdkLogConfiguration(this.schemaTool.getJdkLogConfiguration() != null ?
@@ -120,7 +119,6 @@ public class DataNucleusExtension {
                 .catalogName(this.schemaTool.getCatalogName())
                 .completeDdl(this.schemaTool.isCompleteDdl())
                 .ddlFile(this.schemaTool.getDdlFile() != null ? this.schemaTool.getDdlFile().getAbsolutePath() : null)
-                .fork(this.schemaTool.isFork())
                 .log4jConfiguration(this.schemaTool.getLog4jConfiguration() != null ?
                         this.schemaTool.getLog4jConfiguration().getAbsolutePath() : null)
                 .jdkLogConfiguration(this.schemaTool.getJdkLogConfiguration() != null ?

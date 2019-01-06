@@ -56,14 +56,14 @@ public class DataNucleusPlugin implements Plugin<Project> {
                 new String[]{"testClasses"});
         addTask(project, TEST_ENHANCE_CHECK_TASK_NAME, TestEnhanceCheckTask.class, null, null);
 
-        addTask(project, CREATE_DATABASE, CreateDatabaseTask.class, new String[]{"classes"}, null);
-        addTask(project, DELETE_DATABASE, DeleteDatabaseTask.class, new String[]{"classes"}, null);
-        addTask(project, CREATE_DATABASE_TABLES, CreateDatabaseTablesTask.class, new String[]{"classes"}, null);
-        addTask(project, DELETE_DATABASE_TABLES, DeleteDatabaseTablesTask.class, new String[]{"classes"}, null);
-        addTask(project, DELETE_THEN_CREATE_DATABASE_TABLES, DeleteThenCreateDatabaseTablesTask.class, new String[]{"classes"}, null);
-        addTask(project, VALIDATE_DATABASE_TABLES, ValidateDatabaseTablesTask.class, new String[]{"classes"}, null);
-        addTask(project, DBINFO, DBInfoTask.class, new String[]{"classes"}, null);
-        addTask(project, SCHEMAINFO, SchemaInfoTask.class, new String[]{"classes"}, null);
+        addTask(project, CREATE_DATABASE, CreateDatabaseTask.class);
+        addTask(project, DELETE_DATABASE, DeleteDatabaseTask.class);
+        addTask(project, CREATE_DATABASE_TABLES, CreateDatabaseTablesTask.class);
+        addTask(project, DELETE_DATABASE_TABLES, DeleteDatabaseTablesTask.class);
+        addTask(project, DELETE_THEN_CREATE_DATABASE_TABLES, DeleteThenCreateDatabaseTablesTask.class);
+        addTask(project, VALIDATE_DATABASE_TABLES, ValidateDatabaseTablesTask.class);
+        addTask(project, DBINFO, DBInfoTask.class);
+        addTask(project, SCHEMAINFO, SchemaInfoTask.class);
 
         final Logger projectLogger = project.getLogger();
         if (projectLogger.isDebugEnabled()) {
@@ -73,8 +73,14 @@ public class DataNucleusPlugin implements Plugin<Project> {
         project.getExtensions().add("datanucleus", dataNucleusExtension);
     }
 
-    private <T extends AbstractDataNucleusTask> void addTask(final Project project, final String taskName, final Class<T> taskType,
-                                                             final String[] dependencies, final String[] dependentTasks) {
+    private <T extends AbstractDataNucleusTask> void addTask(final Project project, final String taskName,
+                                                             final Class<T> taskType) {
+        addTask(project, taskName, taskType, null, null);
+    }
+
+    private <T extends AbstractDataNucleusTask> void addTask(final Project project, final String taskName,
+                                                             final Class<T> taskType, final String[] dependencies,
+                                                             final String[] dependentTasks) {
         final TaskContainer projectTasks = project.getTasks();
 
         final T task = projectTasks.create(taskName, taskType);
@@ -84,9 +90,7 @@ public class DataNucleusPlugin implements Plugin<Project> {
         }
         if (dependentTasks != null) {
             for (final String dependentTask : dependentTasks) {
-                if (dependentTask != null) {
-                    projectTasks.getByName(dependentTask).dependsOn(taskName);
-                }
+                projectTasks.getByName(dependentTask).dependsOn(taskName);
             }
         }
     }

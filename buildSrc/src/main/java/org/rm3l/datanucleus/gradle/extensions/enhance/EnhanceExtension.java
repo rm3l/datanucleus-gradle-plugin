@@ -52,7 +52,6 @@ public class EnhanceExtension {
     private boolean verbose = false;
     private boolean quiet = false;
     private File targetDirectory;
-    private boolean fork = true;
     private boolean generatePK = true;
     private boolean generateConstructor = true;
     private boolean detachListener = false;
@@ -165,15 +164,6 @@ public class EnhanceExtension {
         return this;
     }
 
-    public boolean isFork() {
-        return fork;
-    }
-
-    public EnhanceExtension fork(boolean fork) {
-        this.fork = fork;
-        return this;
-    }
-
     public boolean isGeneratePK() {
         return generatePK;
     }
@@ -248,9 +238,7 @@ public class EnhanceExtension {
         }
         if (dependentTasks != null) {
             for (final String dependentTask : dependentTasks) {
-                if (dependentTask != null) {
-                    projectTasks.getByName(dependentTask).dependsOn(taskName);
-                }
+                projectTasks.getByName(dependentTask).dependsOn(taskName);
             }
         }
     }

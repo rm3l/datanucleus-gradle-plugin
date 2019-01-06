@@ -2,9 +2,7 @@ package org.rm3l.datanucleus.gradle.extensions.schematool;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
-import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPluginConvention;
-import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
@@ -27,7 +25,6 @@ public class SchemaToolExtension {
     public static final String DBINFO = "dbinfo";
     public static final String SCHEMAINFO = "schemainfo";
     private final DataNucleusExtension datanucleusExtension;
-    private final SourceSet sourceSet;
 
     /**
      * API for the metadata being used (JDO, JPA). Set this to JPA
@@ -71,13 +68,6 @@ public class SchemaToolExtension {
     private boolean verbose = false;
 
     /**
-     * Whether to fork the SchemaTool process.
-     * Note that if you don’t fork the process, DataNucleus will likely struggle to determine class names from the
-     * input filenames, so you need to use a persistence.xml file defining the class names directly.
-     */
-    private boolean fork = true;
-
-    /**
      * Whether to generate DDL including things that already exist? (for RDBMS)
      */
     private boolean completeDdl = false;
@@ -94,7 +84,6 @@ public class SchemaToolExtension {
         Project project = dataNucleusExtension.getProject();
         final JavaPluginConvention javaConvention =
                 project.getConvention().getPlugin(JavaPluginConvention.class);
-        this.sourceSet = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
     }
 
     public Boolean getSkip() {
@@ -104,10 +93,6 @@ public class SchemaToolExtension {
     public SchemaToolExtension skip(Boolean skip) {
         this.skip = skip;
         return this;
-    }
-
-    public SourceSet getSourceSet() {
-        return this.sourceSet;
     }
 
     public DataNucleusApi getApi() {
@@ -190,15 +175,6 @@ public class SchemaToolExtension {
         return this;
     }
 
-    public boolean isFork() {
-        return fork;
-    }
-
-    public SchemaToolExtension fork(boolean fork) {
-        this.fork = fork;
-        return this;
-    }
-
     public boolean isCompleteDdl() {
         return completeDdl;
     }
@@ -229,10 +205,7 @@ public class SchemaToolExtension {
 
         for (final String taskName : new String[]{CREATE_DATABASE, DELETE_DATABASE, CREATE_DATABASE_TABLES,
                 DELETE_DATABASE_TABLES, DELETE_THEN_CREATE_DATABASE_TABLES, VALIDATE_DATABASE_TABLES, DBINFO, SCHEMAINFO}) {
-            final Task tasksByName = projectTasks.findByName(taskName);
-            if (tasksByName != null) {
-                projectTasks.remove(tasksByName);
-            }
+            projectTasks.remove(projectTasks.findByName(taskName));
         }
 
         schemaToolTasks.add(projectTasks.create(CREATE_DATABASE, CreateDatabaseTask.class, this::configureTask));

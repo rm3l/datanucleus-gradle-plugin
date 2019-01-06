@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rm3l.datanucleus.gradle.utils.DataNucleusPluginTestExtension;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -77,6 +78,7 @@ class EnhanceTaskFTest {
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
+                        "  skip false\n" +
                         "  enhance {\n" +
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnit'\n" +
@@ -84,7 +86,6 @@ class EnhanceTaskFTest {
                         "    generatePK true\n" +
                         "    ignoreMetaDataForMissingClasses false\n" +
                         "    detachListener true\n" +
-                        "    fork false\n" +
                         "    quiet false\n" +
                         "    verbose false\n" +
                         "    log4jConfiguration \"${rootProject.projectDir}/log4j.properties\"\n" + //ignored if null
@@ -113,6 +114,45 @@ class EnhanceTaskFTest {
         enhanceTask = result.task(":enhance");
         assertNotNull(enhanceTask);
         assertSame(UP_TO_DATE, enhanceTask.getOutcome());
+    }
+
+    @Test
+    @DisplayName("should succeed running the 'enhance' task from CLI")
+    void test_run_enhance_task_cli_succeeds(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+        final File log4jConfFile = Files.createFile(tempDir.resolve("log4j.conf")).toFile();
+        final File jdkLogConfFile = Files.createFile(tempDir.resolve("jdkLog.conf")).toFile();
+        final File targetDir = Files.createDirectories(tempDir.resolve("myTargetDir")).toFile();
+
+        final Path buildGradle = tempDir.resolve("build.gradle");
+        Files.write(buildGradle,
+                ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
+                        "repositories {\n" +
+                        "  mavenCentral()\n" +
+                        "}\n" +
+                        "\n" +
+                        "dependencies {\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "}\n" +
+                        "\n")
+                        .getBytes(StandardCharsets.UTF_8),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
+
+        BuildResult result = gradle(tempDir,
+                "enhance",
+                "--api", "JPA",
+                "--persistence-unit-name", "myPersistenceUnit",
+                "--target-directory", targetDir.getAbsolutePath(),
+                "--jdk-log-conf", jdkLogConfFile.getAbsolutePath(),
+                "--log4j-conf", log4jConfFile.getAbsolutePath());
+        assertNotNull(result);
+        BuildTask enhanceTask = result.task(":enhance");
+        assertNotNull(enhanceTask);
+        assertSame(SUCCESS, enhanceTask.getOutcome());
+        String output = result.getOutput();
+        assertNotNull(output);
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
     }
 
 }

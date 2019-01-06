@@ -44,6 +44,8 @@ ext {
     javapoetVersion = '1.11.1'
     junitVersion = '5.3.1'
     junitPioneerVersion = '0.3.0'
+    h2Version = '1.4.192'
+    mockitoVersion = '2.23.4'
     systemRulesVersion = '1.19.0'
 }
 
@@ -62,12 +64,15 @@ dependencies {
 
     testCompile gradleTestKit()
     testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
     testCompile "org.junit-pioneer:junit-pioneer:${junitPioneerVersion}"
+    testCompile "org.mockito:mockito-core:${mockitoVersion}"
+    testCompile "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
     testCompile "com.squareup:javapoet:${javapoetVersion}"
     testCompile "com.github.stefanbirkner:system-rules:${systemRulesVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testRuntimeOnly "org.datanucleus:datanucleus-accessplatform-jpa-rdbms:${datanucleusAccessPlatformJpaRdbmsVersion}"
-    testRuntimeOnly 'com.h2database:h2:1.4.192'
+    testRuntimeOnly "com.h2database:h2:${h2Version}"
 }
 
 tasks.withType(Test) {

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rm3l.datanucleus.gradle.utils.DataNucleusPluginTestExtension;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -99,5 +100,41 @@ class TestEnhanceCheckTaskFTest {
         assertNotNull(output);
         assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
 
+    }
+
+    @Test
+    @DisplayName("should succeed running the 'testEnhanceCheck' task from CLI")
+    void test_run_testEnhanceCheck_task_cli_succeeds(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+        final File log4jConfFile = Files.createFile(tempDir.resolve("log4j.conf")).toFile();
+        final File jdkLogConfFile = Files.createFile(tempDir.resolve("jdkLog.conf")).toFile();
+        final File targetDir = Files.createDirectories(tempDir.resolve("myTargetDir")).toFile();
+
+        final Path buildGradle = tempDir.resolve("build.gradle");
+        Files.write(buildGradle,
+                ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
+                        "repositories {\n" +
+                        "  mavenCentral()\n" +
+                        "}\n" +
+                        "\n" +
+                        "dependencies {\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "}\n" +
+                        "\n")
+                        .getBytes(StandardCharsets.UTF_8),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
+
+        BuildResult result = gradle(tempDir,
+                "testEnhanceCheck",
+                "--api", "JPA",
+                "--persistence-unit-name", "myPersistenceUnit",
+                "--target-directory", targetDir.getAbsolutePath(),
+                "--jdk-log-conf", jdkLogConfFile.getAbsolutePath(),
+                "--log4j-conf", log4jConfFile.getAbsolutePath());
+        assertNotNull(result);
+        BuildTask enhanceTask = result.task(":testEnhanceCheck");
+        assertNotNull(enhanceTask);
+        assertSame(SUCCESS, enhanceTask.getOutcome());
     }
 }

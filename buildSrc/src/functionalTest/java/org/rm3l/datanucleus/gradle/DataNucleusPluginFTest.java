@@ -29,8 +29,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.rm3l.datanucleus.gradle.utils.DataNucleusPluginTestExtension;
-import org.rm3l.datanucleus.gradle.utils.TestUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -38,6 +39,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
+import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
+
+@SuppressWarnings("Duplicates")
 @ExtendWith(DataNucleusPluginTestExtension.class)
 class DataNucleusPluginFTest {
 
@@ -52,18 +56,62 @@ class DataNucleusPluginFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
-        final BuildResult result = TestUtils.gradle(tempDir, "--debug", "build");
+        final BuildResult result = gradle(tempDir, "--debug", "build");
         Assertions.assertNotNull(result);
 
         final String output = result.getOutput();
         Assertions.assertNotNull(output);
         Assertions.assertTrue(output.contains("Adding DataNucleus extensions to the build "));
+
+        final BuildResult taskListResult = gradle(tempDir, "tasks");
+        Assertions.assertNotNull(result);
+        final String taskListResultOutput = taskListResult.getOutput();
+        Assertions.assertNotNull(taskListResultOutput);
+        final String taskListOutputLower = taskListResultOutput.toLowerCase();
+        Assertions.assertTrue(taskListOutputLower.contains("DataNucleus Enhancement tasks".toLowerCase()));
+        Assertions.assertTrue(taskListOutputLower.contains("DataNucleus SchemaTool tasks".toLowerCase()));
+    }
+
+    @ParameterizedTest(name = "\"{0}\"")
+    @ValueSource(strings = {"enhance", "enhanceCheck",
+            "testEnhance", "testEnhanceCheck",
+            "createDatabase", "createDatabaseTables",
+            "deleteDatabase", "deleteDatabaseTables",
+            "deleteThenCreateDatabaseTables",
+            "validateDatabaseTables",
+            "dbinfo", "schemainfo"})
+    @DisplayName("DN Tasks CLI Options")
+    void test_tasks_CLI_Options(String taskName, @DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
+        Assertions.assertNotNull(taskName);
+        Assertions.assertFalse(taskName.isEmpty());
+
+        final Path buildGradle = tempDir.resolve("build.gradle");
+        Files.write(buildGradle,
+                ("plugins { id 'org.rm3l.datanucleus-gradle-plugin' }\n\n" +
+                        "repositories {\n" +
+                        "  mavenCentral()\n" +
+                        "}\n" +
+                        "\n" +
+                        "dependencies {\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "}\n")
+                        .getBytes(StandardCharsets.UTF_8),
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
+
+        final BuildResult result = gradle(tempDir, "-q", "help", "--task", taskName);
+        Assertions.assertNotNull(result);
+        final String output = result.getOutput();
+        Assertions.assertNotNull(output);
+        Assertions.assertFalse(output.trim().isEmpty());
+
     }
 
     @Test
@@ -77,8 +125,8 @@ class DataNucleusPluginFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -91,7 +139,7 @@ class DataNucleusPluginFTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = TestUtils.gradle(tempDir, "build");
+        final BuildResult result = gradle(tempDir, "build");
         Assertions.assertNotNull(result);
         final BuildTask enhanceTask = result.task(":enhance");
         Assertions.assertNotNull(enhanceTask);
@@ -116,8 +164,8 @@ class DataNucleusPluginFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -130,7 +178,7 @@ class DataNucleusPluginFTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = TestUtils.gradle(tempDir, "build");
+        final BuildResult result = gradle(tempDir, "build");
         Assertions.assertNotNull(result);
         final BuildTask enhanceTask = result.task(":testEnhance");
         Assertions.assertNotNull(enhanceTask);
@@ -152,8 +200,8 @@ class DataNucleusPluginFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -171,7 +219,7 @@ class DataNucleusPluginFTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = TestUtils.gradle(tempDir, "build");
+        final BuildResult result = gradle(tempDir, "build");
         Assertions.assertNotNull(result);
 
         final BuildTask enhanceTask = result.task(":enhance");
@@ -203,8 +251,8 @@ class DataNucleusPluginFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -223,7 +271,7 @@ class DataNucleusPluginFTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = TestUtils.gradle(tempDir, "build", "--debug");
+        final BuildResult result = gradle(tempDir, "build", "--debug");
         Assertions.assertNotNull(result);
 
         final BuildTask enhanceTask = result.task(":enhance");
@@ -250,8 +298,8 @@ class DataNucleusPluginFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + TestUtils.DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + TestUtils.JUNIT_VERSION + "'\n" +
+                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -266,7 +314,7 @@ class DataNucleusPluginFTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
-        final BuildResult result = TestUtils.gradle(tempDir, "build", "--debug");
+        final BuildResult result = gradle(tempDir, "build", "--debug");
         Assertions.assertNotNull(result);
 
         final BuildTask enhanceTask = result.task(":enhance");
