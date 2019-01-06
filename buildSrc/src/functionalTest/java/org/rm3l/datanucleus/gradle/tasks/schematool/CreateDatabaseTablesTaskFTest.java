@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 
+@SuppressWarnings("Duplicates")
 @ExpectedSystemExit
 class CreateDatabaseTablesTaskFTest {
 

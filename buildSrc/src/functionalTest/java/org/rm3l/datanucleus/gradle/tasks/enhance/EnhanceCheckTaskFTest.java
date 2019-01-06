@@ -14,10 +14,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
+import static org.gradle.testkit.runner.TaskOutcome.UP_TO_DATE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
+@SuppressWarnings("Duplicates")
 @ExtendWith(DataNucleusPluginTestExtension.class)
 class EnhanceCheckTaskFTest {
 
@@ -39,7 +41,7 @@ class EnhanceCheckTaskFTest {
                         "datanucleus {\n" +
                         "  enhance {\n" +
                         "    api 'JPA'\n" +
-                        "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
+                        "    persistenceUnitName 'myPersistenceUnit'\n" +
                         "  }\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
@@ -65,7 +67,7 @@ class EnhanceCheckTaskFTest {
                         "repositories {\n" +
                         "  mavenCentral()\n" +
                         "}\n" +
-                        "\n" +
+    "\n" +
                         "dependencies {\n" +
                         "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
                         "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
@@ -74,7 +76,7 @@ class EnhanceCheckTaskFTest {
                         "datanucleus {\n" +
                         "  enhance {\n" +
                         "    api 'JPA'\n" +
-                        "    persistenceUnitName 'myPersistenceUnitForTest'\n" +
+                        "    persistenceUnitName 'myPersistenceUnit'\n" +
                         "  }\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),

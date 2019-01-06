@@ -25,14 +25,9 @@ package org.rm3l.datanucleus.gradle.tasks.enhance;
 /**
  * Actual enhancer task
  */
-public class EnhanceTask extends AbstractMainEnhanceTask {
+abstract class AbstractTestEnhanceTask extends AbstractEnhanceTask {
 
-    public EnhanceTask() {
-        super(false);
-    }
-
-    @Override
-    public String getDescription() {
-        return "Performs enhancement of the main classes.";
+    AbstractTestEnhanceTask(final boolean checkOnly) {
+        super(true, checkOnly);
     }
 }

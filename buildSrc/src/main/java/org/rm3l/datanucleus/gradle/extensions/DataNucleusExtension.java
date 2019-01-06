@@ -24,20 +24,26 @@ package org.rm3l.datanucleus.gradle.extensions;
 
 import groovy.lang.Closure;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
-import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.extensions.enhance.EnhanceExtension;
 import org.rm3l.datanucleus.gradle.extensions.schematool.SchemaToolExtension;
+import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceCheckTask;
+import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
+import org.rm3l.datanucleus.gradle.tasks.enhance.TestEnhanceCheckTask;
+import org.rm3l.datanucleus.gradle.tasks.enhance.TestEnhanceTask;
 
 /**
  * Extension for the 'datanucleus' DSL entrypoint
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class DataNucleusExtension {
 
-    private static final String ENHANCE_TASK_NAME = "enhance";
-    private static final String TEST_ENHANCE_TASK_NAME = "testEnhance";
+    public static final String ENHANCE_TASK_NAME = "enhance";
+    public static final String ENHANCE_CHECK_TASK_NAME = "enhanceCheck";
+    public static final String TEST_ENHANCE_TASK_NAME = "testEnhance";
+    public static final String TEST_ENHANCE_CHECK_TASK_NAME = "testEnhanceCheck";
 
     private final Project project;
 
@@ -72,22 +78,61 @@ public class DataNucleusExtension {
     }
 
     //Auto-bind the DSL to a Gradle task
-    private void enhance(Closure closure) {
-        this.enhance.configureExtensionAndTask(closure, ENHANCE_TASK_NAME, new String[] {"classes"});
+    public void enhance(Closure closure) {
+        this.enhance.configureExtensionAndTask(closure, ENHANCE_TASK_NAME, EnhanceTask.class,
+                new String[] {"compileJava"}, new String[] {"classes"});
+        this.enhance.configureExtensionAndTask(closure, ENHANCE_CHECK_TASK_NAME, EnhanceCheckTask.class,
+                null, null);
     }
 
-    private void testEnhance(Closure closure) {
-        this.testEnhance.configureExtensionAndTask(closure, TEST_ENHANCE_TASK_NAME, new String[] {"testClasses"});
+    public void testEnhance(Closure closure) {
+        this.testEnhance.configureExtensionAndTask(
+                closure, TEST_ENHANCE_TASK_NAME, TestEnhanceTask.class,
+                new String[] {"compileTestJava"},
+                new String[] {"testClasses"});
+        this.testEnhance.configureExtensionAndTask(
+                closure, TEST_ENHANCE_CHECK_TASK_NAME, TestEnhanceCheckTask.class, null, null);
     }
 
-    private void schemaTool(Closure closure) {
+    public void schemaTool(Closure closure) {
         this.schemaTool.configureExtensionAndTasks(closure);
         final TaskContainer tasks = this.getProject().getTasks();
-        if (tasks.findByName("enhance") == null) {
-            this.enhance(closure);
+        final Task enhanceTask = tasks.findByName("enhance");
+        if (enhanceTask != null) {
+            tasks.remove(enhanceTask);
         }
-        if (tasks.findByName("testEnhance") == null) {
-            this.testEnhance(closure);
+        this.enhance.api(this.schemaTool.getApi())
+                .catalogName(this.schemaTool.getCatalogName())
+                .completeDdl(this.schemaTool.isCompleteDdl())
+                .ddlFile(this.schemaTool.getDdlFile() != null ? this.schemaTool.getDdlFile().getAbsolutePath() : null)
+                .fork(this.schemaTool.isFork())
+                .log4jConfiguration(this.schemaTool.getLog4jConfiguration() != null ?
+                        this.schemaTool.getLog4jConfiguration().getAbsolutePath() : null)
+                .jdkLogConfiguration(this.schemaTool.getJdkLogConfiguration() != null ?
+                        this.schemaTool.getJdkLogConfiguration().getAbsolutePath() : null)
+                .persistenceUnitName(this.schemaTool.getPersistenceUnitName())
+                .verbose(this.schemaTool.isVerbose())
+                .schemaName(this.schemaTool.getSchemaName())
+                .skip(this.schemaTool.getSkip());
+        this.enhance(closure);
+
+        final Task testEnhanceTask = tasks.findByName("testEnhance");
+        if (testEnhanceTask != null) {
+            tasks.remove(testEnhanceTask);
         }
+        this.testEnhance.api(this.schemaTool.getApi())
+                .catalogName(this.schemaTool.getCatalogName())
+                .completeDdl(this.schemaTool.isCompleteDdl())
+                .ddlFile(this.schemaTool.getDdlFile() != null ? this.schemaTool.getDdlFile().getAbsolutePath() : null)
+                .fork(this.schemaTool.isFork())
+                .log4jConfiguration(this.schemaTool.getLog4jConfiguration() != null ?
+                        this.schemaTool.getLog4jConfiguration().getAbsolutePath() : null)
+                .jdkLogConfiguration(this.schemaTool.getJdkLogConfiguration() != null ?
+                        this.schemaTool.getJdkLogConfiguration().getAbsolutePath() : null)
+                .persistenceUnitName(this.schemaTool.getPersistenceUnitName())
+                .verbose(this.schemaTool.isVerbose())
+                .schemaName(this.schemaTool.getSchemaName())
+                .skip(this.schemaTool.getSkip());
+        this.testEnhance(closure);
     }
 }

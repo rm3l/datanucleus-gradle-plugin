@@ -11,18 +11,21 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
+import static org.gradle.testkit.runner.TaskOutcome.UP_TO_DATE;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.*;
 import static org.rm3l.datanucleus.gradle.utils.TestUtils.gradle;
 
+@SuppressWarnings("Duplicates")
 @ExtendWith(DataNucleusPluginTestExtension.class)
 class EnhanceTaskFTest {
 
     @Test
-    @DisplayName("should not succeed enhancing domain classes if no build had been performed beforehand")
+    @DisplayName("should succeed enhancing domain classes even if no build had been performed beforehand")
     void test_enhance_without_build_does_not_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
         final Path buildGradle = tempDir.resolve("build.gradle");
         Files.write(buildGradle,
@@ -54,12 +57,10 @@ class EnhanceTaskFTest {
         assertNotNull(result);
         final BuildTask enhanceTask = result.task(":enhance");
         assertNotNull(enhanceTask);
+        assertSame(SUCCESS, enhanceTask.getOutcome());
         final String output = result.getOutput();
         assertNotNull(output);
-        assertTrue(output.contains(
-                "Class \"org.rm3l.datanucleus.gradle.test.domain.Person\" was not found in the CLASSPATH. " +
-                        "Please check your specification and your CLASSPATH."));
-        assertTrue(output.contains("DataNucleus Enhancer completed with success for 0 classes."));
+        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
     }
 
     @Test
@@ -97,6 +98,9 @@ class EnhanceTaskFTest {
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 
+        for (final String fileToCreate : new String[] {"log4j.properties", "jul.properties"})
+        Files.createFile(tempDir.resolve(fileToCreate));
+
         BuildResult result = gradle(tempDir, "build", "enhance");
         assertNotNull(result);
         BuildTask enhanceTask = result.task(":enhance");
@@ -110,10 +114,7 @@ class EnhanceTaskFTest {
         assertNotNull(result);
         enhanceTask = result.task(":enhance");
         assertNotNull(enhanceTask);
-        assertSame(SUCCESS, enhanceTask.getOutcome());
-        output = result.getOutput();
-        assertNotNull(output);
-        assertTrue(output.contains("DataNucleus Enhancer completed with success for 1 classes."));
+        assertSame(UP_TO_DATE, enhanceTask.getOutcome());
     }
 
 }

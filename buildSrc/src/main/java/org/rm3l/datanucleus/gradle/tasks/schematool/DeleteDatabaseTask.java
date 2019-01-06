@@ -12,11 +12,16 @@ public class DeleteDatabaseTask extends AbstractSchemaToolTask {
 
     @Override
     protected void checkTaskOptionsValidity() {
-        if (!this.getSchemaName().isPresent()) {
+        if (this.getSchemaName() == null) {
             throw new IllegalArgumentException("Missing option: schemaName");
         }
-        if (!this.getCatalogName().isPresent()) {
+        if (this.getCatalogName() == null) {
             throw new IllegalArgumentException("Missing option: catalogName");
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Deletes the specified database (catalog.schema) if the datastore supports that operation.";
     }
 }

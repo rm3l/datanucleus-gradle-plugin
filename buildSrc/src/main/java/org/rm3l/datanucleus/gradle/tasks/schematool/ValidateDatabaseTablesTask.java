@@ -14,4 +14,9 @@ public class ValidateDatabaseTablesTask extends AbstractSchemaToolTask {
                 "-" + OPTION_VALIDATE_TABLES_FOR_CLASSES
         };
     }
+
+    @Override
+    public String getDescription() {
+        return "Validates all database tables required for the classes defined by the input data.";
+    }
 }

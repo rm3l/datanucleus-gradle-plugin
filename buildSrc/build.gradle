@@ -35,7 +35,10 @@ group 'org.rm3l'
 version '1.0.0'
 
 ext {
-    datanucleusVersion = '5.+'
+    datanucleusCoreVersion = '5.1.12'
+    datanucleusAccessPlatformJpaRdbmsVersion = '5.1.11'
+    datanucleusApiJpaVersion = '5.1.9'
+    datanucleusApiJdoVersion = '5.1.9'
     javaxJdoVersion = '3.+'
     jpaVersion = '2.+'
     javapoetVersion = '1.11.1'
@@ -51,11 +54,11 @@ repositories {
 }
 
 dependencies {
-    compile "org.datanucleus:datanucleus-core:${datanucleusVersion}"
+    compile "org.datanucleus:datanucleus-core:${datanucleusCoreVersion}"
     compile "org.datanucleus:javax.jdo:${javaxJdoVersion}"
     compile "org.datanucleus:javax.persistence:${jpaVersion}"
-    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusVersion}"
-    compile "org.datanucleus:datanucleus-api-jdo:${datanucleusVersion}"
+    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusApiJpaVersion}"
+    compile "org.datanucleus:datanucleus-api-jdo:${datanucleusApiJdoVersion}"
 
     testCompile gradleTestKit()
     testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
@@ -63,13 +66,13 @@ dependencies {
     testCompile "com.squareup:javapoet:${javapoetVersion}"
     testCompile "com.github.stefanbirkner:system-rules:${systemRulesVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testRuntimeOnly "org.datanucleus:datanucleus-accessplatform-jpa-rdbms:${datanucleusVersion}"
+    testRuntimeOnly "org.datanucleus:datanucleus-accessplatform-jpa-rdbms:${datanucleusAccessPlatformJpaRdbmsVersion}"
     testRuntimeOnly 'com.h2database:h2:1.4.192'
 }
 
 tasks.withType(Test) {
     useJUnitPlatform()
-    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
 }
 
 gradlePlugin {

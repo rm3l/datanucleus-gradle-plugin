@@ -14,4 +14,9 @@ public class DeleteDatabaseTablesTask extends AbstractSchemaToolTask {
                 "-" + OPTION_DELETE_TABLES_FOR_CLASSES
         };
     }
+
+    @Override
+    public String getDescription() {
+        return "Deletes all database tables required for the classes defined by the input data.";
+    }
 }
