@@ -1,0 +1,22 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd" version="2.2">
+
+    <persistence-unit name="myJDOPersistenceUnit">
+        <mapping-file>/META-INF/package.jdo</mapping-file>
+        <properties>
+            <property name="javax.jdo.PersistenceManagerFactoryClass"
+                      value="org.datanucleus.api.jdo.JDOPersistenceManagerFactory"/>
+
+            <property name="javax.jdo.option.ConnectionDriverName" value="org.h2.Driver"/>
+            <property name="javax.jdo.option.ConnectionPassword" value=""/>
+            <property name="javax.jdo.option.ConnectionURL"
+                      value="jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=FALSE"/>
+            <property name="datanucleus.schema.autoCreateAll" value="true"/>
+            <property name="javax.jdo.option.ConnectionUserName" value="SA"/>
+        </properties>
+    </persistence-unit>
+
+
+</persistence>

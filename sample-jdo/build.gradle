@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'org.rm3l.datanucleus-gradle-plugin'
+    id 'maven-publish'
+}
+
+group 'org.rm3l'
+version '1.1.1'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile 'org.datanucleus:datanucleus-accessplatform-jdo-rdbms:5.2.0-m2'
+    compile 'com.h2database:h2:1.4.192'
+    testCompile "org.junit.jupiter:junit-jupiter-api:5.3.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
+}
+
+//DN tasks are auto-registered, and can be configured either via DSL or CLI options
+datanucleus {
+  enhance {
+    api 'JDO'
+    persistenceUnitName 'myJDOPersistenceUnit'
+  }
+}

@@ -8,6 +8,12 @@
       <module name="org.rm3l.buildSrc.integrationTest" target="1.8" />
       <module name="org.rm3l.buildSrc.main" target="1.8" />
       <module name="org.rm3l.buildSrc.test" target="1.8" />
+      <module name="org.rm3l.datanucleus-gradle-plugin-sample.main" target="1.8" />
+      <module name="org.rm3l.datanucleus-gradle-plugin-sample.test" target="1.8" />
+      <module name="org.rm3l.datanucleus-maven-plugin-sample-jdo.main" target="1.8" />
+      <module name="org.rm3l.datanucleus-maven-plugin-sample-jdo.test" target="1.8" />
+      <module name="org.rm3l.datanucleus-maven-plugin-sample-jpa.main" target="1.8" />
+      <module name="org.rm3l.datanucleus-maven-plugin-sample-jpa.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

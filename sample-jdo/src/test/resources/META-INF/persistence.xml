@@ -1,0 +1,14 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <persistence-unit name="myPersistenceUnitForTest" transaction-type="RESOURCE_LOCAL">
+        <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider>
+        <class>org.rm3l.datanucleus.gradle.sample.jdo.domain.Person</class>
+        <exclude-unlisted-classes/>
+    </persistence-unit>
+
+
+</persistence>

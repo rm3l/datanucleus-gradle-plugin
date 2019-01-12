@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns="http://xmlns.jcp.org/xml/ns/jdo/jdo"
+     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/jdo/jdo http://xmlns.jcp.org/xml/ns/jdo/jdo_3_1.xsd" version="3.1">
+
+    <package name="org.rm3l.datanucleus.gradle.sample.jdo.domain">
+        <class name="Person" detachable="true" identity-type="application" schema="/myproduct/people" table="person">
+            <field name="id" primary-key="true"/>
+            <field name="name" null-value="exception">
+                <column name="name" length="8000" jdbc-type="VARCHAR"/>
+            </field>
+        </class>
+    </package>
+</jdo>

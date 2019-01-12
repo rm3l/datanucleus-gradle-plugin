@@ -1,4 +1,4 @@
-package org.rm3l.datanucleus.gradle.sample.domain;
+package org.rm3l.datanucleus.gradle.sample.jpa.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
