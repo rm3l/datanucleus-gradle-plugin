@@ -342,7 +342,8 @@ However, please make sure your description is clear enough and has sufficient in
 Source Code is organized as much as possible per the official Gradle conventions, as follows:
 
 * `buildSrc` : the actual code of the Plugin
-* `src` : sample code serving as a reference project that can be used to test and play with the plugin
+* `sample-jdo` : sample JDO project serving as a reference project that can be used to test and play with the plugin
+* `sample-jpa` : sample JPA project serving as a reference project that can be used to test and play with the plugin
 
 Please note that Jacoco coverage metrics displayed here are reported against the plugin code solely.
 
