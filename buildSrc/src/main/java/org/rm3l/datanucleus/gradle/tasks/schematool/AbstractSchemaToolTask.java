@@ -232,6 +232,7 @@ public abstract class AbstractSchemaToolTask extends AbstractDataNucleusTask {
                     )
                             .filter(file -> !file.getName().startsWith("datanucleus-core"))
                             .filter(file -> !file.getName().startsWith("datanucleus-api-jpa"))
+                            .filter(file -> !file.getName().startsWith("datanucleus-api-jdo"))
             );
             final List<String> sourcePathList = fileStream.map(File::getAbsolutePath).collect(Collectors.toList());
             final URL[] classloaderUrls = new URL[sourcePathList.size()];
