@@ -111,12 +111,12 @@ This technique, also known as weaving, allows to modify the resulting bytecode o
 in order to essentially add the following capabilities:
 
 * lazy state initialization
-* object dirty state tracking, i.e. the ability to track object updates (including collections mutations),
+* object dirty state tracking, i.e. the ability to track object updates (including collections/maps mutations),
 and translate such updates into JPQL DML queries, which are translated into database-specific SQL queries
 * automatic bi-directional mapping, i.e., ensuring that both sides of a relationship are set properly
 * optionally, performance optimizations
 
-Some providers such as DataNucleus have chosen to require all domain classes to be enhanced before any use.
+Some providers have chosen to require all domain classes to be enhanced before any use.
 This means that enhancement has to be done beforehand at build time, or at any time between compile time and packaging time.
 It is still possible to do it at run-time, but this requires using an appropriate ClassLoader to make sure
 the enhanced classes are effectively being used.
@@ -128,8 +128,7 @@ They still allow to perform enhancement at build time, but this may not be the d
 Performing bytecode enhancement at build time clearly has a performance benefit
 over the use of slow proxies or reflection that might be done at run-time.
 
-This plugin supports build-time enhancement. The benefit is that the enhanced classes are what
-gets added to the final built Jar artifact.
+This plugin supports build-time enhancement by providing Gradle tasks wrapped around the official DataNucleus enhancer. The benefit is that the enhanced classes are what gets added to the final built Jar artifact.
 
 To use the plugin in your Gradle project, after applying it as depicted above,
 you need to configure it, e.g.:
