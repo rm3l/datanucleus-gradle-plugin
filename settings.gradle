@@ -30,3 +30,11 @@ findProject(':sample-jpa')?.name = 'sample-jpa'
 include 'sample-jdo'
 findProject(':sample-jdo')?.name = 'sample-jdo'
 
+include ':sample-jpa-multiproject'
+include ':sample-jpa-multiproject:common'
+include ':sample-jpa-multiproject:domain'
+
+project(':sample-jpa-multiproject').projectDir = "$rootDir/sample-jpa-multiproject" as File
+project(':sample-jpa-multiproject:common').projectDir = "$rootDir/sample-jpa-multiproject/common" as File
+project(':sample-jpa-multiproject:domain').projectDir = "$rootDir/sample-jpa-multiproject/domain" as File
+
