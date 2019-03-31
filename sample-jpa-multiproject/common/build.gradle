@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'org.rm3l'
+version '1.1.2'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    testCompile "org.junit.jupiter:junit-jupiter-api:5.3.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
+}
