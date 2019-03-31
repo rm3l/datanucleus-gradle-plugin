@@ -247,25 +247,31 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
             final JavaPluginConvention javaConvention =
                     project.getConvention().getPlugin(JavaPluginConvention.class);
             final SourceSet main = javaConvention.getSourceSets().getByName(SourceSet.MAIN_SOURCE_SET_NAME);
+
             final SourceSetOutput mainOutput = main.getOutput();
 
             final SourceSet test = javaConvention.getSourceSets().getByName(SourceSet.TEST_SOURCE_SET_NAME);
             final SourceSetOutput testOutput = main.getOutput();
 
-            final Stream<File> mainStream = Stream.concat(
+            final Stream<File> mainStream =
+                Stream.concat(
                     Stream.concat(
+                        Stream.concat(
                             mainOutput.getClassesDirs().getFiles().stream(),
                             Stream.of(mainOutput.getResourcesDir())
+                        ),
+                        main.getResources().getSrcDirs().stream()
                     ),
-                    main.getResources().getSrcDirs().stream()
-            );
-            final Stream<File> testStream = Stream.concat(
+                    main.getCompileClasspath().getFiles().stream());
+            final Stream<File> testStream =
+                Stream.concat(
                     Stream.concat(
+                        Stream.concat(
                             testOutput.getClassesDirs().getFiles().stream(),
                             Stream.of(testOutput.getResourcesDir())
-                    ),
-                    test.getResources().getSrcDirs().stream()
-            );
+                        ),
+                        test.getResources().getSrcDirs().stream()
+                    ), test.getCompileClasspath().getFiles().stream());
 
             final List<String> sourcePathList =
                     Stream.concat(mainStream, testStream)
