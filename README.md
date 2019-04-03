@@ -245,7 +245,7 @@ you need to configure it, e.g.:
 
 ```groovy
 datanucleus {
-  schematool {
+  schemaTool {
     api 'JPA'
     persistenceUnitName 'myPersistenceUnit'
     //... other options are possible
