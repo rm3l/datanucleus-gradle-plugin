@@ -24,7 +24,16 @@
 language: java
 
 jdk:
-  - oraclejdk8
+  - openjdk8
+  - openjdk9
+  - openjdk10
+  - openjdk11
+  - openjdk12
+  - openjdk-ea
+
+matrix:
+  allow_failures:
+    - jdk: openjdk-ea
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
