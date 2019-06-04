@@ -19,6 +19,7 @@
 - [Contribution Guidelines](#contribution-guidelines)
   - [Source Code Layout](#source-code-layout)
   - [Building from source](#building-from-source)
+  - [Publishing the plugin](#publishing-the-plugin)
 - [Credits / Inspiration](#credits--inspiration)
 - [Developed by](#developed-by)
 - [License](#license)
@@ -341,9 +342,10 @@ However, please make sure your description is clear enough and has sufficient in
 
 Source Code is organized as much as possible per the official Gradle conventions, as follows:
 
-* `buildSrc` : the actual code of the Plugin
+* `buildSrc` : the actual code of the Plugin, along with its own unit, integration and functional tests
 * `sample-jdo` : sample JDO project serving as a reference project that can be used to test and play with the plugin
 * `sample-jpa` : sample JPA project serving as a reference project that can be used to test and play with the plugin
+* `sample-jpa-multiproject` : sample multi-module Gradle project serving as a reference project that can be used to test and play with the plugin
 
 Please note that Jacoco coverage metrics displayed here are reported against the plugin code solely.
 
@@ -357,6 +359,24 @@ This can be built as a standard Gradle Project, by issuing the following command
 
 This command automatically builds the plugin code (from the `buildSrc` folder) and then continues with the sample project.
 
+### Publishing the plugin
+
+All releases of this plugin ought to be published to the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/org.rm3l.datanucleus-gradle-plugin).
+
+To publish the plugin, you must have the appropriate rights on the Gradle Plugin Portal.
+Additionally, the key and secret credentials for publishing are recommended to be put on your 
+local machine in your `${HOME}/.gradle/gradle.properties`, which should contain the following two properties:
+
+- `gradle.publish.key` : the API key for publishing, which you can grab from the Gradle Plugin Portal "API Keys" section
+- `gradle.publish.secret` : the API secret for publishing, which you can grab from the Gradle Plugin Portal "API Keys" section
+
+Publishing the plugin is then as easy as calling the `publishPlugins` task **from the `buildSrc` folder**:
+
+```bash
+../gradlew publishPlugins
+``` 
+ 
+Do not forget to make and push the corresponding tag afterwards if needed. 
 
 ## Credits / Inspiration
 
