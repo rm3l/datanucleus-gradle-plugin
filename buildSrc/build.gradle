@@ -75,6 +75,10 @@ dependencies {
     testRuntimeOnly "com.h2database:h2:${h2Version}"
 }
 
+jacoco {
+    toolVersion = "0.8.4"
+}
+
 tasks.withType(Test) {
     useJUnitPlatform()
     maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
