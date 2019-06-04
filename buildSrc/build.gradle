@@ -24,7 +24,7 @@ plugins {
     id 'java-gradle-plugin'
     id 'jacoco'
     id 'maven-publish'
-    id 'com.gradle.plugin-publish' version '0.10.0'
+    id 'com.gradle.plugin-publish' version '0.10.1'
     id 'com.gradle.build-scan' version '2.3'
 }
 apply from: "$rootDir/integration-test.gradle"
@@ -32,7 +32,7 @@ apply from: "$rootDir/functional-test.gradle"
 
 group 'org.rm3l'
 //version '1.0.181224-SNAPSHOT'
-version '1.1.3'
+version '1.2.0'
 
 ext {
     datanucleusCoreVersion = '5.2.1'
