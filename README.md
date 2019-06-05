@@ -374,7 +374,13 @@ Publishing the plugin is then as easy as calling the `publishPlugins` task **fro
 
 ```bash
 ../gradlew publishPlugins
-``` 
+```
+
+Alternatively, you may publish the plugin right from the command-line:
+
+```bash
+../gradlew publishPlugins -Pgradle.publish.key=<apiKey> -Pgradle.publish.secret=<apiSecret>
+```
  
 Do not forget to make and push the corresponding tag afterwards if needed. 
 
