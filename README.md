@@ -1,4 +1,5 @@
 [![Travis branch](https://img.shields.io/travis/rm3l/datanucleus-gradle-plugin/master.svg)](https://travis-ci.org/rm3l/datanucleus-gradle-plugin)
+[![Gradle Plugins Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/org/rm3l/datanucleus-gradle-plugin/maven-metadata.xml.svg?label=Gradle%20Plugins%20Portal)
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/rm3l/datanucleus-gradle-plugin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rm3l/datanucleus-gradle-plugin/context:java)
 [![Code Coverage](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin)
 [![Known Vulnerabilities](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin/badge.svg?targetFile=buildSrc%2Fbuild.gradle)](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin?targetFile=buildSrc%2Fbuild.gradle)
