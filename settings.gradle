@@ -37,8 +37,6 @@ gradleEnterprise {
 
 rootProject.name = 'datanucleus-gradle-plugin'
 
-enableFeaturePreview("IMPROVED_POM_SUPPORT")
-
 include 'sample-jpa'
 findProject(':sample-jpa')?.name = 'sample-jpa'
 
