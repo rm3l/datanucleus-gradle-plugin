@@ -25,7 +25,6 @@ plugins {
     id 'jacoco'
     id 'maven-publish'
     id 'com.gradle.plugin-publish' version '0.10.1'
-    id 'com.gradle.build-scan' version '3.0'
 }
 apply from: "$rootDir/integration-test.gradle"
 apply from: "$rootDir/functional-test.gradle"
@@ -131,12 +130,3 @@ publishing {
     }
 }
 
-buildScan {
-    setTermsOfServiceUrl("https://gradle.com/terms-of-service")
-    setTermsOfServiceAgree("yes")
-    def ciFromEnv = System.getenv("CI")
-    if (!(ciFromEnv == null || ciFromEnv.isEmpty())) {
-        publishAlways()
-        tag("CI")
-    }
-}
