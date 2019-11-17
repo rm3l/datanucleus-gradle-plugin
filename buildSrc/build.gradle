@@ -55,20 +55,20 @@ repositories {
 }
 
 dependencies {
-    compile "org.datanucleus:datanucleus-core:${datanucleusCoreVersion}"
-    compile "org.datanucleus:javax.jdo:${javaxJdoVersion}"
-    compile "org.datanucleus:javax.persistence:${jpaVersion}"
-    compile "org.datanucleus:datanucleus-api-jpa:${datanucleusApiJpaVersion}"
-    compile "org.datanucleus:datanucleus-api-jdo:${datanucleusApiJdoVersion}"
+    implementation "org.datanucleus:datanucleus-core:${datanucleusCoreVersion}"
+    implementation "org.datanucleus:javax.jdo:${javaxJdoVersion}"
+    implementation "org.datanucleus:javax.persistence:${jpaVersion}"
+    implementation "org.datanucleus:datanucleus-api-jpa:${datanucleusApiJpaVersion}"
+    implementation "org.datanucleus:datanucleus-api-jdo:${datanucleusApiJdoVersion}"
 
-    testCompile gradleTestKit()
-    testCompile "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
-    testCompile "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
-    testCompile "org.junit-pioneer:junit-pioneer:${junitPioneerVersion}"
-    testCompile "org.mockito:mockito-core:${mockitoVersion}"
-    testCompile "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
-    testCompile "com.squareup:javapoet:${javapoetVersion}"
-    testCompile "com.github.stefanbirkner:system-rules:${systemRulesVersion}"
+    testImplementation gradleTestKit()
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+    testImplementation "org.junit-pioneer:junit-pioneer:${junitPioneerVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
+    testImplementation "com.squareup:javapoet:${javapoetVersion}"
+    testImplementation "com.github.stefanbirkner:system-rules:${systemRulesVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testRuntimeOnly "org.datanucleus:datanucleus-accessplatform-jpa-rdbms:${datanucleusAccessPlatformJpaRdbmsVersion}"
     testRuntimeOnly "com.h2database:h2:${h2Version}"

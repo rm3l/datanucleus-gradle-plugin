@@ -50,9 +50,9 @@ class CreateDatabaseTablesTaskFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  compile 'com.h2database:h2:" + H2_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  implementation 'com.h2database:h2:" + H2_VERSION + "'\n" +
+                        "  testImplementation 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -82,7 +82,7 @@ class CreateDatabaseTablesTaskFTest {
         assertTrue(output.contains("DataNucleus SchemaTool : Creation of the schema for classes"));
         assertTrue(output.contains("DataNucleus SchemaTool completed successfully"));
 
-        assertFalse(ddlFile.length() == 0, "DDL File should not be empty");
+        assertNotEquals(0, ddlFile.length(), "DDL File should not be empty");
     }
 
     @Test
@@ -100,9 +100,9 @@ class CreateDatabaseTablesTaskFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  compile 'com.h2database:h2:" + H2_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  implementation 'com.h2database:h2:" + H2_VERSION + "'\n" +
+                        "  testImplementation 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n")
                         .getBytes(StandardCharsets.UTF_8),

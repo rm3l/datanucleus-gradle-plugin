@@ -10,10 +10,10 @@ version '1.1.2'
 sourceCompatibility = 1.8
 
 dependencies {
-    compile project(':sample-jpa-multiproject:common')
-    compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.2'
-    compile 'com.h2database:h2:1.4.200'
-    testCompile "org.junit.jupiter:junit-jupiter-api:5.5.2"
+    implementation project(':sample-jpa-multiproject:common')
+    implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.2'
+    implementation 'com.h2database:h2:1.4.200'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.5.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.5.2"
 }
 
