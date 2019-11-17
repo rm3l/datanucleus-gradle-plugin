@@ -14,7 +14,7 @@ configurations {
 
 task functionalTest(type: Test) {
     jacoco {
-        append = true
+    //    append = true
         destinationFile = file("$buildDir/jacoco/test.exec")
         classDumpDir = file("$buildDir/jacoco/classpathdumps")
     }
