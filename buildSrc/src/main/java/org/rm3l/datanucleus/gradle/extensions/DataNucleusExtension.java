@@ -29,10 +29,13 @@ import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.rm3l.datanucleus.gradle.extensions.enhance.EnhanceExtension;
 import org.rm3l.datanucleus.gradle.extensions.schematool.SchemaToolExtension;
+import org.rm3l.datanucleus.gradle.tasks.enhance.AbstractEnhanceTask;
 import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceCheckTask;
 import org.rm3l.datanucleus.gradle.tasks.enhance.EnhanceTask;
 import org.rm3l.datanucleus.gradle.tasks.enhance.TestEnhanceCheckTask;
 import org.rm3l.datanucleus.gradle.tasks.enhance.TestEnhanceTask;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Extension for the 'datanucleus' DSL entrypoint
@@ -50,6 +53,8 @@ public class DataNucleusExtension {
     private final EnhanceExtension testEnhance;
     private final SchemaToolExtension schemaTool;
     private Boolean skip = false;
+
+    private final Logger logger = LoggerFactory.getLogger(DataNucleusExtension.class);
 
     public DataNucleusExtension(Project project) {
         this.project = project;
@@ -92,11 +97,11 @@ public class DataNucleusExtension {
 
     public void schemaTool(Closure closure) {
         this.schemaTool.configureExtensionAndTasks(closure);
-        final TaskContainer tasks = this.getProject().getTasks();
-        final Task enhanceTask = tasks.findByName("enhance");
-        if (enhanceTask != null) {
-            tasks.remove(enhanceTask);
-        }
+//        final TaskContainer tasks = this.getProject().getTasks();
+//        final Task enhanceTask = tasks.findByName("enhance");
+//        if (enhanceTask == null) {
+//            return;
+//        }
         this.enhance.api(this.schemaTool.getApi())
                 .catalogName(this.schemaTool.getCatalogName())
                 .completeDdl(this.schemaTool.isCompleteDdl())
@@ -111,10 +116,16 @@ public class DataNucleusExtension {
                 .skip(this.schemaTool.getSkip());
         this.enhance(closure);
 
-        final Task testEnhanceTask = tasks.findByName("testEnhance");
-        if (testEnhanceTask != null) {
-            tasks.remove(testEnhanceTask);
-        }
+//        final Task existingTestEnhanceTask = tasks.findByName("testEnhance");
+//        if (existingTestEnhanceTask != null) {
+//            if (!(existingTestEnhanceTask instanceof AbstractEnhanceTask)) {
+//                logger.warn(
+//                    "Found an already existing 'testEnhance' task, which is going to be replaced: {}",
+//                    existingTestEnhanceTask);
+//            }
+//            tasks.replace("testEnhance");
+//        }
+
         this.testEnhance.api(this.schemaTool.getApi())
                 .catalogName(this.schemaTool.getCatalogName())
                 .completeDdl(this.schemaTool.isCompleteDdl())

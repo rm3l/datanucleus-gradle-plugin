@@ -229,7 +229,8 @@ public class EnhanceExtension {
         final TaskContainer projectTasks = project.getTasks();
         final Task tasksByName = projectTasks.findByName(taskName);
         if (tasksByName != null) {
-            projectTasks.remove(tasksByName);
+            this.configureTask((T) tasksByName);
+            return;
         }
         final T task = projectTasks.create(taskName, taskType, this::configureTask);
 
