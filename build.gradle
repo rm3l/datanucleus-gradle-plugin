@@ -1,19 +1,5 @@
-plugins {
-    id 'com.gradle.build-scan' version '3.0'
-}
-
 allprojects {
     repositories {
         mavenCentral()
-    }
-}
-
-buildScan {
-    setTermsOfServiceUrl("https://gradle.com/terms-of-service")
-    setTermsOfServiceAgree("yes")
-    def ciFromEnv = System.getenv("CI")
-    if (!(ciFromEnv == null || ciFromEnv.isEmpty())) {
-        publishAlways()
-        tag("CI")
     }
 }

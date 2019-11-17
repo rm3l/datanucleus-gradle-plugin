@@ -29,10 +29,12 @@ public final class TestUtils {
                                      String... arguments) {
         final String[] args;
         if (arguments == null) {
-            args = new String[]{"tasks", "--stacktrace"};
+            args = new String[]{"tasks", "--stacktrace", "--warning-mode", "all"};
         } else {
-            args = Arrays.copyOf(arguments, arguments.length + 1);
-            args[args.length - 1] = "--stacktrace";
+            args = Arrays.copyOf(arguments, arguments.length + 3);
+            args[args.length - 3] = "--stacktrace";
+            args[args.length - 2] = "--warning-mode";
+            args[args.length - 1] = "all";
         }
 
         final GradleRunner runner = GradleRunner.create()

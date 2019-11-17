@@ -47,9 +47,9 @@ class CreateDatabaseTaskFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  compile 'com.h2database:h2:" + H2_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  implementation 'com.h2database:h2:" + H2_VERSION + "'\n" +
+                        "  testImplementation 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -93,9 +93,9 @@ class CreateDatabaseTaskFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  compile 'com.h2database:h2:" + H2_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  implementation 'com.h2database:h2:" + H2_VERSION + "'\n" +
+                        "  testImplementation 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -133,9 +133,9 @@ class CreateDatabaseTaskFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  compile 'com.h2database:h2:" + H2_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  implementation 'com.h2database:h2:" + H2_VERSION + "'\n" +
+                        "  testImplementation 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -174,9 +174,9 @@ class CreateDatabaseTaskFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  compile 'com.h2database:h2:" + H2_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  implementation 'com.h2database:h2:" + H2_VERSION + "'\n" +
+                        "  testImplementation 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n" +
                         "datanucleus {\n" +
@@ -217,9 +217,9 @@ class CreateDatabaseTaskFTest {
                         "}\n" +
                         "\n" +
                         "dependencies {\n" +
-                        "  compile 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
-                        "  compile 'com.h2database:h2:" + H2_VERSION + "'\n" +
-                        "  testCompile 'junit:junit:" + JUNIT_VERSION + "'\n" +
+                        "  implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:" + DN_JPA_RDBMS_VERSION + "'\n" +
+                        "  implementation 'com.h2database:h2:" + H2_VERSION + "'\n" +
+                        "  testImplementation 'junit:junit:" + JUNIT_VERSION + "'\n" +
                         "}\n" +
                         "\n")
                         .getBytes(StandardCharsets.UTF_8),

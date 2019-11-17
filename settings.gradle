@@ -19,10 +19,23 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
+plugins {
+  id "com.gradle.enterprise" version "3.0"
+}
+
+gradleEnterprise {
+    buildScan {
+        setTermsOfServiceUrl("https://gradle.com/terms-of-service")
+        setTermsOfServiceAgree("yes")
+        def ciFromEnv = System.getenv("CI")
+        if (!(ciFromEnv == null || ciFromEnv.isEmpty())) {
+            publishAlways()
+            tag("CI")
+        }
+    }
+}
 
 rootProject.name = 'datanucleus-gradle-plugin'
-
-enableFeaturePreview("IMPROVED_POM_SUPPORT")
 
 include 'sample-jpa'
 findProject(':sample-jpa')?.name = 'sample-jpa'

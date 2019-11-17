@@ -2,19 +2,19 @@ sourceSets {
     functionalTest {
         java.srcDir file('src/functionalTest/java')
         resources.srcDir file('src/functionalTest/resources')
-        compileClasspath += sourceSets.main.output + configurations.testRuntime
+        compileClasspath += sourceSets.main.output + configurations.testRuntimeClasspath
         runtimeClasspath += output + compileClasspath
     }
 }
 
 configurations {
-    functionalTestCompile.extendsFrom testCompile
+    functionalTestCompile.extendsFrom testImplementation
     functionalTestRuntimeOnly.extendsFrom testRuntimeOnly
 }
 
 task functionalTest(type: Test) {
     jacoco {
-        append = true
+    //    append = true
         destinationFile = file("$buildDir/jacoco/test.exec")
         classDumpDir = file("$buildDir/jacoco/classpathdumps")
     }

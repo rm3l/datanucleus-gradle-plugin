@@ -44,8 +44,7 @@ public class DataNucleusPluginTestExtension implements ParameterResolver, Before
         Files.write(settingsGradle,
                 ("rootProject.name = '" +
                         extensionContext.getRequiredTestClass() + "#" +
-                        extensionContext.getRequiredTestMethod() + "'\n" +
-                        "enableFeaturePreview(\"IMPROVED_POM_SUPPORT\")\n").getBytes(StandardCharsets.UTF_8),
+                        extensionContext.getRequiredTestMethod() + "'\n").getBytes(StandardCharsets.UTF_8),
                 StandardOpenOption.CREATE,
                 StandardOpenOption.TRUNCATE_EXISTING);
 

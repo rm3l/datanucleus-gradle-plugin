@@ -1,7 +1,13 @@
 package org.rm3l.datanucleus.gradle.extensions.schematool;
 
 import groovy.lang.Closure;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import javax.annotation.Nonnull;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
@@ -197,25 +203,43 @@ public class SchemaToolExtension {
         return this;
     }
 
-    public void configureExtensionAndTasks(final Closure closure) {
+    @SuppressWarnings("unchecked")
+    @Nonnull
+    private <T extends AbstractSchemaToolTask> T getOrBuildTask(@Nonnull final TaskContainer projectTasks,
+        @Nonnull final String taskName,
+        @Nonnull final Class<T> taskType) {
+        final Task exitingTask = projectTasks.findByName(taskName);
+        if (exitingTask != null) {
+            final T exitingTaskCast = (T) exitingTask;
+            this.configureTask(exitingTaskCast);
+            return exitingTaskCast;
+        }
+        return projectTasks.create(taskName, taskType, this::configureTask);
+    }
+
+    public void configureExtensionAndTasks(final Closure<?> closure) {
         ConfigureUtil.configure(closure, this);
 
         final TaskContainer projectTasks = datanucleusExtension.getProject().getTasks();
+
         final List<AbstractSchemaToolTask> schemaToolTasks = new ArrayList<>();
+        final Map<String, Class<? extends AbstractSchemaToolTask>> taskTypesByNames = new HashMap<>();
+        taskTypesByNames.put(CREATE_DATABASE, CreateDatabaseTask.class);
+        taskTypesByNames.put(DELETE_DATABASE, DeleteDatabaseTask.class);
+        taskTypesByNames.put(CREATE_DATABASE_TABLES, CreateDatabaseTablesTask.class);
+        taskTypesByNames.put(DELETE_DATABASE_TABLES, DeleteDatabaseTablesTask.class);
+        taskTypesByNames.put(DELETE_THEN_CREATE_DATABASE_TABLES, DeleteThenCreateDatabaseTablesTask.class);
+        taskTypesByNames.put(VALIDATE_DATABASE_TABLES, ValidateDatabaseTablesTask.class);
+        taskTypesByNames.put(DBINFO, DBInfoTask.class);
+        taskTypesByNames.put(SCHEMAINFO, SchemaInfoTask.class);
 
-        for (final String taskName : new String[]{CREATE_DATABASE, DELETE_DATABASE, CREATE_DATABASE_TABLES,
-                DELETE_DATABASE_TABLES, DELETE_THEN_CREATE_DATABASE_TABLES, VALIDATE_DATABASE_TABLES, DBINFO, SCHEMAINFO}) {
-            projectTasks.remove(projectTasks.findByName(taskName));
+        for (final Entry<String, Class<? extends AbstractSchemaToolTask>> taskTypeByNameEntry : taskTypesByNames
+            .entrySet()) {
+            schemaToolTasks.add(
+                getOrBuildTask(projectTasks,
+                    taskTypeByNameEntry.getKey(),
+                    taskTypeByNameEntry.getValue()));
         }
-
-        schemaToolTasks.add(projectTasks.create(CREATE_DATABASE, CreateDatabaseTask.class, this::configureTask));
-        schemaToolTasks.add(projectTasks.create(DELETE_DATABASE, DeleteDatabaseTask.class, this::configureTask));
-        schemaToolTasks.add(projectTasks.create(CREATE_DATABASE_TABLES, CreateDatabaseTablesTask.class, this::configureTask));
-        schemaToolTasks.add(projectTasks.create(DELETE_DATABASE_TABLES, DeleteDatabaseTablesTask.class, this::configureTask));
-        schemaToolTasks.add(projectTasks.create(DELETE_THEN_CREATE_DATABASE_TABLES, DeleteThenCreateDatabaseTablesTask.class, this::configureTask));
-        schemaToolTasks.add(projectTasks.create(VALIDATE_DATABASE_TABLES, ValidateDatabaseTablesTask.class, this::configureTask));
-        schemaToolTasks.add(projectTasks.create(DBINFO, DBInfoTask.class, this::configureTask));
-        schemaToolTasks.add(projectTasks.create(SCHEMAINFO, SchemaInfoTask.class, this::configureTask));
 
         for (final AbstractSchemaToolTask enhancementDependentTask : schemaToolTasks) {
             enhancementDependentTask.dependsOn("classes");
