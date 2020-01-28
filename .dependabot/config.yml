@@ -2,7 +2,7 @@ version: 1
 update_configs:
   - package_manager: "java:gradle"
     directory: "/"
-    update_schedule: "daily"
+    update_schedule: "weekly"
     default_reviewers:
       - "rm3l"
     default_labels:
@@ -10,7 +10,7 @@ update_configs:
 
   - package_manager: "java:gradle"
     directory: "/buildSrc"
-    update_schedule: "daily"
+    update_schedule: "weekly"
     default_reviewers:
       - "rm3l"
     default_labels:
@@ -18,7 +18,7 @@ update_configs:
 
   - package_manager: "java:gradle"
     directory: "/sample-jdo"
-    update_schedule: "daily"
+    update_schedule: "weekly"
     default_reviewers:
       - "rm3l"
     default_labels:
@@ -26,7 +26,7 @@ update_configs:
 
   - package_manager: "java:gradle"
     directory: "/sample-jpa"
-    update_schedule: "daily"
+    update_schedule: "weekly"
     default_reviewers:
       - "rm3l"
     default_labels:
@@ -34,7 +34,7 @@ update_configs:
 
   - package_manager: "java:gradle"
     directory: "/sample-jpa-multiproject/common"
-    update_schedule: "daily"
+    update_schedule: "weekly"
     default_reviewers:
       - "rm3l"
     default_labels:
@@ -42,7 +42,7 @@ update_configs:
 
   - package_manager: "java:gradle"
     directory: "/sample-jpa-multiproject/domain"
-    update_schedule: "daily"
+    update_schedule: "weekly"
     default_reviewers:
       - "rm3l"
     default_labels:
