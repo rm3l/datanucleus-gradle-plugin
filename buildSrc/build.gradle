@@ -31,7 +31,7 @@ apply from: "$rootDir/functional-test.gradle"
 
 group 'org.rm3l'
 //version '1.0.181224-SNAPSHOT'
-version '1.4.0'
+version '1.5.0'
 
 ext {
     datanucleusCoreVersion = '5.2.2'
