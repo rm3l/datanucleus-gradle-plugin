@@ -14,7 +14,7 @@ dependencies {
     implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.3'
     implementation 'com.h2database:h2:1.4.200'
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.1"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.1"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.2"
 }
 
 tasks.withType(Test) {
