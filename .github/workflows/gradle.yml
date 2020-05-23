@@ -20,7 +20,7 @@ jobs:
       matrix:
         # JDK matrix version
         jdk_version: [ '1.8', '9', '10', '11', '12', '13', '14' ]
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest]
 
     steps:
     - uses: actions/checkout@v1
