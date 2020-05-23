@@ -39,6 +39,8 @@ jobs:
           ${{ runner.os }}-gradle-
     - name: Build with Gradle
       run: cd buildSrc && ../gradlew build check jacocoTestReport --stacktrace
+    - name: Collect code coverage metrics
+      run: bash <(curl -s https://codecov.io/bash)
 
 
   publishLibrary:
