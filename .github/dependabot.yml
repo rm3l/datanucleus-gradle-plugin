@@ -1,0 +1,62 @@
+version: 2
+updates:
+- package-ecosystem: gradle
+  directory: "/sample-jpa-multiproject/common"
+  schedule:
+    interval: weekly
+    time: '04:00'
+  open-pull-requests-limit: 10
+  reviewers:
+  - rm3l
+  labels:
+  - dependencies
+- package-ecosystem: gradle
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: '04:00'
+  open-pull-requests-limit: 10
+  reviewers:
+  - rm3l
+  labels:
+  - dependencies
+- package-ecosystem: gradle
+  directory: "/sample-jpa"
+  schedule:
+    interval: weekly
+    time: '04:00'
+  open-pull-requests-limit: 10
+  reviewers:
+  - rm3l
+  labels:
+  - dependencies
+- package-ecosystem: gradle
+  directory: "/sample-jdo"
+  schedule:
+    interval: weekly
+    time: '04:00'
+  open-pull-requests-limit: 10
+  reviewers:
+  - rm3l
+  labels:
+  - dependencies
+- package-ecosystem: gradle
+  directory: "/buildSrc"
+  schedule:
+    interval: weekly
+    time: '04:00'
+  open-pull-requests-limit: 10
+  reviewers:
+  - rm3l
+  labels:
+  - dependencies
+- package-ecosystem: gradle
+  directory: "/sample-jpa-multiproject/domain"
+  schedule:
+    interval: weekly
+    time: '04:00'
+  open-pull-requests-limit: 10
+  reviewers:
+  - rm3l
+  labels:
+  - dependencies
