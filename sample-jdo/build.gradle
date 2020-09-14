@@ -13,7 +13,7 @@ dependencies {
     implementation 'org.datanucleus:datanucleus-accessplatform-jdo-rdbms:5.2.5'
     implementation 'com.h2database:h2:1.4.200'
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.2"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.2"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
 }
 
 tasks.withType(Test) {
