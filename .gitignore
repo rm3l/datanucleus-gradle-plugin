@@ -106,3 +106,7 @@ fabric.properties
 
 local.properties
 
+.project
+.settings
+.classpath
+bin
