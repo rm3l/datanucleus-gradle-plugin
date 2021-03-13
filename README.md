@@ -4,7 +4,6 @@
 [![Code Coverage](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin)
 [![Known Vulnerabilities](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin/badge.svg?targetFile=buildSrc%2Fbuild.gradle)](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin?targetFile=buildSrc%2Fbuild.gradle)
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/rm3l/datanucleus-gradle-plugin/blob/master/LICENSE)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=rm3l/datanucleus-gradle-plugin)](https://dependabot.com)
 
 [![GitHub watchers](https://img.shields.io/github/watchers/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Watch)](https://github.com/rm3l/datanucleus-gradle-plugin)
 [![GitHub stars](https://img.shields.io/github/stars/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Star)](https://github.com/rm3l/datanucleus-gradle-plugin)
