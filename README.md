@@ -405,7 +405,7 @@ Do not forget to make and push the corresponding tag afterwards if needed.
 
     The MIT License (MIT)
 
-    Copyright (c) 2018 Armel Soro
+    Copyright (c) 2018-2021 Armel Soro
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
