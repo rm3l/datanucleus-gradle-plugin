@@ -1,8 +1,10 @@
-[![GitHub Workflow](https://github.com/rm3l/datanucleus-gradle-plugin/workflows/Java%20CI/badge.svg)](https://github.com/rm3l/datanucleus-gradle-plugin/actions?query=workflow%3A%22Java+CI%22)
 [![Gradle Plugins Portal](https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/org/rm3l/datanucleus-gradle-plugin/maven-metadata.xml.svg?label=Gradle%20Plugins%20Portal)](https://plugins.gradle.org/plugin/org.rm3l.datanucleus-gradle-plugin)
+
+[![GitHub Workflow](https://github.com/rm3l/datanucleus-gradle-plugin/workflows/Java%20CI/badge.svg)](https://github.com/rm3l/datanucleus-gradle-plugin/actions?query=workflow%3A%22Java+CI%22)
 [![Language grade: Java](https://img.shields.io/lgtm/grade/java/g/rm3l/datanucleus-gradle-plugin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rm3l/datanucleus-gradle-plugin/context:java)
 [![Code Coverage](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin/branch/master/graph/badge.svg)](https://codecov.io/gh/rm3l/datanucleus-gradle-plugin)
 [![Known Vulnerabilities](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin/badge.svg?targetFile=buildSrc%2Fbuild.gradle)](https://snyk.io/test/github/rm3l/datanucleus-gradle-plugin?targetFile=buildSrc%2Fbuild.gradle)
+
 [![License](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/rm3l/datanucleus-gradle-plugin/blob/master/LICENSE)
 
 [![GitHub watchers](https://img.shields.io/github/watchers/rm3l/datanucleus-gradle-plugin.svg?style=social&label=Watch)](https://github.com/rm3l/datanucleus-gradle-plugin)
