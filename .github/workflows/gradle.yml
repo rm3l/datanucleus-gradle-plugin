@@ -17,6 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     
     strategy:
+      fail-fast: false
       matrix:
         # JDK matrix version
         jdk_version: [ '1.8', '9', '10', '11', '12', '13', '14', '15' ]
