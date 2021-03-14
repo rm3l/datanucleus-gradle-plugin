@@ -15,13 +15,20 @@ jobs:
     name: Test on JDK ${{ matrix.jdk_version }} and ${{ matrix.os }}
 
     runs-on: ${{ matrix.os }}
-    
+
+    continue-on-error: ${{ matrix.experimental }}
+
     strategy:
       fail-fast: false
       matrix:
         # JDK matrix version
         jdk_version: [ '1.8', '9', '10', '11', '12', '13', '14', '15' ]
         os: [ubuntu-20.04]
+        experimental: [false]
+        include:
+        - os: ubuntu-20.04
+          jdk_version: 16-ea
+          experimental: true
 
     steps:
     - uses: actions/checkout@v2
