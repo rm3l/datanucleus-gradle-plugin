@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'org.rm3l'
-version '1.6.2'
+version '1.7.0'
 
 sourceCompatibility = 1.8
 
