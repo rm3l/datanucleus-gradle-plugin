@@ -37,7 +37,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK ${{ matrix.jdk_version }}
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v2
       with:
         java-version: ${{ matrix.jdk_version }}
     - uses: actions/cache@v2.1.4
@@ -65,7 +65,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up JDK 15
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2
         with:
           java-version: 15
 
