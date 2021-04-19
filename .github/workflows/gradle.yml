@@ -21,15 +21,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # JDK matrix version
-        jdk_version: [ '8', '9', '10', '11', '12', '13', '14', '15' ]
+        jdk_version: [ '8', '9', '10', '11', '12', '13', '14', '15', '16' ]
         os: [ubuntu-20.04]
         experimental: [false]
         include:
-        - os: ubuntu-20.04
-          jdk_version: 16
-          # Experimental for now due to issues with Gradle when building with JDK 16 : https://github.com/gradle/gradle/issues/13481
-          experimental: true
         - os: ubuntu-20.04
           jdk_version: 17-ea
           experimental: true
