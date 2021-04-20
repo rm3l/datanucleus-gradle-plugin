@@ -8,9 +8,9 @@ import java.util.Arrays;
 
 public final class TestUtils {
 
-    public static final String DN_JPA_RDBMS_VERSION = "5.1.11";
+    public static final String DN_JPA_RDBMS_VERSION = "5.2.8";
     public static final String JUNIT_VERSION = "4.12";
-    public static final String H2_VERSION = "1.4.192";
+    public static final String H2_VERSION = "1.4.200";
     static final String DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT = "org.rm3l.datanucleus.gradle.test.domain";
 
     private TestUtils() {
@@ -29,10 +29,10 @@ public final class TestUtils {
                                      String... arguments) {
         final String[] args;
         if (arguments == null) {
-            args = new String[]{"tasks", "--stacktrace", "--warning-mode", "all"};
+            args = new String[]{"tasks", "--info", "--warning-mode", "all"};
         } else {
             args = Arrays.copyOf(arguments, arguments.length + 3);
-            args[args.length - 3] = "--stacktrace";
+            args[args.length - 3] = "--info";
             args[args.length - 2] = "--warning-mode";
             args[args.length - 1] = "all";
         }
