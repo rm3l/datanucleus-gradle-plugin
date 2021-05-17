@@ -41,7 +41,7 @@ ext {
     javaxJdoVersion = '3.2.0-m13'
     jpaVersion = '2.2.3'
     javapoetVersion = '1.13.0'
-    junitVersion = '5.7.1'
+    junitVersion = '5.7.2'
     junitPioneerVersion = '1.4.1'
     h2Version = '1.4.200'
     mockitoVersion = '3.9.0'
