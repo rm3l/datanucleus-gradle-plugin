@@ -10,7 +10,7 @@ version '1.7.0'
 sourceCompatibility = 1.8
 
 dependencies {
-    implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.8'
+    implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.9'
     implementation 'com.h2database:h2:1.4.200'
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.2"
