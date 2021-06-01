@@ -12,26 +12,19 @@ on:
 jobs:
   build:
   
-    name: Test on JDK ${{ matrix.jdk_version }} and ${{ matrix.os }}
+    name: Test on JDK ${{ matrix.jdk_version }}
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-20.04
 
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       fail-fast: false
       matrix:
-        # JDK matrix version
-        jdk_version: [ '8', '9', '10', '11', '12', '13', '14', '15' ]
-        os: [ubuntu-20.04]
+        jdk_version: [ '8', '9', '10', '11', '12', '13', '14', '15', '16' ]
         experimental: [false]
         include:
-        - os: ubuntu-20.04
-          jdk_version: 16
-          # Experimental for now due to issues with Gradle when building with JDK 16 : https://github.com/gradle/gradle/issues/13481
-          experimental: true
-        - os: ubuntu-20.04
-          jdk_version: 17-ea
+        - jdk_version: 17-ea
           experimental: true
 
     steps:
@@ -65,11 +58,11 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Set up JDK 15
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: 15
+          java-version: 16
 
       - uses: actions/cache@v2.1.6
         with:
