@@ -12,9 +12,9 @@ on:
 jobs:
   build:
   
-    name: Test on JDK ${{ matrix.jdk_version }} and ${{ matrix.os }}
+    name: Test on JDK ${{ matrix.jdk_version }}
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-20.04
 
     continue-on-error: ${{ matrix.experimental }}
 
@@ -22,11 +22,9 @@ jobs:
       fail-fast: false
       matrix:
         jdk_version: [ '8', '9', '10', '11', '12', '13', '14', '15', '16' ]
-        os: [ubuntu-20.04]
         experimental: [false]
         include:
-        - os: ubuntu-20.04
-          jdk_version: 17-ea
+        - jdk_version: 17-ea
           experimental: true
 
     steps:
