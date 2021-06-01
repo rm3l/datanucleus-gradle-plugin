@@ -66,9 +66,7 @@ public class DataNucleusPlugin implements Plugin<Project> {
         addTask(project, SCHEMAINFO, SchemaInfoTask.class);
 
         final Logger projectLogger = project.getLogger();
-        if (projectLogger.isDebugEnabled()) {
-            projectLogger.debug("Adding DataNucleus extensions to the build [{}]", project.getName());
-        }
+        projectLogger.info("Adding DataNucleus extensions to the build [{}]", project.getName());
 
         project.getExtensions().add("datanucleus", dataNucleusExtension);
     }

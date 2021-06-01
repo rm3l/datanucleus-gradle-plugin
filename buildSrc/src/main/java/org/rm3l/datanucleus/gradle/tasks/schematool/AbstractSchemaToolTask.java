@@ -194,9 +194,7 @@ public abstract class AbstractSchemaToolTask extends AbstractDataNucleusTask {
 
         final Boolean shouldSkip = skip;
         if (shouldSkip != null && shouldSkip) {
-            if (projectLogger.isDebugEnabled()) {
-                projectLogger.debug("SchemaTool Task Execution skipped as requested");
-            }
+            projectLogger.info("SchemaTool Task Execution skipped as requested");
         } else {
 
             this.checkTaskOptionsValidity();

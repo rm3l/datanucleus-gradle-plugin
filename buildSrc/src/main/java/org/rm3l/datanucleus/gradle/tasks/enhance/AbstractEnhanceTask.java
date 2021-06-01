@@ -234,9 +234,7 @@ public abstract class AbstractEnhanceTask extends AbstractDataNucleusTask {
 
         final Boolean shouldSkip = skip;
         if (shouldSkip != null && shouldSkip) {
-            if (projectLogger.isDebugEnabled()) {
-                projectLogger.debug("Enhancement Task Execution skipped as requested");
-            }
+            projectLogger.info("Enhancement Task Execution skipped as requested");
         } else {
 
             if (persistenceUnitName == null || persistenceUnitName.trim().isEmpty()) {
