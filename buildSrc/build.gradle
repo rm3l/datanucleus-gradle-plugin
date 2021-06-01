@@ -48,10 +48,15 @@ ext {
     systemRulesVersion = '1.19.0'
 }
 
-sourceCompatibility = 1.8
-
 repositories {
     mavenCentral()
+}
+
+java {
+    toolchain {
+        //Forcing toolchain use to 15. Newer JDK versions cause ASMEnhancer to fail for some obscure reason
+        languageVersion = JavaLanguageVersion.of(8)
+    }
 }
 
 dependencies {
