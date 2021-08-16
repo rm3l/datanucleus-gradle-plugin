@@ -39,7 +39,7 @@ ext {
     datanucleusApiJpaVersion = '5.2.7'
     datanucleusApiJdoVersion = '5.2.7'
     javaxJdoVersion = '3.2.0-m13'
-    jpaVersion = '2.2.3'
+    jpaVersion = '2.2.4'
     javapoetVersion = '1.13.0'
     junitVersion = '5.7.2'
     junitPioneerVersion = '1.4.2'
