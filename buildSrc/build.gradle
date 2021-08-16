@@ -36,7 +36,7 @@ version '1.7.0'
 ext {
     datanucleusCoreVersion = '5.2.8'
     datanucleusAccessPlatformJpaRdbmsVersion = '5.2.10'
-    datanucleusApiJpaVersion = '5.2.7'
+    datanucleusApiJpaVersion = '5.2.8'
     datanucleusApiJdoVersion = '5.2.7'
     javaxJdoVersion = '3.2.0-release'
     jpaVersion = '2.2.4'
