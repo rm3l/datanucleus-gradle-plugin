@@ -34,14 +34,7 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: ${{ matrix.jdk_version }}
-    - uses: actions/cache@v2.1.6
-      with:
-        path: |
-          ~/.gradle/wrapper
-          ~/.gradle/caches
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+        cache: 'gradle'
     - name: Build with Gradle
       run: cd buildSrc && ../gradlew build check jacocoTestReport --stacktrace
     - name: Collect code coverage metrics
