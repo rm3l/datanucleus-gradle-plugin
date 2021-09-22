@@ -21,10 +21,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        jdk_version: [ '8', '9', '10', '11', '12', '13', '14', '15', '16' ]
+        jdk_version: [ '8', '9', '10', '11', '12', '13', '14', '15', '16', '17' ]
         experimental: [false]
         include:
-        - jdk_version: 17-ea
+        - jdk_version: 18-ea
           experimental: true
 
     steps:
