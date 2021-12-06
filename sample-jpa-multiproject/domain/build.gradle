@@ -12,7 +12,7 @@ sourceCompatibility = 1.8
 dependencies {
     implementation project(':sample-jpa-multiproject:common')
     implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:5.2.10'
-    implementation 'com.h2database:h2:1.4.200'
+    implementation 'com.h2database:h2:2.0.202'
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.1"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.1"
 }
