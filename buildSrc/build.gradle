@@ -43,7 +43,7 @@ ext {
     javapoetVersion = '1.13.0'
     junitVersion = '5.8.2'
     junitPioneerVersion = '1.5.0'
-    h2Version = '2.0.206'
+    h2Version = '2.1.210'
     mockitoVersion = '4.2.0'
     systemRulesVersion = '1.19.0'
 }
