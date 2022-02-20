@@ -40,7 +40,7 @@ class CreateDatabaseTablesTaskFTest {
     void test_CreateDBTables_does_succeed(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
         final File log4jConfFile = Files.createFile(tempDir.resolve("log4j.conf")).toFile();
         final File jdkLogConfFile = Files.createFile(tempDir.resolve("jdkLog.conf")).toFile();
-        final File ddlFile = Files.createFile(tempDir.resolve("ddlFile.ddl.sql")).toFile();
+        final File ddlFile = tempDir.resolve("ddlFile.ddl.sql").toFile();
 
         final Path buildGradle = tempDir.resolve("build.gradle");
         Files.write(buildGradle,
@@ -90,7 +90,7 @@ class CreateDatabaseTablesTaskFTest {
     void test_run_createDatabaseTables_task_cli_succeeds(@DataNucleusPluginTestExtension.TempDir Path tempDir) throws IOException {
         final File log4jConfFile = Files.createFile(tempDir.resolve("log4j.conf")).toFile();
         final File jdkLogConfFile = Files.createFile(tempDir.resolve("jdkLog.conf")).toFile();
-        final File ddlFile = Files.createFile(tempDir.resolve("ddlFile.ddl.sql")).toFile();
+        final File ddlFile = tempDir.resolve("ddlFile.ddl.sql").toFile();
 
         final Path buildGradle = tempDir.resolve("build.gradle");
         Files.write(buildGradle,
@@ -132,5 +132,7 @@ class CreateDatabaseTablesTaskFTest {
         BuildTask createDatabaseTablesTask = result.task(":createDatabaseTables");
         assertNotNull(createDatabaseTablesTask);
         assertSame(SUCCESS, createDatabaseTablesTask.getOutcome());
+
+        assertNotEquals(0, ddlFile.length(), "DDL File should not be empty");
     }
 }

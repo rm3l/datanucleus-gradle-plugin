@@ -145,7 +145,7 @@ public abstract class AbstractSchemaToolTask extends AbstractDataNucleusTask {
         this.completeDdl = completeDdl;
     }
 
-    @InputFile
+    @OutputFile
     @Optional
     public File getDdlFile() {
         return ddlFile;
@@ -153,7 +153,7 @@ public abstract class AbstractSchemaToolTask extends AbstractDataNucleusTask {
 
     @Option(option = "ddl-file", description = "Path to DDL file")
     public void setDdlFile(String ddlFile) {
-        this.setJdkLogConfiguration(
+        this.setDdlFile(
                 java.util.Optional.ofNullable(ddlFile).map(File::new).orElse(null));
     }
 
