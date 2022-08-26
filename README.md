@@ -29,6 +29,8 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+<!-- Comment (to remove) -->
+
 Unofficial Gradle Plugin for [DataNucleus](http://www.datanucleus.org/) [JPA](https://en.wikipedia.org/wiki/Java_Persistence_API) and [JDO](https://en.wikipedia.org/wiki/Java_Data_Objects) Provider.
 
 This is a follow-up to a [blog post](https://rm3l.org/datanucleus-jpa-enhancement-with-gradle/) talking about performing build-time enhancement with both DataNucleus and Gradle Ant Tasks.
