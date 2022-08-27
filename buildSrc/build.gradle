@@ -34,7 +34,7 @@ group 'org.rm3l'
 version '1.7.0'
 
 ext {
-    datanucleusCoreVersion = '5.2.10'
+    datanucleusCoreVersion = '6.0.1'
     datanucleusAccessPlatformJpaRdbmsVersion = '5.2.11'
     datanucleusApiJpaVersion = '5.2.8'
     datanucleusApiJdoVersion = '5.2.9'
