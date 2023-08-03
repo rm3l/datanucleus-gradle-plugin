@@ -83,6 +83,10 @@ jacoco {
     toolVersion = "0.8.6"
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
 tasks.withType(Test) {
     useJUnitPlatform()
     maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
