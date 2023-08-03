@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * This class is original inspired from project {@code system-rules}, rewrite it to adapt JUnit5.
  * It is a JUnit Jupiter extension allows in-test specification of expected {@code System.exit(...)} calls.
  *
- * @author せいうはん (Employee ID: 17092068)
+ * @author (Employee ID: 17092068)
  * @version 1.0.0, 2018-05-27 00:08
  * @link https://github.com/stefanbirkner/system-rules/blob/master/src/main/java/org/junit/contrib/java/lang/system/ExpectedSystemExit.java
  * @see {@link https://gist.github.com/rm3l/268241148eb77077950fc31777fad04c}

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.rm3l.datanucleus.gradle.utils.DataNucleusPluginTestExtension;
 import org.rm3l.datanucleus.gradle.utils.ExpectedSystemExit;
+import org.rm3l.datanucleus.gradle.utils.TestUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -112,8 +113,8 @@ class SchemaInfoTaskFTest {
                 "schemaInfo",
                 "--api", "JPA",
                 "--persistence-unit-name", "myPersistenceUnit",
-                "--jdk-log-conf", jdkLogConfFile.getAbsolutePath(),
-                "--log4j-conf", log4jConfFile.getAbsolutePath());
+                "--jdk-log-conf", TestUtils.getAbsolutePath(jdkLogConfFile),
+                "--log4j-conf", TestUtils.getAbsolutePath(log4jConfFile));
         assertNotNull(result);
         BuildTask schemaInfoTask = result.task(":schemainfo");
         assertNotNull(schemaInfoTask);

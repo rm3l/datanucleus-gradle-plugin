@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.rm3l.datanucleus.gradle.utils.DataNucleusPluginTestExtension;
 import org.rm3l.datanucleus.gradle.utils.ExpectedSystemExit;
+import org.rm3l.datanucleus.gradle.utils.TestUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,10 +62,10 @@ class CreateDatabaseTablesTaskFTest {
                         "    api 'JPA'\n" +
                         "    persistenceUnitName 'myPersistenceUnit'\n" +
                         "    ignoreMetaDataForMissingClasses true\n" +
-                        "    log4jConfiguration '" + log4jConfFile.getAbsolutePath() + "'\n" +
-                        "    jdkLogConfiguration '" + jdkLogConfFile.getAbsolutePath() + "'\n" +
+                        "    log4jConfiguration '" + TestUtils.getAbsolutePath(log4jConfFile) + "'\n" +
+                        "    jdkLogConfiguration '" + TestUtils.getAbsolutePath(jdkLogConfFile) + "'\n" +
                         "    completeDdl true\n" +
-                        "    ddlFile '" + ddlFile.getAbsolutePath() + "'\n" +
+                        "    ddlFile '" + TestUtils.getAbsolutePath(ddlFile) + "'\n" +
                         "  }\n" +
                         "}\n")
                         .getBytes(StandardCharsets.UTF_8),
@@ -124,10 +125,10 @@ class CreateDatabaseTablesTaskFTest {
         BuildResult result = gradle(tempDir,
                 "createDatabaseTables",
                 "--api", "JPA",
-                "--ddl-file", ddlFile.getAbsolutePath(),
+                "--ddl-file", TestUtils.getAbsolutePath(ddlFile),
                 "--persistence-unit-name", "myPersistenceUnit",
-                "--jdk-log-conf", jdkLogConfFile.getAbsolutePath(),
-                "--log4j-conf", log4jConfFile.getAbsolutePath());
+                "--jdk-log-conf", TestUtils.getAbsolutePath(jdkLogConfFile),
+                "--log4j-conf", TestUtils.getAbsolutePath(log4jConfFile));
         assertNotNull(result);
         BuildTask createDatabaseTablesTask = result.task(":createDatabaseTables");
         assertNotNull(createDatabaseTablesTask);
