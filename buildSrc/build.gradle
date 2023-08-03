@@ -34,10 +34,10 @@ group 'org.rm3l'
 version '1.7.0'
 
 ext {
-    datanucleusCoreVersion = '5.2.10'
-    datanucleusAccessPlatformJpaRdbmsVersion = '5.2.11'
-    datanucleusApiJpaVersion = '5.2.8'
-    datanucleusApiJdoVersion = '5.2.9'
+    datanucleusCoreVersion = '6.0.4'
+    datanucleusAccessPlatformJpaRdbmsVersion = '6.0.4'
+    datanucleusApiJpaVersion = '6.0.1'
+    datanucleusApiJdoVersion = '6.0.1'
     javaxJdoVersion = '3.2.1'
     jpaVersion = '2.2.4'
     javapoetVersion = '1.13.0'
@@ -55,7 +55,7 @@ repositories {
 java {
     toolchain {
         //Forcing toolchain use to 15. Newer JDK versions cause ASMEnhancer to fail for some obscure reason
-        languageVersion = JavaLanguageVersion.of(8)
+        languageVersion = JavaLanguageVersion.of(11)
     }
 }
 
@@ -100,8 +100,8 @@ gradlePlugin {
 jacocoTestReport {
     executionData fileTree(buildDir).include("/jacoco/*.exec")
     reports {
-        xml.enabled = true
-        html.enabled = true
+        xml.required = true
+        html.required = true
     }
 }
 
