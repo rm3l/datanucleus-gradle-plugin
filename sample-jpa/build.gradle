@@ -11,7 +11,7 @@ sourceCompatibility = 1.8
 
 dependencies {
     implementation 'org.datanucleus:datanucleus-accessplatform-jpa-rdbms:6.0.5'
-    implementation 'com.h2database:h2:2.2.220'
+    implementation 'com.h2database:h2:2.2.222'
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.0"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.10.0"
 }
