@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.annotation.Nonnull;
-import org.gradle.api.Project;
 import org.gradle.api.Task;
-import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
 import org.rm3l.datanucleus.gradle.DataNucleusApi;
@@ -87,9 +85,6 @@ public class SchemaToolExtension {
 
     public SchemaToolExtension(DataNucleusExtension dataNucleusExtension) {
         this.datanucleusExtension = dataNucleusExtension;
-        Project project = dataNucleusExtension.getProject();
-        final JavaPluginConvention javaConvention =
-                project.getConvention().getPlugin(JavaPluginConvention.class);
     }
 
     public Boolean getSkip() {

@@ -25,7 +25,7 @@ package org.rm3l.datanucleus.gradle.extensions.enhance;
 import groovy.lang.Closure;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
-import org.gradle.api.plugins.JavaPluginConvention;
+import org.gradle.api.plugins.JavaPluginExtension;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.api.tasks.TaskContainer;
 import org.gradle.util.ConfigureUtil;
@@ -71,9 +71,9 @@ public class EnhanceExtension {
         this.datanucleusExtension = datanucleusExtension;
         this.project = datanucleusExtension.getProject();
         this.skip(skip);
-        final JavaPluginConvention javaConvention =
-                project.getConvention().getPlugin(JavaPluginConvention.class);
-        this.sourceSet = javaConvention.getSourceSets().getByName(defaultSourceSetName);
+        final JavaPluginExtension javaExtension =
+                project.getExtensions().getByType(JavaPluginExtension.class);
+        this.sourceSet = javaExtension.getSourceSets().getByName(defaultSourceSetName);
     }
 
     public Boolean getSkip() {
