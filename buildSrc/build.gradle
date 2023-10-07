@@ -44,7 +44,7 @@ ext {
     junitVersion = '5.10.0'
     junitPioneerVersion = '1.9.1'
     h2Version = '2.2.224'
-    mockitoVersion = '4.11.0'
+    mockitoVersion = '5.6.0'
     systemRulesVersion = '1.19.0'
 }
 
