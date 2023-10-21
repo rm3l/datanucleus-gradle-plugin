@@ -14,17 +14,17 @@ jobs:
   
     name: Test on JDK ${{ matrix.jdk_version }}
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       fail-fast: false
       matrix:
-        jdk_version: [ '11', '12', '13', '14', '15', '16', '17' ]
+        jdk_version: [ '11', '17', '21' ]
         experimental: [false]
         include:
-        - jdk_version: 18-ea
+        - jdk_version: 22-ea
           experimental: true
 
     steps:
@@ -32,7 +32,7 @@ jobs:
     - name: Set up JDK ${{ matrix.jdk_version }}
       uses: actions/setup-java@v3
       with:
-        distribution: 'zulu'
+        distribution: 'temurin'
         java-version: ${{ matrix.jdk_version }}
         cache: 'gradle'
     - name: Build with Gradle
@@ -45,7 +45,7 @@ jobs:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     needs: build
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
 
