@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.rm3l.datanucleus.gradle.utils.DataNucleusPluginTestExtension;
+import org.rm3l.datanucleus.gradle.utils.TestUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -128,9 +129,9 @@ class TestEnhanceTaskFTest {
                 "testEnhance",
                 "--api", "JPA",
                 "--persistence-unit-name", "myPersistenceUnit",
-                "--target-directory", targetDir.getAbsolutePath(),
-                "--jdk-log-conf", jdkLogConfFile.getAbsolutePath(),
-                "--log4j-conf", log4jConfFile.getAbsolutePath());
+                "--target-directory", TestUtils.getAbsolutePath(targetDir),
+                "--jdk-log-conf", TestUtils.getAbsolutePath(jdkLogConfFile),
+                "--log4j-conf", TestUtils.getAbsolutePath(log4jConfFile));
         assertNotNull(result);
         BuildTask testEnhanceTask = result.task(":testEnhance");
         assertNotNull(testEnhanceTask);

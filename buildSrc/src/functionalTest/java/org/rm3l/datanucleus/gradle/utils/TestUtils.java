@@ -3,12 +3,13 @@ package org.rm3l.datanucleus.gradle.utils;
 import org.gradle.testkit.runner.BuildResult;
 import org.gradle.testkit.runner.GradleRunner;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
 
 public final class TestUtils {
 
-    public static final String DN_JPA_RDBMS_VERSION = "5.2.9";
+    public static final String DN_JPA_RDBMS_VERSION = "6.0.4";
     public static final String JUNIT_VERSION = "4.12";
     public static final String H2_VERSION = "1.4.200";
     static final String DOMAIN_PACKAGE_NAME_IN_TEST_PROJECT = "org.rm3l.datanucleus.gradle.test.domain";
@@ -50,4 +51,7 @@ public final class TestUtils {
         return gradle(tempDir, true, arguments);
     }
 
+    public static String getAbsolutePath(final File file) {
+        return file.getAbsolutePath().replaceAll("\\\\", "/");
+    }
 }
