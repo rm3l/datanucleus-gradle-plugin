@@ -29,9 +29,9 @@ plugins {
 apply from: "$rootDir/integration-test.gradle"
 apply from: "$rootDir/functional-test.gradle"
 
-group 'org.rm3l'
-//version '1.0.181224-SNAPSHOT'
-version '2.0.0'
+group = 'org.rm3l'
+//version = '1.0.181224-SNAPSHOT'
+version = '2.0.0'
 
 ext {
     datanucleusCoreVersion = '6.0.5'
@@ -132,9 +132,9 @@ publishing {
     publications {
         pluginPublication(MavenPublication) {
             from components.java
-            groupId project.group
-            artifactId "datanucleus-gradle-plugin"
-            version project.version
+            groupId = project.group
+            artifactId = "datanucleus-gradle-plugin"
+            version = project.version
         }
     }
 }

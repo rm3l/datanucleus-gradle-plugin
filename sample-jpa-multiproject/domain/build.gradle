@@ -4,10 +4,12 @@ plugins {
     id 'maven-publish'
 }
 
-group 'org.rm3l'
-version '2.0.0'
+group = 'org.rm3l'
+version = '2.0.0'
 
-sourceCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
 
 dependencies {
     implementation project(':sample-jpa-multiproject:common')
